@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>CARREGANDO... </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="{% static 'Login/images/icons/favicon.ico' %}" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'Login/css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'myCSS/loading.css' %}">
+</head>
+
+<body onload="loading('login');">
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <span class="login100-form-title" style="color: #17a2b8;">CARREGANDO APLICAÇÃO...</span>
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'myJS/loading.js' %}"></script>
+</body>
+
+</html>
