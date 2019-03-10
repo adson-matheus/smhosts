@@ -34,7 +34,7 @@
             <div class="body">
                 <form id="sign_in" method="POST">
                     {% csrf_token %}
-                    <div class="msg">Realize Login para iniciar sua sessão</div>
+                    <div class="msg">Realize o Login para iniciar sua sessão</div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
@@ -70,8 +70,28 @@
         </div>	
     </div>
 	<div align="center">
-		<p><b>Escola Multicampi de Ciências Médicas do RN</b></p>
-		<p><b>Departamento de Tecnologia da Informação</b></p>
+        <style>
+        a {
+            color: #fff;
+        }
+        a:active {
+            color: #fff;
+        }
+        a:hover {
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        </style>
+		<a href="http://emcm.ufrn.br" target="_blank">
+            <b>Escola Multicampi de Ciências Médicas do RN</b><br>
+            <span>EMCM/UFRN</span>
+        </a>
+        <br><br>
+		<a href="http://emcm.ufrn.br/dti" target="_blank">
+            <b>Departamento de Tecnologia da Informação</b><br>
+            <span>DTI/UFRN</span>
+        </a>
 	</div>
 
 	{% comment %} ==> SCRIPTS <== {% endcomment %}
