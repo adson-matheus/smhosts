@@ -27,14 +27,17 @@
 <body class="login-page bg-teal">
     <div class="login-box">
         <div class="logo">
-            <a href="javascript:void(0);"><b>SMHosts</b></a>
-            <small>Sistema de Monitoramento de Hosts</small>
+            {% comment %} <a href="javascript:void(0);"><b>SMHosts</b></a>
+            <small>Sistema de Monitoramento de Hosts</small> {% endcomment %}
+            <a href="#" target="_self">
+                <img src="{% static 'imagens/logo-white.png' %}"/>
+            </a>
         </div>
         <div class="card">
             <div class="body">
                 <form id="sign_in" method="POST">
                     {% csrf_token %}
-                    <div class="msg">Realize o Login para iniciar sua sessão</div>
+                    <div class="msg"><b>Acesso restrito apenas a usuários autenticados pelos Administradores do sistema!</b></div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
@@ -52,19 +55,26 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-8 p-t-5">
-                            <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-teal">
-                            <label for="rememberme">Lembrar-me</label>
+                        <div class="col-xs-7 p-t-5">
+                            {% comment %} <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-teal">
+                            <label for="rememberme">Lembrar-me</label> {% endcomment %}
                         </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-block bg-blue waves-effect" type="submit">ENTRAR</button>
+                        <div class="col-xs-5">
+                            <style>
+                                button:hover {
+                                    font-weight: bold;
+                                }
+                            </style>
+                            <button class="btn btn-block bg-teal waves-effect" type="submit">
+                                ENTRAR &rarr;
+                            </button>
                         </div>
                     </div>
-                    <div class="row m-t-15 m-b--20">
+                    {% comment %} <div class="row m-t-15 m-b--20">
                         <div class="col-xs-12 align-right">
                             <a href="#">Esqueceu sua senha?</a>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                 </form>
             </div>
         </div>	
@@ -90,7 +100,7 @@
         <br><br>
 		<a href="http://emcm.ufrn.br/dti" target="_blank">
             <b>Departamento de Tecnologia da Informação</b><br>
-            <span>DTI/UFRN</span>
+            <span>DTI/EMCM</span>
         </a>
 	</div>
 
@@ -112,5 +122,4 @@
     <script src="{% static 'js/admin.js' %}"></script>
     <script src="{% static 'js/pages/examples/sign-in.js' %}"></script>
 </body>
-
 </html>
