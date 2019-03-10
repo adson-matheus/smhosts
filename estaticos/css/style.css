@@ -5027,7 +5027,7 @@ section.content {
       -o-transition: 0.25s ease-in;
       -webkit-transition: 0.25s ease-in;
       transition: 0.25s ease-in;
-      border-bottom: 2px solid #1f91f3; }
+      border-bottom: 2px solid #008080; }
     .input-group .form-line + .input-group-addon {
       padding-right: 0;
       padding-left: 10px; }
