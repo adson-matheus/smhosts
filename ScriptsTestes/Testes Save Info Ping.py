@@ -1,6 +1,6 @@
 import os, re
 
-IPs = ['192.168.0.1', '8.8.8.8', '189.90.16.20']
+IPs = ['192.168.0.1', '8.8.8.8', '189.90.16.20', '300.90.10.50']
 
 results = {}
 valores = {}
@@ -18,7 +18,7 @@ def OrganizaInfoPacotes(lista):
 
     #Organizando os Tempos em 'ms'
 def OrganizaInfoTempo(lista, statusPacotes):
-    if(statusPacotes == 'Perdidos = 4 (100% de perda)'):
+    if(re.search('100%', statusPacotes)):
         aux = 'Sem medição de tempo.'
     else:
         aux = lista[11].split(', ')
@@ -29,20 +29,21 @@ def OrganizaInfoTempo(lista, statusPacotes):
         aux[1] = 'Máximo = {}'.format(aux2[1])
         aux2 = aux[2].split(' = ')
         aux[2] = 'Média = {}'.format(aux2[1])
-    
     valores['Tempo'] = aux
 
 for i in range(len(IPs)):
     cmd = 'ping {}'.format(IPs[i])
     test = "".join(os.popen(cmd).readlines())
     test = test.split('\n')
-    OrganizaInfoPacotes(test)
-    OrganizaInfoTempo(test, valores['Pacotes'][2])
-    results[IPs[i]] = valores
+    if(re.search('Verifique o nome', test[0])):
+        valores['Pacotes'] = 'Host Inválido'
+        valores['Tempo'] = 'Sem medição de tempo.'
+        results[IPs[i]] = valores
+    else:
+        OrganizaInfoPacotes(test)
+        OrganizaInfoTempo(test, valores['Pacotes'][2])
+        results[IPs[i]] = valores
     valores = {}
 
-
-print(results[IPs[0]])
-print(results[IPs[1]])
-print(results[IPs[2]])
-
+for i in range(len(IPs)):
+    print('\n{} ->\t{}\n\t\t{}'.format(IPs[i], results[IPs[i]]['Pacotes'], results[IPs[i]]['Tempo']))

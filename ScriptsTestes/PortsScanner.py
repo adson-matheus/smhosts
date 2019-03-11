@@ -1,7 +1,7 @@
 import socket
 
 def faixaPortas():
-    hostIp = input("\nEndereço IP ou endereço do site: ")
+    hostIp = input("Endereço IP ou endereço do site: ")
     ports = []
     portsOpen = []
     nPortsIni = int(input("\nValor da porta Inicial: "))
@@ -34,12 +34,13 @@ def portaIndividual():
     hostIp = input("\nEndereço IP ou endereço do site: ")
     ports = []
 
-    x = int(input("\nQuantidade de portas á serem escaneadas: "))
+    x = int(input("Quantidade de portas á serem escaneadas: "))
     i = 0
+    print("")
     while(i < x):
-        ports.append(int(input("Digite a %dº porta: " %(i+1))))
+        ports.append(int(input("Digite a {} porta: ".format(i+1))))
         i += 1
-    print("\n")
+    print("")
     for port in ports:
         cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         cliente.settimeout(0.3)
@@ -51,11 +52,11 @@ def portaIndividual():
             print("\t\t %d\t>>>\tPorta fechada" %port)
 
 
-print("\n\t\t[1] = VERIFICAR UMA FAIXA DE PORTAS")
-print("\t\t[2] = VERIFICAR UMA QUANTIDADE 'X' DE PORTAS")
-    
-opcao = int(input("\nInforme a sua opcao: "))
-
+##print("\n\t\t[1] = VERIFICAR UMA FAIXA DE PORTAS")
+##print("\t\t[2] = VERIFICAR UMA QUANTIDADE 'X' DE PORTAS")
+##    
+##opcao = int(input("\nInforme a sua opcao: "))
+opcao = 2
 if(opcao == 1):
     faixaPortas()
 elif(opcao == 2):
