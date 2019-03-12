@@ -1,6 +1,6 @@
-
 # Created by https://www.gitignore.io/api/django
-# Edit at https://www.gitignore.io/?templates=django
+
+
 
 ### Django ###
 *.log
@@ -37,8 +37,6 @@ parts/
 sdist/
 var/
 wheels/
-pip-wheel-metadata/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -125,7 +123,7 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-# Pyre type checker
-.pyre/
 
 # End of https://www.gitignore.io/api/django
+
+.vscode
