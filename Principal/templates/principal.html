@@ -1,0 +1,277 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>SMHosts | Sistema de Monitoramento de Hosts</title>
+    <!-- Favicon-->
+    {% comment %} <link rel="icon" href="../favicon.ico" type="image/x-icon"> {% endcomment %}
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="{% static 'plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="{% static 'plugins/node-waves/waves.css' %}" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="{% static 'plugins/animate-css/animate.css' %}" rel="stylesheet" />
+
+    <!-- Preloader Css -->
+    <link href="{% static 'plugins/material-design-preloader/md-preloader.css' %}" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="{% static 'css/themes/all-themes.css' %}" rel="stylesheet" />
+</head>
+
+<body class="theme-teal">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-teal">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Por favor, aguarde...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+
+    <div class="overlay"></div>
+
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header header1">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a class="navbar-brand" href="index.html" style="padding-top: 5px;">
+                    <strong style="font-size: 20pt;">SMHosts</strong><br>
+                    <em>Sistema de Monitoramento de Hosts</em>
+                </a>
+            </div>
+            <div class="navbar-header header2" align="center" style="margin-left: 5%; color: #fff;">
+                <strong style="font-size: 20pt;">Escola Multicampi de Ciências Médicas do RN</strong><br>
+                <em style="text-align: center;">EMCM/UFRN</em>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html" data-toggle="tooltip" data-placement="bottom" title="IR PARA O INÍCIO">
+                            <button type="button" class="btn btn-default btn-circle waves-effect waves-circle waves-float waves-teal">
+                                <i class="material-icons">home</i>
+                            </button>
+                        </a>
+                    </li>
+<!--                     <li>
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="ATIVAR / DESATIVAR MODO TELA CHEIA">
+                            <button type="button" class="btn btn-default btn-circle waves-effect waves-circle waves-float waves-teal" data-toggle-fullscreen>
+                                <i class="material-icons" id="fullscreen" data-toggle-fullscreen>fullscreen</i>
+                            </button>
+                        </a>
+                    </li> -->
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="INFORMAÇÕES DO USUÁRIO">
+                            <button type="button" class="btn btn-default btn-circle waves-effect waves-circle waves-float waves-teal">
+                                <i class="material-icons">people</i>
+                            </button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="SAIR DO SISTEMA">
+                            <button type="button" class="btn btn-default btn-circle waves-effect waves-circle waves-float waves-teal">
+                                <i class="material-icons">exit_to_app</i>
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar" style="position: fixed; margin-top: 0.5%;">
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">MENU DE NAVEGAÇÃO</li>
+                    <li>
+                        <a href="#">
+                            <i class="material-icons">home</i>
+                            <span>Início</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">desktop_windows</i>
+                            <span>GERENCIAR HOSTS</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="#">
+                                    <i class="material-icons">cast_connected</i>
+                                    <h5 style="margin-left: 10px;">Registrar Novo Host</h5>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="material-icons">playlist_add_check</i>
+                                    <h5 style="margin-left: 10px;">Listar Registros de Hosts</h5>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="material-icons">search</i>
+                                    <h5 style="margin-left: 10px;">Buscar Host Específico</h5>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="material-icons">insert_chart</i>
+                                    <h5 style="margin-left: 10px;">Gerar Estatísticas</h5>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">supervisor_account</i>
+                            <span>GERENCIAR USUÁRIOS</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="#">
+                                    <i class="material-icons">person_add</i><br>
+                                    <h5 style="margin-left: 10px;">Registrar Usuário</h5>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="material-icons">playlist_add_check</i>
+                                    <h5 style="margin-left: 10px;">Listar Registros de Usuários</h5>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="material-icons">search</i>
+                                    <h5 style="margin-left: 10px;">Buscar Usuário Específico</h5>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                    <h5>
+                        <a href="#" data-toggle="modal" data-target="#modalSystemInfo">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            <span>Informações do Sistema</span>
+                        </a>
+                    </h5>
+                </div>
+            </div>
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+    </section>
+
+    <section class="content">
+        <div class="body">
+            <ol class="breadcrumb breadcrumb-col-teal">
+                <h5>Você está em:</h5>
+                <li class="active"><i class="material-icons">home</i> Início</li>
+            </ol>
+        </div>
+        <div class="container-fluid">
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                TÍTULO...
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <p>- CONTEÚDO AQUI...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- #Modal -->
+    <div class="modal fade" id="modalSystemInfo" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content modal-col-teal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <span>Informações do Sistema</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <h5>
+                        Copyright &copy; 2019 - SMHosts
+                    </h5><br>
+                    <b>Desenvolvido por:</b>
+                    <a href="http://emcm.ufrn.br/dti" target="_blank" class="linkModal">Departamento de Tecnologia da Informação - DTI/EMCM</a>
+                    <br>
+
+                    <b>Template Base: </b>
+                    <span>
+                        <a href="https://gurayyarar.github.io/AdminBSBMaterialDesign/" target="_blank" class="linkModal">AdminBSB - Material Design</a>
+                    </span><br><br>
+                    <b>Versão: </b> 1.0.5
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">X Fechar</button> -->
+                     <button type="button" class="btn btn-default waves-effect m-r-20" data-dismiss="modal">
+                        <strong>X FECHAR</strong>
+                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIM DO MODAL -->
+    <!-- Jquery Core Js -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.js' %}"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="{% static 'plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="{% static 'plugins/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="{% static 'plugins/node-waves/waves.js '%}"></script>
+
+    <!-- Custom Js -->
+    <script src="{% static 'js/admin.js' %}"></script>
+
+    <!-- Demo Js -->
+    <script src="{% static 'js/demo.js' %}"></script>
+</body>
+
+</html>
