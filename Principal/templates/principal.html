@@ -70,28 +70,21 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="index.html" data-toggle="tooltip" data-placement="bottom" title="IR PARA O INÍCIO">
-                            <button type="button" class="btn btn-default btn-circle waves-effect waves-circle waves-float waves-teal">
+                            <button type="button" class="btn btn-default waves-effect waves-teal">
                                 <i class="material-icons">home</i>
                             </button>
                         </a>
                     </li>
-<!--                     <li>
-                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="ATIVAR / DESATIVAR MODO TELA CHEIA">
-                            <button type="button" class="btn btn-default btn-circle waves-effect waves-circle waves-float waves-teal" data-toggle-fullscreen>
-                                <i class="material-icons" id="fullscreen" data-toggle-fullscreen>fullscreen</i>
-                            </button>
-                        </a>
-                    </li> -->
                     <li>
                         <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="INFORMAÇÕES DO USUÁRIO">
-                            <button type="button" class="btn btn-default btn-circle waves-effect waves-circle waves-float waves-teal">
+                            <button type="button" class="btn btn-default waves-effect waves-teal">
                                 <i class="material-icons">people</i>
                             </button>
                         </a>
                     </li>
                     <li>
                         <a href="{% url 'logoutApp' %}" data-toggle="tooltip" data-placement="bottom" title="SAIR DO SISTEMA">
-                            <button type="button" class="btn btn-default btn-circle waves-effect waves-circle waves-float waves-teal">
+                            <button type="button" class="btn btn-default waves-effect waves-teal">
                                 <i class="material-icons">exit_to_app</i>
                             </button>
                         </a>
@@ -266,6 +259,9 @@
 
     <!-- Waves Effect Plugin Js -->
     <script src="{% static 'plugins/node-waves/waves.js '%}"></script>
+
+    <!-- Tooltips Popovers Js -->
+    <script src="{% static 'js/pages/ui/tooltips-popovers.js' %}"></script>
 
     <!-- Custom Js -->
     <script src="{% static 'js/admin.js' %}"></script>
