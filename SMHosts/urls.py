@@ -30,6 +30,6 @@ urlpatterns = [
     path("loadApp/", loadApp),
     path("logoutApp/", logoutApp),
     path('admin/', admin.site.urls),
-    
+
     path('principal/', include(principal_urls)),
 ]

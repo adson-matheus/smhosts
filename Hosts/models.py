@@ -11,7 +11,8 @@ class Hosts(models.Model):
         ('Outros', 'OUTROS'),
     )
     hostname = models.CharField(
-        max_length=100, blank=False
+        max_length=100,
+        blank=False
     )
     porta = models.PositiveIntegerField(
         default=0,
@@ -22,7 +23,8 @@ class Hosts(models.Model):
         choices=TIPO_HOST,
         default=''
     )
-    descricao = models.CharField(
-        max_length=200, blank=False
+    descricao = models.TextField(
+        max_length=200,
+        blank=False
     )
     
