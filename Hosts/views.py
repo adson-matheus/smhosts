@@ -18,7 +18,8 @@ def RegistroHost(request):
 
 @login_required
 def ListarHosts(request):
-    pass
+    hosts = Hosts.objects.all()
+    return render(request, 'ListarHosts.html', {'hosts': hosts})
 # Create your views here.
 
 @login_required
@@ -27,7 +28,7 @@ def BuscarHost(request):
 
 @login_required
 def AtualizarHost(request):
-    host = get_object_or_404(Host, pk=id)
+    host = get_object_or_404(Hosts, pk=id)
     form = HostForm(request.POST or None, instance=host)
     if(form.is_valid()):
         form.save()
@@ -36,6 +37,6 @@ def AtualizarHost(request):
 
 @login_required
 def DeletarHost(request):
-    hostDelete = get_object_or_404(Localidade, pk=id)
+    hostDelete = get_object_or_404(Hosts, pk=id)
     hostDelete.delete()
     return redirect('../ListarHosts')

@@ -23,7 +23,7 @@ from django.urls import path
 from django.urls import include, path
 
 from SMHosts.views import loadApp, logoutApp
-
+from Hosts import urls as hosts_urls
 urlpatterns = [
     path('', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
@@ -32,4 +32,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('principal/', include(principal_urls)),
+    path('hosts/', include(hosts_urls)),
 ]
