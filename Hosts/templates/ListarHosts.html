@@ -5,24 +5,9 @@
 
 {% include "headListHosts.html" %}
 
-<body>
-    <!-- Page Loader -->
-    <div class="page-loader-wrapper">
-        <div class="loader">
-            <div class="preloader">
-                <div class="spinner-layer pl-teal">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
-            <p>Por favor, aguarde...</p>
-        </div>
-    </div>
-    <!-- #END# Page Loader -->
+<body class="theme-teal">
+    
+    {% include "PageLoader.html" %}
 
     <div class="overlay"></div>
 
@@ -55,49 +40,60 @@
                         <div class="body">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover dataTable js-exportable">
-                                    {% if hosts|length == 0 %}
-                                        <br>
-                                        <h2 style="color: red; text-align: center;">NÃO HÁ REGISTROS!</h2>
-                                    {% else %}
-                                        <h4 style="margin-bottom: -5px; color: #444444;">Exportar Registros</h4>
-                                        <h4 style="color: #17a2b8; text-align: center;">
-                                            <i class="fa fa-info-circle" style="color: #17a2b8;"></i>
-                                            <span>Clique no título da coluna para ordenar</span>
-                                        </h4>
-                                        <br>
-                                        <thead>
-                                            <tr>
-                                                <th>HOSTNAME</th>
-                                                <th>PORTA</th>
-                                                <th>TIPO DE HOST</th>
-                                                <th>EDITAR</th>
-                                                <th>DELETAR</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for host in hosts%}
-                                            <tr>
-                                                <td>{{ host.hostname }}</td>
-                                                <td>{{ host.porta }}</td>
-                                                <td>{{ host.tipoHost }}</td>
-                                                <td align="center">
-                                                    <a href="{% url 'AtualizarHost' host.id %}">
-                                                        <button type="button" class="btn bg-cyan waves-effect">
-                                                            <i class="material-icons">mode_edit</i>
-                                                        </button>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn bg-red waves-effect" onClick="ConfirmarDelete({{ host.id }})">
-                                                        <i class="material-icons">delete</i>
-                                                    </button>
-                                                </td>
-                                            <tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    {% endif %}
-                                </table>
-                            </div>
+                                {% if hosts|length == 0 %}
+                                <br>
+                                <h2 style="color: red; text-align: center;">NÃO HÁ REGISTROS!</h2>
+                                {% else %}
+                                
+                                <h4 style="color: #17a2b8; text-align: center;">
+                                    <i class="material-icons">info</i>
+                                    <span>Clique no título da coluna para ordenar</span>
+                                </h4>
+                                <h4 style="margin-bottom: -5px; color: #444444;">Exportar Registros</h4>
+                                <thead>
+                                    <tr>
+                                        <th>HOSTNAME</th>
+                                        <th>PORTA</th>
+                                        <th>TIPO DE HOST</th>
+                                        <th>EDITAR</th>
+                                        <th>DELETAR</th>
+                                    </tr>
+                                </thead>
+                                {% comment %} 
+                                <tfoot>
+                                    <tr>
+                                        <th>HOSTNAME</th>
+                                        <th>PORTA</th>
+                                        <th>TIPO DE HOST</th>
+                                        <th>EDITAR</th>
+                                        <th>DELETAR</th>
+                                    </tr>
+                                </tfoot>
+                                {% endcomment %}
+                                <tbody>
+                                    {% for host in hosts%}
+                                    <tr>
+                                        <td>{{ host.hostname }}</td>
+                                        <td>{{ host.porta }}</td>
+                                        <td>{{ host.tipoHost }}</td>
+                                        <td>
+                                            <a href="{% url 'AtualizarHost' host.id %}">
+                                                <button type="button" class="btn bg-cyan waves-effect">
+                                                    <i class="material-icons">mode_edit</i>
+                                                </button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn bg-red waves-effect" onClick="ConfirmarDelete({{ host.id }})">
+                                                <i class="material-icons">delete</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <br>
+                                </tbody>
+                                {% endif %}
+                            </table>
                         </div>
                     </div>
                 </div>
