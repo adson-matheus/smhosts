@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+{% include "./head.html" %}
+
+<body class="theme-teal">
+    
+    {% include "../PageLoader.html" %}
+
+    <div class="overlay"></div>
+
+    {% include "../Top_Bar.html" %}
+    {% include "../Menu_Left.html" %}
+
+    <section class="content">
+        <div class="body">
+	        <ol class="breadcrumb"><h5>Você está em:</h5>
+                <li>
+                    <a href="{% url 'principal' %}">
+                        <i class="material-icons">home</i> Início
+                    </a>
+                </li>
+                <li>
+                    <i class="material-icons">notifications_active</i> GERENCIAR HOSTS
+                </li>
+                <li  class="active">
+                    <i class="material-icons">cast_connected</i> Registrar Novo Hosts
+                </li>
+            </ol>
+	    </div>
+    </section>
+
+    {% include "../Modal_Info_Sistema.html" %}
+
+    {% include "./scripts.html" %}
+    
+</body>

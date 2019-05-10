@@ -19,7 +19,7 @@ def RegistroHost(request):
 @login_required
 def ListarHosts(request):
     hosts = Hosts.objects.all()
-    return render(request, 'ListarHosts.html', {'hosts': hosts})
+    return render(request, 'listagemHosts/ListarHosts.html', {'hosts': hosts})
 # Create your views here.
 
 @login_required
