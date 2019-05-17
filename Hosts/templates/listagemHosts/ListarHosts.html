@@ -3,8 +3,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-{% include "./head.html" %}
-
+    {% include "./head.html" %}
+    <!-- Custom Css -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    
 <body class="theme-teal">
     
     {% include "../PageLoader.html" %}
@@ -35,7 +37,15 @@
                 <div class="col-xs-12 col-sm-12 ">
                     <div class="card">
                         <div class="header">
-                            <h2>LISTAGEM DE HOSTS REGISTRADOS</h2>
+                            <h2>
+                                LISTAGEM DE HOSTS REGISTRADOS
+                                <a href="#" class="linkTextBold" style="float: right; margin-top: -10px;">
+                                    <button type="button" class="btn bg-teal waves-effect linkTextBold">
+                                        <i class="material-icons">add</i>
+                                        <span>NOVO REGISTRO</span>
+                                    </button> 
+                                </a>
+                            </h2>
                         </div>
                         <div class="body">
                             <div class="table-responsive">

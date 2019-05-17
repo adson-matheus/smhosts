@@ -8264,7 +8264,6 @@ strong.btnTitles {
   margin-left: 8%;
 }
 
-
 span.marcadorRequired {
   font-size: 14pt;
   color: #ff0000;
@@ -8293,4 +8292,15 @@ a.linkModal:hover {
 /**/
 .infoBox:hover {
   background-color: #008080;
+}
+
+a.linkTextBold {
+   color: #fff;
+}
+a.linkTextBold:active {
+  color: #fff;
+}
+a.linkTextBold:hover {
+  color: #fff;
+  font-weight: bold;
 }

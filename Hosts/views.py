@@ -36,7 +36,7 @@ def AtualizarHost(request):
     return render(request, 'RegistroHosts.html', {'form': form})
 
 @login_required
-def DeletarHost(request):
+def DeletarHost(request, id):
     hostDelete = get_object_or_404(Hosts, pk=id)
     hostDelete.delete()
-    return redirect('../ListarHosts')
+    return redirect('../../ListarHosts')
