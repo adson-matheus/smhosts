@@ -5,6 +5,4 @@ from SMHosts.views import logoutApp
 urlpatterns = [
     path('', principal, name="principal"),
     path('logoutApp', logoutApp, name="logoutApp"),
-
-    
 ]
