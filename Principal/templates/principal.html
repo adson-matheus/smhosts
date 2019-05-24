@@ -110,7 +110,7 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="#">
+                                <a href="{% url 'RegistroHost' %}">
                                     <i class="material-icons">cast_connected</i>
                                     <h5 style="margin-left: 10px;">Registrar Novo Host</h5>
                                 </a>
@@ -213,7 +213,7 @@
 
     <!-- #Modal RegistroHost -->
     {% comment %} [MODAL FORM AQUI] {% endcomment %}
-    {% load relative_path %} {% extends "./../../Hosts/templates/registroHosts/ModalForm_RegHost.html" %}
+    {% comment %} {% extends "./../../Hosts/templates/registroHosts/ModalForm_RegHost.html" %} {% endcomment %}
     <!-- FIM DO MODAL -->
 
     <!-- #Modal SystemInfo -->

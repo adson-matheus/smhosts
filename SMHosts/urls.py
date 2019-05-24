@@ -24,6 +24,7 @@ from django.urls import include, path
 
 from SMHosts.views import loadApp, logoutApp
 from Hosts import urls as hosts_urls
+
 urlpatterns = [
     path('', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),

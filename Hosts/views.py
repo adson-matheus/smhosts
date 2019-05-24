@@ -14,7 +14,7 @@ def RegistroHost(request):
         form.save()
         messages.success(request, 'Host Registrado com Sucesso!')
         return redirect('../ListarHosts')
-    return render(request, 'RegistroHost.html', {'form': form})
+    return render(request, 'registroHosts/RegistrarHost.html', {'form': form})
 
 @login_required
 def ListarHosts(request):
@@ -27,13 +27,13 @@ def BuscarHost(request):
     pass
 
 @login_required
-def AtualizarHost(request):
+def AtualizarHost(request, id):
     host = get_object_or_404(Hosts, pk=id)
     form = HostForm(request.POST or None, instance=host)
     if(form.is_valid()):
         form.save()
-        return redirect('../ListarHosts')
-    return render(request, 'RegistroHosts.html', {'form': form})
+        return redirect('../../ListarHosts')
+    return render(request, 'registroHosts/RegistrarHost.html', {'form': form})
 
 @login_required
 def DeletarHost(request, id):
