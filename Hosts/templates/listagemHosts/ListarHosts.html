@@ -89,7 +89,13 @@
                                         <td>{{ host.porta }}</td>
                                         <td>{{ host.tipoHost }}</td>
                                         <td>{{ host.descricao }}</td>
-                                        <td><i>[CAMPO EM DESENVOLVIMENTO]</i></td>
+                                        <td>
+                                            {% if host.status == False %}
+                                                <b>Offline</b>
+                                            {% else %}
+                                                <b>Online</b>
+                                            {% endif %}
+                                        </td>
                                         <td>
                                             <a href="{% url 'AtualizarHost' host.id %}">
                                                 <button type="button" class="btn bg-cyan waves-effect">
