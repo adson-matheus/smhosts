@@ -23,8 +23,9 @@ class Hosts(models.Model):
         choices=TIPO_HOST,
         default=''
     )
-    descricao = models.TextField(
-        max_length=100,
+    descricao = models.CharField(
+        max_length=200,
         blank=False
     )
+    
     
