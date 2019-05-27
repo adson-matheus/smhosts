@@ -24,7 +24,7 @@ class Hosts(models.Model):
         default=''
     )
     descricao = models.TextField(
-        max_length=200,
+        max_length=100,
         blank=False
     )
     
