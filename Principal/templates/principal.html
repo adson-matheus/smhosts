@@ -52,7 +52,7 @@
     <nav class="navbar" >
         <div class="container-fluid">
             <div class="navbar-header header1">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="#" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a class="navbar-brand" href="index.html" style="padding-top: 5px;">
                     <strong style="font-size: 20pt;">SMHosts</strong><br>
                     <em>Sistema de Monitoramento de Hosts</em>
@@ -72,7 +72,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="INFORMAÇÕES DO USUÁRIO">
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="INFORMAÇÕES DO USUÁRIO">
                             <button type="button" class="btn btn-default waves-effect waves-teal">
                                 <i class="material-icons">people</i>
                             </button>
@@ -194,16 +194,135 @@
             </ol>
         </div>
         <div class="container-fluid">
+            
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                TÍTULO...
-                            </h2>
+                            <h2>HOSTS STATUS</h2>
                         </div>
                         <div class="body">
-                            <p>- CONTEÚDO AQUI...</p>
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="card">
+                                            <div class="header bg-green">
+                                                <h2>
+                                                    <i class="material-icons">dns</i>
+                                                    <span style="margin-left: 10px; font-weight: bold;">10.143.7.37:80</span>
+                                                    <small>Host Online</small>
+                                                </h2>
+                                                <ul class="header-dropdown m-r-0">
+                                                    <li data-toggle="tooltip" title="INFORMAÇÕES DO HOST">
+                                                        <a href="#">
+                                                            <i class="material-icons">info_outline</i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="body" style="min-height: 220px"> 
+                                                <strong>PACOTES:</strong>
+                                                <ul>    
+                                                    <li>Enviados = 4</li>
+                                                    <li>Recebidos = 4</li>
+                                                    <li>Perdidos = 0 (0% de perda)</li>
+                                                </ul>
+                                                <strong>PING RATE (ms):</strong>
+                                                <ul>
+                                                    <li>Mínimo = 1ms</li>
+                                                    <li>Máximo = 4ms</li>
+                                                    <li>Média = 1ms</li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% comment %}  {% endcomment %}
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="card">
+                                            <div class="header bg-green">
+                                                <h2>
+                                                    <i class="material-icons">router</i>
+                                                    <span style="margin-left: 10px; font-weight: bold;">192.168.0.1:80</span>
+                                                    <small>Host Online</small>
+                                                </h2>
+                                                <ul class="header-dropdown m-r-0">
+                                                    <li data-toggle="tooltip" title="INFORMAÇÕES DO HOST">
+                                                        <a href="#">
+                                                            <i class="material-icons">info_outline</i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="body" style="min-height: 220px"> 
+                                                <strong>PACOTES:</strong>
+                                                <ul>    
+                                                    <li>Enviados = 4</li>
+                                                    <li>Recebidos = 4</li>
+                                                    <li>Perdidos = 0 (0% de perda)</li>
+                                                </ul>
+                                                <strong>PING RATE (ms):</strong>
+                                                <ul>
+                                                    <li>Mínimo = 9ms</li>
+                                                    <li>Máximo = 11ms</li>
+                                                    <li>Média = 9ms</li>
+                                                </ul>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% comment %}  {% endcomment %}
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="card">
+                                            <div class="header bg-red">
+                                                <h2>
+                                                    <i class="material-icons">desktop_windows</i>
+                                                    <span style="margin-left: 10px; font-weight: bold;">300.90.10.50:80</span>
+                                                    <small>Host Offline</small>
+                                                </h2>
+                                                <ul class="header-dropdown m-r-0">
+                                                    <li data-toggle="tooltip" title="INFORMAÇÕES DO HOST">
+                                                        <a href="#">
+                                                            <i class="material-icons">info_outline</i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="body" style="min-height: 220px; text-align: center; color: red;">
+                                                <h3>HOST INVÁLIDO!</h3>
+                                                <h5>Sem medição de tempo.</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% comment %}  {% endcomment %}
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="card">
+                                            <div class="header bg-red">
+                                                <h2>
+                                                    <i class="material-icons">dns</i>
+                                                    <span style="margin-left: 10px; font-weight: bold;">189.90.16.20:80</span>
+                                                    <small>Host Offline</small>
+                                                </h2>
+                                                <ul class="header-dropdown m-r-0">
+                                                    <li data-toggle="tooltip" title="INFORMAÇÕES DO HOST">
+                                                        <a href="#">
+                                                            <i class="material-icons">info_outline</i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="body" style="min-height: 220px"> 
+                                                <strong>PACOTES:</strong>
+                                                <ul>    
+                                                    <li>Enviados = 4</li>
+                                                    <li>Recebidos = 0</li>
+                                                    <li>Perdidos = 4 (100% de perda)</li>
+                                                </ul>
+                                                <strong>PING RATE (ms):</strong>
+                                                <h5 class="col-red">Sem medição de tempo!</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

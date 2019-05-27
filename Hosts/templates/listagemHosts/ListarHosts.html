@@ -85,7 +85,9 @@
                                 <tbody>
                                     {% for host in hosts%}
                                     <tr>
-                                        <td><strong>{{ host.hostname }}</strong></td>
+                                        <td>
+                                            <strong>{{ host.hostname }}</strong>
+                                        </td>
                                         <td>{{ host.porta }}</td>
                                         <td>{{ host.tipoHost }}</td>
                                         <td>{{ host.descricao }}</td>
@@ -105,7 +107,7 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn bg-red waves-effect" onClick="ConfirmarDelete({{ host.id }})">
-                                                <i class="material-icons">delete</i>
+                                                <i class="material-icons">delete_forever</i>
                                             </button>
                                         </td>
                                     </tr>
