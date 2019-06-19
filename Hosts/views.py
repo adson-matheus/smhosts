@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from .forms import HostForm
-from django.contrib import messages
 from .models import Hosts
+from django.contrib import messages
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from Principal.urls import principal
-
+import json
+from django.core.serializers.json import DjangoJSONEncoder
 
 @login_required
 def RegistroHost(request):
@@ -18,7 +20,11 @@ def RegistroHost(request):
 
 @login_required
 def ListarHosts(request):
-    hosts = Hosts.objects.all()
+    hosts = Hosts.objects.all().values()
+    hosts2 = json.loads(json.dumps(list(hosts), cls=DjangoJSONEncoder))
+    for i in range(len(hosts2)):
+        print("-->>>> Host {}: {}".format(i, hosts2[i]['hostname']))
+        print(hosts2[i].values())
     return render(request, 'listagemHosts/ListarHosts.html', {'hosts': hosts})
 # Create your views here.
 
