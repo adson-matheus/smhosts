@@ -28,6 +28,20 @@
                         {% comment %} <div class="header">
                             <h2>HOSTS STATUS</h2>
                         </div> {% endcomment %}
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <div class="header">
+                                    <h2>LINE CHART</h2>
+                                </div>
+                                <div class="body">
+                                    <canvas id="line_chart" height="150"></canvas>
+                                </div>
+                                {% comment %} <div class="body">
+                                    <canvas id="line_chart" height="150"></canvas>
+                                </div> {% endcomment %}
+                            </div>
+                        </div>
+                        {% comment %} ------- {% endcomment %}
                         <div class="body">
                             {% include "Conteudo.html" %}
                         </div>
