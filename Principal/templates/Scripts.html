@@ -11,11 +11,18 @@
 <!-- Waves Effect Plugin Js -->
 <script src="{% static 'plugins/node-waves/waves.js '%}"></script>
 <!-- Chart Plugins Js -->
-<script src="{% static 'plugins/chartjs/Chart.bundle.js '%}"></script>
+{% comment %} <script src="{% static 'plugins/chartjs/Chart.bundle.js '%}"></script> {% endcomment %}
+<!-- Flot Chart Plugins Js -->
+<script src="{% static 'plugins/flot-charts/jquery.flot.js '%}"></script>
+<script src="{% static 'plugins/flot-charts/jquery.flot.resize.js '%}"></script>
+<script src="{% static 'plugins/flot-charts/jquery.flot.pie.js '%}"></script>
+<script src="{% static 'plugins/flot-charts/jquery.flot.categories.js '%}"></script>
+<script src="{% static 'plugins/flot-charts/jquery.flot.time.js '%}"></script>
 <!-- Tooltips Popovers Js -->
 <script src="{% static 'js/pages/ui/tooltips-popovers.js' %}"></script>
 <!-- Custom Js -->
 <script src="{% static 'js/admin.js' %}"></script>
-<script src="{% static 'js/pages/charts/chartjs.js' %}"></script>
+{% comment %} <script src="{% static 'js/pages/charts/myChartjs.js' %}"></script> {% endcomment %}
+<script src="{% static 'js/pages/charts/myFlot.js' %}"></script>
 <!-- Demo Js -->
 <script src="{% static 'js/demo.js' %}"></script>
