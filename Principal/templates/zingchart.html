@@ -10,12 +10,19 @@
 	// Render your charts with the modules.
 	zingchart.render({
 		id: 'myChart',
-		data: chartConfig,
-
+		dataurl: "{% static 'zingchart.json' %}",
+		//data: chartConfig,
+		refresh: {
+			interval: 100,
+			type: 'full',
+			transport: 'http',
+			adjustScale: false,
+			url: "{% static 'zingchart.json' %}"
+		}
 	});
 });
 </script>
-<script type="text/javascript">
+{% comment %} <script type="text/javascript"> 
 	let chartConfig = {
 		type: 'hbar',
 		fontFamily: 'Arial',
@@ -169,4 +176,4 @@
 			}
 		]
 	};
-</script>
+</script> {% endcomment %}
