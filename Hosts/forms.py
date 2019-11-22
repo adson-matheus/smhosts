@@ -9,6 +9,7 @@ class HostForm(ModelForm):
         fields = '__all__'
         labels = {
             'hostname': ('HostName / IP'),
+            'servico': ('Serviço'),
             'porta': ('Porta'),
             'tipoHost': ('Tipo do Host'),
             'descricao': ('Descrição do Host')

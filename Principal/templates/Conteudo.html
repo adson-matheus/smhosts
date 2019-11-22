@@ -1,13 +1,65 @@
 {% comment %} <div class="row clearfix"> {% endcomment %}
-
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="card">
                 <div class="header bg-green">
-                    
                     <h2>
                         <i class="material-icons">dns</i>
-                        <span style="margin-left: 10px; font-weight: bold;">10.143.7.37:80</span>
+                        <span style="margin-left: 10px; font-weight: bold;">10.143.7.37:80 </span>
+                        <small>Host Online</small>
+                    </h2>
+                    <ul class="header-dropdown m-r-0">
+                        <li data-toggle="tooltip" title="INFORMAÇÕES DO HOST">
+                            <a href="#">
+                                <i class="material-icons">info_outline</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body" style="min-height: 520px;"> 
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <div class="header" style="padding: 20px 20px 20px 0;">
+                                <h2>PACOTES:</h2>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" >
+                            <div class="pull-right">
+                                <div class="header">
+                                    <h2>Enviados = 4 &nbsp;|&nbsp; Recebidos = 4 &nbsp;|&nbsp; Perdidos = 0 (0% de perda)</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header">
+                            <div class="pull-left">
+                                <div class="header" style="padding: 0px 20px 20px 0px;">
+                                    <h2>VARIAÇÃO DO PING</h2>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <div class="switch panel-switch-btn">
+                                    <span class="m-r-10 font-12">VERIFICAÇÃO EM TEMPO REAL</span>
+                                    <label>OFF<input type="checkbox" id="realtime" checked><span class="lever switch-col-teal"></span>ON</label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="body" style="padding: 0;">
+                                <div id="real_time_chart" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% comment %}  {% endcomment %}
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="card">
+                <div class="header bg-green">
+                    <h2>
+                        <i class="material-icons">dns</i>
+                        <span style="margin-left: 10px; font-weight: bold;">10.143.7.37:80 </span>
                         <small>Host Online</small>
                     </h2>
                     <ul class="header-dropdown m-r-0">
@@ -34,14 +86,13 @@
                     </div>
                     <div class="header">
                         <div class="pull-left">
-                            <div class="header" style="padding: 20px 20px 20px 0;">
+                            <div class="header" style="padding: 0px 20px 20px 0px;">
                                 <h2>VARIAÇÃO DO PING</h2>
                             </div>
                         </div>
                         <div class="pull-right">
-                            <br>
                             <div class="switch panel-switch-btn">
-                                <span class="m-r-10 font-12">TEMPO REAL</span>
+                                <span class="m-r-10 font-12">VERIFICAÇÃO EM TEMPO REAL</span>
                                 <label>OFF<input type="checkbox" id="realtime" checked><span class="lever switch-col-teal"></span>ON</label>
                             </div>
                         </div>
@@ -56,39 +107,7 @@
                 </div>
             </div>
         </div>
-        {% comment %}  {% endcomment %}
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="card">
-                <div class="header bg-green">
-                    <h2>
-                        <i class="material-icons">router</i>
-                        <span style="margin-left: 10px; font-weight: bold;">192.168.0.1:80</span>
-                        <small>Host Online</small>
-                    </h2>
-                    <ul class="header-dropdown m-r-0">
-                        <li data-toggle="tooltip" title="INFORMAÇÕES DO HOST">
-                            <a href="#">
-                                <i class="material-icons">info_outline</i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="body" style="min-height: 220px"> 
-                    <strong>PACOTES:</strong>
-                    <ul>    
-                        <li>Enviados = 4</li>
-                        <li>Recebidos = 4</li>
-                        <li>Perdidos = 0 (0% de perda)</li>
-                    </ul>
-                    <strong>PING RATE (ms):</strong>
-                    <ul>
-                        <li>Mínimo = 9ms</li>
-                        <li>Máximo = 11ms</li>
-                        <li>Média = 9ms</li>
-                    </ul>                                                
-                </div>
-            </div>
-        </div>
+        
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         {% comment %}  {% endcomment %}

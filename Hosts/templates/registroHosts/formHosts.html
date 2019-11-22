@@ -4,7 +4,7 @@
     <br>
     <div class="body">
         <div class="row clearfix">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="form-group">
                     <b><span class="marcadorRequired">*</span> HOSTNAME</b>
                     <div class="form-line">
@@ -15,6 +15,15 @@
             {% comment %} === {% endcomment %}
             <div class="col-md-3">
                 <div class="form-group">
+                    <b><span class="marcadorRequired">*</span> SERVIÇO</b>
+                    <div class="form-line">
+                        {{ form.servico|add_class:'form-control' }}
+                    </div>
+                </div>
+            </div>
+            {% comment %} === {% endcomment %}
+            <div class="col-md-2">
+                <div class="form-group">
                     <b><span class="marcadorRequired">*</span> PORTA</b>
                     <div class="form-line">
                         {{ form.porta|add_class:'form-control' }}
@@ -22,7 +31,7 @@
                 </div>
             </div>
             {% comment %} === {% endcomment %}
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
                     <b><span class="marcadorRequired">*</span> TIPO DE HOST</b>
                     <div class="form-line">
@@ -33,6 +42,7 @@
             {% comment %}  {% endcomment %}
         </div>
         <div class="row clearfix">
+
             <div class="col-md-12">
                 <div class="form-group">
                     <b><span class="marcadorRequired">*</span> DESCRIÇÃO</b>
@@ -40,9 +50,9 @@
                         {{ form.descricao|add_class:'form-control' }}
                     </div>
                 </div>
-                <br>
-                <h4><span class="marcadorRequired">*</span> Campos Obrigatórios</h4>
-                <br><br>
+            </div>
+            <div class="col-md-12">
+                <h4><span class="marcadorRequired">*</span> Campos Obrigatórios</h4><br>
             </div>
         </div>
         <div class="row clearfix" align="left">

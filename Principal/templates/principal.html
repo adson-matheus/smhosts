@@ -24,9 +24,14 @@
         <div class="container-fluid">
             <div class="row clearfix">     
                 <div class="body">
-                    {% comment %} --- {% endcomment %}
-                    {% include "Conteudo.html" %}
-                    {% comment %} --- {% endcomment %}
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card" style="padding: 25px;">
+                            {% comment %} --- {% endcomment %}
+                            {% include "zingchart.html" %}
+                            {% comment %} --- {% endcomment %}
+                            <div id="myChart" class="chart--container"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

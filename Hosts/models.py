@@ -14,6 +14,11 @@ class Hosts(models.Model):
         max_length=100,
         blank=False
     )
+    servico = models.CharField(
+        max_length=100,
+        blank=False,
+        default='',
+    )
     porta = models.PositiveIntegerField(
         default=0,
         blank=False
@@ -30,6 +35,8 @@ class Hosts(models.Model):
     status = models.BooleanField(
         default=False
     )
+
+
     
     def __str__(self):
         return self.hostname
