@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     
     'widget_tweaks',
     'Principal',
-    'Hosts'
+    'Hosts',
+    'ping3',
+    'datetime',
 ]
 
 MIDDLEWARE = [

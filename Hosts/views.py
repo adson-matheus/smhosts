@@ -1,13 +1,17 @@
+from django.http import request
 from django.shortcuts import render
-from .forms import HostForm
-from .models import Hosts
 from django.contrib import messages
-
+from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
-from Principal.urls import principal
+
+
+from .forms import HostForm, EventoForm
+from .models import Host, Evento
+from ping3 import ping
+from datetime import datetime
 import json
-from django.core.serializers.json import DjangoJSONEncoder
+
 
 @login_required
 def RegistroHost(request):
@@ -20,13 +24,10 @@ def RegistroHost(request):
 
 @login_required
 def ListarHosts(request):
-    hosts = Hosts.objects.all().values()
-    hosts2 = json.loads(json.dumps(list(hosts), cls=DjangoJSONEncoder))
-    for i in range(len(hosts2)):
-        print("-->>>> Host {}: {}".format(i, hosts2[i]['hostname']))
-        print(hosts2[i].values())
+    hosts = Evento.objects.all()
+    for i in hosts:
+        registrarEvento(i.id)
     return render(request, 'listagemHosts/ListarHosts.html', {'hosts': hosts})
-# Create your views here.
 
 @login_required
 def BuscarHost(request):
@@ -34,15 +35,48 @@ def BuscarHost(request):
 
 @login_required
 def AtualizarHost(request, id):
-    host = get_object_or_404(Hosts, pk=id)
+    host = get_object_or_404(Host, pk=id)
     form = HostForm(request.POST or None, instance=host)
     if(form.is_valid()):
         form.save()
-        return redirect('../../ListarHosts')
+        return redirect('Hosts:ListarHosts')
     return render(request, 'registroHosts/RegistrarHost.html', {'form': form})
 
 @login_required
 def DeletarHost(request, id):
-    hostDelete = get_object_or_404(Hosts, pk=id)
+    hostDelete = get_object_or_404(Host, pk=id)
     hostDelete.delete()
     return redirect('../../ListarHosts')
+
+
+def verificaServer(host):
+    try:
+        if ping(host) < 100:
+            return 'ONLINE'
+        elif ping(host) >= 100:
+            return 'DEMORANDO'
+        else:
+            return 'OFFLINE'
+    except TypeError:
+        return 'OFFLINE'
+
+
+def registrarEvento(id):
+    evento = Host.objects.get(pk=id)
+    eventoPing = verificaServer(evento.hostname)
+    horaEvento = datetime.now()
+    e = Evento(host=evento, status=eventoPing, dataHora=horaEvento)
+    e.save()
+    # if request.method == 'POST':
+    #     form = EventoForm(request.POST, instance = evento)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('Hosts:ListarHosts')
+    # else:
+    #     form = EventoForm()
+    # return render(request, 'registroEventos/registrarEvento.html', {'form': form,
+    #                                                                 'evento':evento,
+    #                                                                 'eventoPing':eventoPing,
+    #                                                                 'horaEvento':horaEvento})
+
+    

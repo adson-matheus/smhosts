@@ -24,15 +24,6 @@
             {% comment %} === {% endcomment %}
             <div class="col-md-2">
                 <div class="form-group">
-                    <b><span class="marcadorRequired">*</span> PORTA</b>
-                    <div class="form-line">
-                        {{ form.porta|add_class:'form-control' }}
-                    </div>
-                </div>
-            </div>
-            {% comment %} === {% endcomment %}
-            <div class="col-md-2">
-                <div class="form-group">
                     <b><span class="marcadorRequired">*</span> TIPO DE HOST</b>
                     <div class="form-line">
                         {{ form.tipoHost|add_class:'form-control show-tick' }}
@@ -43,9 +34,9 @@
         </div>
         <div class="row clearfix">
 
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <b><span class="marcadorRequired">*</span> DESCRIÇÃO</b>
+                    <b>DESCRIÇÃO</b>
                     <div class="form-line">
                         {{ form.descricao|add_class:'form-control' }}
                     </div>
@@ -61,7 +52,7 @@
                     <h4>
                         <span>REGISTRAR</span>
                         <i class="material-icons">done_all</i>
-                    </h4> 
+                    </h4>
                 </button>
             </div>
         </div>

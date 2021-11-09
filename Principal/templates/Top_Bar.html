@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="navbar-header header1">
             <a href="#" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-            <a class="navbar-brand" href="index.html" style="padding-top: 5px;">
+            <a class="navbar-brand" href="{% url 'Principal:principal' %}" style="padding-top: 5px;">
                 <strong style="font-size: 20pt;">SMHosts</strong><br>
                 <em>Sistema de Monitoramento de Hosts</em>
             </a>
@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="{% url 'principal' %}" data-toggle="tooltip" data-placement="bottom" title="IR PARA O INÍCIO">
+                    <a href="{% url 'Principal:principal' %}" data-toggle="tooltip" data-placement="bottom" title="IR PARA O INÍCIO">
                         <button type="button" class="btn btn-default waves-effect waves-teal">
                             <i class="material-icons">home</i>
                         </button>
@@ -29,7 +29,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'logoutApp' %}" data-toggle="tooltip" data-placement="bottom" title="SAIR DO SISTEMA">
+                    <a href="{% url 'Principal:logoutApp' %}" data-toggle="tooltip" data-placement="bottom" title="SAIR DO SISTEMA">
                         <button type="button" class="btn btn-default waves-effect waves-red">
                             <i class="material-icons col-red">exit_to_app</i>
                         </button>

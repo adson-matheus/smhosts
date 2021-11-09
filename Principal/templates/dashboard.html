@@ -1,0 +1,19 @@
+{% load static %}
+
+<table>
+    <thead>
+        <tr>
+            <th>HOSTNAME</th>
+            <th>STATUS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for h in hosts %}
+        <tr>
+            <td>{{h.hostname}}</td>
+            <td>{{h.status}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>

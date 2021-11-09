@@ -1,7 +1,9 @@
 from django.db import models
 
+#from Principal.views import verificaServer
+
 # Create your models here.
-class Hosts(models.Model):
+class Host(models.Model):
     TIPO_HOST = (
         ('Access Point', 'ACCESS POINT'),
         ('Desktop', 'DESKTOP'),
@@ -19,25 +21,44 @@ class Hosts(models.Model):
         blank=False,
         default='',
     )
-    porta = models.PositiveIntegerField(
-        default=0,
-        blank=False
-    )
     tipoHost = models.CharField(
         max_length=20,
         choices=TIPO_HOST,
-        default=''
     )
     descricao = models.CharField(
         max_length=200,
-        blank=False
+        blank=True
     )
-    status = models.BooleanField(
-        default=False
-    )
+    class Meta:
+        ordering = ('-id',)
 
-
-    
     def __str__(self):
         return self.hostname
+
+
+class Evento(models.Model):
+    STATUS = (
+        ('ONLINE', 'ONLINE'),
+        ('OFFLINE', 'OFFLINE'),
+        ('DEMORANDO', 'DEMORANDO'),
+    )
+    host = models.ForeignKey(Host,
+        related_name="host",
+        on_delete=models.CASCADE,
+        blank=True)
+
+    dataHora = models.DateTimeField(
+        auto_now=True,
+        blank=True,
+    )
+    status = models.TextField(
+        choices=STATUS,
+        blank=True,
+        default = ''
+    )
+    def __str__(self):
+        return '{} - Status: {}' .format(self.host.hostname, self.status)
+
+class Servico(models.Model):
+    porta = models.ForeignKey(Host, related_name='portas', on_delete=models.CASCADE, blank=True)
     
