@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Hosts',
     'ping3',
     'datetime',
+    'Portas',
 ]
 
 MIDDLEWARE = [

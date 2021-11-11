@@ -1,8 +1,31 @@
 from django.db import models
 
-#from Principal.views import verificaServer
 
-# Create your models here.
+class Evento(models.Model):
+    STATUS = (
+        ('ONLINE', 'ONLINE'),
+        ('OFFLINE', 'OFFLINE'),
+        ('DEMORANDO', 'DEMORANDO'),
+    )
+    dataHora = models.DateTimeField(
+        auto_now=True,
+        blank=True,
+    )
+    status = models.TextField(
+        choices=STATUS,
+        blank=True,
+        default = ''
+    )
+    def __str__(self):
+        return '{}'.format(self.status)
+
+class Porta(models.Model):
+    portaServico = models.IntegerField(primary_key=True, blank=False)
+    servico = models.CharField(blank=False, max_length=200)
+
+    def __str__(self):
+        return '{}'.format(self.portaServico)
+
 class Host(models.Model):
     TIPO_HOST = (
         ('Access Point', 'ACCESS POINT'),
@@ -16,18 +39,13 @@ class Host(models.Model):
         max_length=100,
         blank=False
     )
-    servico = models.CharField(
-        max_length=100,
-        blank=False,
-        default='',
-    )
     tipoHost = models.CharField(
         max_length=20,
         choices=TIPO_HOST,
     )
     descricao = models.CharField(
         max_length=200,
-        blank=True
+        blank=True,
     )
     class Meta:
         ordering = ('-id',)
@@ -35,30 +53,12 @@ class Host(models.Model):
     def __str__(self):
         return self.hostname
 
+class Host_Porta(models.Model):
+    host = models.ForeignKey(Host, related_name='host', on_delete=models.CASCADE)
+    porta = models.ForeignKey(Porta, related_name='porta', on_delete=models.CASCADE)
+    #evento = models.ForeignKey(Evento, related_name='evento', on_delete=models.CASCADE)
 
-class Evento(models.Model):
-    STATUS = (
-        ('ONLINE', 'ONLINE'),
-        ('OFFLINE', 'OFFLINE'),
-        ('DEMORANDO', 'DEMORANDO'),
-    )
-    host = models.ForeignKey(Host,
-        related_name="host",
-        on_delete=models.CASCADE,
-        blank=True)
-
-    dataHora = models.DateTimeField(
-        auto_now=True,
-        blank=True,
-    )
-    status = models.TextField(
-        choices=STATUS,
-        blank=True,
-        default = ''
-    )
+    class Meta:
+        ordering = ('porta',)
     def __str__(self):
-        return '{} - Status: {}' .format(self.host.hostname, self.status)
-
-class Servico(models.Model):
-    porta = models.ForeignKey(Host, related_name='portas', on_delete=models.CASCADE, blank=True)
-    
+        return '{}:{}'.format(self.host, self.porta)

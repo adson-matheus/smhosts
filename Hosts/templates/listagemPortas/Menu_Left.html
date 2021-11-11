@@ -11,14 +11,14 @@
                         <span>INÍCIO</span>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">desktop_windows</i>
                         <span>GERENCIAR HOSTS</span>
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a href="#" class="col-teal">
+                            <a href="{% url 'Hosts:RegistroHost' %}">
                                 <i class="material-icons">cast_connected</i>
                                 <h5 style="margin-left: 10px;">Registrar Novo Host</h5>
                             </a>
@@ -43,7 +43,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="active">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">desktop_windows</i>
                         <span>GERENCIAR PORTAS</span>
@@ -56,7 +56,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{% url 'Portas:ListarPortas' %}"> 
+                            <a href="#" class="col-teal">
                                 <i class="material-icons">playlist_add_check</i>
                                 <h5 style="margin-left: 10px;">Listar Registros de Portas</h5>
                             </a>

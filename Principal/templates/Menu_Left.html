@@ -45,6 +45,38 @@
                 </li>
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">desktop_windows</i>
+                        <span>GERENCIAR PORTAS</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{% url 'Portas:RegistrarPorta' %}">
+                                <i class="material-icons">cast_connected</i>
+                                <h5 style="margin-left: 10px;">Registrar Nova Porta</h5>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'Portas:ListarPortas' %}"> 
+                                <i class="material-icons">playlist_add_check</i>
+                                <h5 style="margin-left: 10px;">Listar Registros de Portas</h5>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="material-icons">search</i>
+                                <h5 style="margin-left: 10px;">Buscar Porta Específico</h5>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="material-icons">insert_chart</i>
+                                <h5 style="margin-left: 10px;">Gerar Estatísticas</h5>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">supervisor_account</i>
                         <span>GERENCIAR USUÁRIOS</span>
                     </a>

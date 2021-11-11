@@ -1,32 +1,29 @@
-from django.http import request
-from django.shortcuts import render
 from django.contrib import messages
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 
-from .forms import HostForm, EventoForm
-from .models import Host, Evento
+from Hosts.forms import Host_PortaForm
+from .models import Host, Evento, Host_Porta
 from ping3 import ping
 from datetime import datetime
-import json
 
 
 @login_required
 def RegistroHost(request):
-    form = HostForm(request.POST or None)
+    form = Host_PortaForm(request.POST or None)
     if(form.is_valid()):
         form.save()
         messages.success(request, 'Host Registrado com Sucesso!')
-        return redirect('../ListarHosts')
+        return redirect('Hosts:ListarHosts')
     return render(request, 'registroHosts/RegistrarHost.html', {'form': form})
 
 @login_required
 def ListarHosts(request):
-    hosts = Evento.objects.all()
-    for i in hosts:
-        registrarEvento(i.id)
+    hosts = Host_Porta.objects.all()
+    #for i in hosts:
+    #    registrarEvento(i.id)
     return render(request, 'listagemHosts/ListarHosts.html', {'hosts': hosts})
 
 @login_required
@@ -36,7 +33,7 @@ def BuscarHost(request):
 @login_required
 def AtualizarHost(request, id):
     host = get_object_or_404(Host, pk=id)
-    form = HostForm(request.POST or None, instance=host)
+    form = Host_PortaForm(request.POST or None, instance=host)
     if(form.is_valid()):
         form.save()
         return redirect('Hosts:ListarHosts')
@@ -66,17 +63,8 @@ def registrarEvento(id):
     eventoPing = verificaServer(evento.hostname)
     horaEvento = datetime.now()
     e = Evento(host=evento, status=eventoPing, dataHora=horaEvento)
-    e.save()
-    # if request.method == 'POST':
-    #     form = EventoForm(request.POST, instance = evento)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('Hosts:ListarHosts')
-    # else:
-    #     form = EventoForm()
-    # return render(request, 'registroEventos/registrarEvento.html', {'form': form,
-    #                                                                 'evento':evento,
-    #                                                                 'eventoPing':eventoPing,
-    #                                                                 'horaEvento':horaEvento})
-
-    
+    #salva evento somente se nao estiver online
+    if eventoPing != 'ONLINE':
+        pass
+    else:
+        e.save()

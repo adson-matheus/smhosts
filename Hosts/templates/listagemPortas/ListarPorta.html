@@ -25,10 +25,10 @@
                     </a>
                 </li>
                 <li>
-                    <i class="material-icons">notifications_active</i> GERENCIAR HOSTS
+                    <i class="material-icons">notifications_active</i> GERENCIAR PORTAS
                 </li>
                 <li  class="active">
-                    <i class="material-icons">playlist_add_check</i> Listar Registros de Hosts
+                    <i class="material-icons">playlist_add_check</i> Listar Registros de Portas
                 </li>
             </ol>
 	    </div>
@@ -38,11 +38,11 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                LISTAGEM DE HOSTS REGISTRADOS
-                                <a href="{% url 'Hosts:RegistroHost' %}" class="linkTextBold" style="float: right; margin-top: -10px;">
+                                LISTAGEM DE PORTAS REGISTRADAS
+                                <a href="{% url 'Portas:RegistrarPorta' %}" class="linkTextBold" style="float: right; margin-top: -10px;">
                                     <button type="button" class="btn bg-teal waves-effect linkTextBold">
                                         <i class="material-icons">add</i>
-                                        <span>NOVO REGISTRO</span>
+                                        <span>NOVA PORTA</span>
                                     </button> 
                                 </a>
                             </h2>
@@ -50,7 +50,7 @@
                         <div class="body">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover dataTable js-exportable">
-                                {% if hosts|length == 0 %}
+                                {% if portas|length == 0 %}
                                 <br>
                                 <h2 style="color: red; text-align: center;">NÃO HÁ REGISTROS!</h2>
                                 {% else %}
@@ -62,34 +62,22 @@
                                 <h4 style="margin-bottom: -5px; color: #444444;">Exportar Registros</h4>
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>HOSTNAME</th>
                                         <th>PORTA</th>
                                         <th>SERVIÇO</th>
-                                        <th>TIPO DE HOST</th>
-                                        <th>DESCRIÇÃO</th>
-                                        <th>STATUS</th>
-                                        <th>ÚLTIMA ATUALIZAÇÃO</th>
                                         <th>EDITAR</th>
                                         <th>DELETAR</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for h in hosts %}
+                                    {% for p in portas %}
                                     <tr>
-                                        <td>{{ h.host.id }}</td>
                                         <td>
-                                            <strong>{{ h.host.hostname }}</strong>
+                                            <strong>{{ p.portaServico }}</strong>
                                         </td>
-                                        <td>{{ h.porta.portaServico }}</td>
-                                        <td>{{ h.porta.servico }}</td>
-                                        <td>{{ h.host.tipoHost }}</td>
-                                        <td>{{ h.host.descricao }}</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ p.servico }}</td>
                                         <td>
                                             <center>
-                                                <a href="{% url 'Hosts:AtualizarHost' h.id %}">
+                                                <a href="#">
                                                     <button type="button" class="btn bg-cyan waves-effect">
                                                         <i class="material-icons">mode_edit</i>
                                                     </button>
@@ -98,7 +86,7 @@
                                         </td>
                                         <td>
                                             <center>
-                                                <button type="button" class="btn bg-red waves-effect" onClick="ConfirmarDeleteHost({{ h.host.id }})">
+                                                <button type="button" class="btn bg-red waves-effect" onClick="ConfirmarDeletePorta({{ p.portaServico }})">
                                                     <i class="material-icons">delete_forever</i>
                                                 </button>
                                             </center>

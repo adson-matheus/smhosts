@@ -1,10 +1,10 @@
-from .models import Host, Evento
+from .models import Evento, Host_Porta
 from django.forms import ModelForm
 
 
-class HostForm(ModelForm):
+class Host_PortaForm(ModelForm):
     class Meta:
-        model = Host
+        model = Host_Porta
         fields = '__all__'
         labels = {
             'hostname': ('HostName / IP'),
@@ -16,4 +16,4 @@ class HostForm(ModelForm):
 class EventoForm(ModelForm):
     class Meta:
         model = Evento
-        fields = ['host', 'status',]
+        fields = ['status',]
