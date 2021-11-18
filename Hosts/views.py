@@ -36,9 +36,8 @@ def RegistroHost_Porta(request, id):
 @login_required
 def ListarHosts(request):
     hosts = Host_Porta.objects.all()
-    #for i in hosts:
-    #    registrarEvento(i.id)
-    return render(request, 'listagemHosts/ListarHosts.html', {'hosts': hosts})
+    eventos = Evento.objects.all()
+    return render(request, 'listagemHosts/ListarHosts.html', {'hosts': hosts, 'eventos':eventos})
 
 @login_required
 def BuscarHost(request):
@@ -57,10 +56,9 @@ def AtualizarHost(request, id):
         HostForm(instance=form)
     return render(request, 'editarHost/EditarHost.html', {'form': form})
 
-#consertar o delete
 @login_required
 def DeletarHost(request, id):
-    hostDelete = get_object_or_404(Host, pk=id)
+    hostDelete = get_object_or_404(Host_Porta, pk=id)
     hostDelete.delete()
     return redirect('Hosts:ListarHosts')
 
@@ -76,14 +74,16 @@ def verificaServer(host):
     except TypeError:
         return 'OFFLINE'
 
-
-def registrarEvento(id):
-    evento = Host.objects.get(pk=id)
-    eventoPing = verificaServer(evento.hostname)
-    horaEvento = datetime.now()
-    e = Evento(host=evento, status=eventoPing, dataHora=horaEvento)
+#falta registrar automaticamente
+def registrarEvento(request, id):
+    host = Host.objects.get(pk=id)
+    eventoPing = verificaServer(host.hostname)
+    e = Evento(status=eventoPing, host_id=host)
     #salva evento somente se nao estiver online
-    if eventoPing != 'ONLINE':
-        pass
-    else:
+    if eventoPing == 'OFFLINE':
         e.save()
+        host.evento = e
+        host.save()
+    else:
+        pass
+    return redirect('Hosts:ListarHosts')
