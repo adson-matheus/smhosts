@@ -6,5 +6,5 @@ app_name = 'Portas'
 urlpatterns = [
     path("RegistrarPorta/", registrarPorta, name="RegistrarPorta"),
     path("ListarPortas/", ListarPortas, name="ListarPortas"),
-    path("DeletarPorta/<int:id>/", DeletarPorta, name="DeletarHost"),
+    path("DeletarPorta/<int:id>/", DeletarPorta, name="DeletarPorta"),
 ]

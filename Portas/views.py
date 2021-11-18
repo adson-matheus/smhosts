@@ -10,7 +10,7 @@ def registrarPorta(request):
         form = PortaForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('Hosts:ListarPortas')
+            return redirect('Portas:ListarPortas')
     else:
         form = PortaForm()
     return render(request, 'registroPortas/RegistrarPorta.html', {'form':form})
@@ -22,6 +22,7 @@ def ListarPortas(request):
 
 @login_required
 def DeletarPorta(id):
-    portaDelete = get_object_or_404(Porta, pk=id)
+    portaDelete = Porta.objects.get(pk=id)
+    #portaDelete = get_object_or_404(Porta, pk=id)
     portaDelete.delete()
-    return redirect('../../ListarHosts')
+    return redirect('Portas:ListarPortas')

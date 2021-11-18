@@ -8,7 +8,8 @@
                 <div class="form-group">
                     <b><span class="marcadorRequired">*</span> HOSTNAME</b>
                     <div class="form-line">
-                        <input name='hostname' class='form-control' autofocus required>
+                        <input value="{{form.hostname}}" name='hostname' class='form-control' required>
+                        {% comment %} <input type='hidden' name='id' value="{{form.id}}" class='form-control'> {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -29,6 +30,19 @@
                     </div>
                 </div>
             </div>
+            {% comment %} <div class="col-md-2">
+                <div class="form-group">
+                    <b><span class="marcadorRequired">*</span> PORTA</b>
+                    <div class="form-line">
+                        <select onchange='document.getElementById("portaServico").value = this.value' required>
+                                <option value="">--------</option>
+                            {% for p in porta %}
+                                <option value="{{ p.portaServico }}">{{ p.portaServico }} - {{ p.servico }}</option>
+                            {% endfor %}
+                        <input type='hidden' name='porta' id='portaServico' class='form-control' required>
+                    </div>
+                </div>
+            </div> {% endcomment %}
         </div>
         <div class="row clearfix">
 
@@ -36,7 +50,7 @@
                 <div class="form-group">
                     <b>DESCRIÇÃO</b>
                     <div class="form-line">
-                        <input name='descricao' class='form-control'>
+                        <input value="{{form.descricao}}" name='descricao' class='form-control'>
                     </div>
                 </div>
             </div>

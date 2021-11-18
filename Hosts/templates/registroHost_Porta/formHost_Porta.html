@@ -8,7 +8,8 @@
                 <div class="form-group">
                     <b><span class="marcadorRequired">*</span> HOSTNAME</b>
                     <div class="form-line">
-                        <input name='hostname' class='form-control' autofocus required>
+                        <input value="{{host.hostname}}" class='form-control' readonly required>
+                        <input value="{{host.id}}" name='host' class='form-control' type='hidden'>
                     </div>
                 </div>
             </div>
@@ -17,26 +18,32 @@
                 <div class="form-group">
                     <b><span class="marcadorRequired">*</span> TIPO DE HOST</b>
                     <div class="form-line">
-                        <select onchange='document.getElementById("tipoHost").value = this.value' required>
-                            <option value="">--------</option>
-                            <option value="Access Point">ACCESS POINT</option>
-                            <option value="Desktop">DESKTOP</option>
-                            <option value="Impressora">IMPRESSORA</option>
-                            <option value="Notebook">NOTEBOOK</option>
-                            <option value="Servidor">SERVIDOR</option>
-                            <option value="Outros">OUTROS</option>
-                        <input type='hidden' name='tipoHost' id='tipoHost' class='form-control' required>
+                        <input value="{{host.tipoHost}}" class='form-control' readonly required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <b><span class="marcadorRequired">*</span> PORTA</b>
+                    <div class="form-line">
+                        <select onchange='document.getElementById("portaServico").value = this.value' required>
+                                <option value="">--------</option>
+                            {% for p in porta %}
+                                <option value="{{ p.portaServico }}">{{ p.portaServico }} - {{ p.servico }}</option>
+                            {% endfor %}
+                        <input type='hidden' name='porta' id='portaServico' class='form-control' required>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row clearfix">
 
+        <div class="row clearfix">
             <div class="col-md-6">
                 <div class="form-group">
                     <b>DESCRIÇÃO</b>
                     <div class="form-line">
-                        <input name='descricao' class='form-control'>
+                        <input value="{{host.descricao}}" class='form-control'>
                     </div>
                 </div>
             </div>

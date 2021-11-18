@@ -1,4 +1,4 @@
-from .models import Evento, Host_Porta
+from .models import Evento, Host_Porta, Host
 from django.forms import ModelForm
 
 
@@ -8,10 +8,14 @@ class Host_PortaForm(ModelForm):
         fields = '__all__'
         labels = {
             'hostname': ('HostName / IP'),
-            'servico': ('Serviço'),
             'tipoHost': ('Tipo do Host'),
             'descricao': ('Descrição do Host'),
         }
+
+class HostForm(ModelForm):
+    class Meta:
+        model = Host
+        fields = ['hostname', 'tipoHost', 'descricao']
 
 class EventoForm(ModelForm):
     class Meta:

@@ -4,20 +4,34 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 
-from Hosts.forms import Host_PortaForm
-from .models import Host, Evento, Host_Porta
+from Hosts.forms import Host_PortaForm, HostForm
+from .models import Host, Evento, Host_Porta, Porta
 from ping3 import ping
 from datetime import datetime
 
 
 @login_required
 def RegistroHost(request):
-    form = Host_PortaForm(request.POST or None)
-    if(form.is_valid()):
-        form.save()
-        messages.success(request, 'Host Registrado com Sucesso!')
-        return redirect('Hosts:ListarHosts')
-    return render(request, 'registroHosts/RegistrarHost.html', {'form': form})
+    host = HostForm(request.POST or None)
+    if(host.is_valid()):
+        host.save()
+        h = Host.objects.latest('id')
+        return redirect('Hosts:RegistroHost_Porta', h.id)
+    return render(request, 'registroHosts/RegistrarHost.html', {'host': host})
+
+# add somente o host, e depois add as portas?
+
+@login_required
+def RegistroHost_Porta(request, id):
+    host = Host.objects.get(pk=id)
+    porta = Porta.objects.all()
+    if request.method == 'POST':
+        host_porta = Host_PortaForm(request.POST)
+        if host_porta.is_valid():
+            host_porta.save()
+            return redirect('Hosts:ListarHosts')
+    return render(request, 'registroHost_Porta/registroHost_Porta.html', {'host': host, 'porta': porta})
+
 
 @login_required
 def ListarHosts(request):
@@ -32,18 +46,23 @@ def BuscarHost(request):
 
 @login_required
 def AtualizarHost(request, id):
-    host = get_object_or_404(Host, pk=id)
-    form = Host_PortaForm(request.POST or None, instance=host)
-    if(form.is_valid()):
-        form.save()
+    form = Host.objects.get(pk=id)
+    #porta = Porta.objects.all()
+    if request.method=='POST':
+        form = HostForm(request.POST, instance=form)
+        if(form.is_valid()):
+            form.save()
         return redirect('Hosts:ListarHosts')
-    return render(request, 'registroHosts/RegistrarHost.html', {'form': form})
+    else:
+        HostForm(instance=form)
+    return render(request, 'editarHost/EditarHost.html', {'form': form})
 
+#consertar o delete
 @login_required
 def DeletarHost(request, id):
     hostDelete = get_object_or_404(Host, pk=id)
     hostDelete.delete()
-    return redirect('../../ListarHosts')
+    return redirect('Hosts:ListarHosts')
 
 
 def verificaServer(host):
