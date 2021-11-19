@@ -59,11 +59,11 @@ class Evento(models.Model):
         blank=True,
         default = ''
     )
-    host_id = models.ForeignKey(
-        Host,
+    host_porta_id = models.ForeignKey(
+        Host_Porta,
         null=True,
-        related_name='host_id',
+        related_name='host_porta_id',
         on_delete=models.CASCADE
     )
     def __str__(self):
-        return '{} - {}'.format(self.host_id.hostname, self.status)
+        return '{} - {}'.format(self.host_porta_id, self.status)

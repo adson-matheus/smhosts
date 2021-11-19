@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from Hosts.forms import Host_PortaForm, HostForm
 from .models import Host, Evento, Host_Porta, Porta
 from ping3 import ping
-from datetime import datetime
+
 
 
 @login_required
@@ -36,8 +36,14 @@ def RegistroHost_Porta(request, id):
 @login_required
 def ListarHosts(request):
     hosts = Host_Porta.objects.all()
+
+    #delete os eventos antigos
+    #eh melhor tentar o update
+    eventos = Evento.objects.all()
+    eventos.delete()
+
     for h in hosts:
-        verificaServer(h.host.id)
+        verificaServer(h.id)
     eventos = Evento.objects.all()
     return render(request, 'listagemHosts/ListarHosts.html', {'hosts': hosts, 'eventos':eventos})
 
@@ -66,15 +72,15 @@ def DeletarHost(request, id):
 
 
 def verificaServer(id):
-    host = Host.objects.get(pk=id)
-    p = ping(host.hostname)
+    host = Host_Porta.objects.get(pk=id)
+    p = ping(host.host.hostname)
     try:
         if p < 100:
-            e = Evento(status='ONLINE', host_id=host)
+            e = Evento(status='ONLINE', host_porta_id=host)
         elif p >= 100:
-            e = Evento(status='DEMORANDO', host_id=host)
+            e = Evento(status='DEMORANDO', host_porta_id=host)
         else:
-            e = Evento(status='OFFLINE', host_id=host)
+            e = Evento(status='OFFLINE', host_porta_id=host)
     except TypeError:
-        e = Evento(status='OFFLINE', host_id=host)
+        e = Evento(status='OFFLINE', host_porta_id=host)
     e.save()
