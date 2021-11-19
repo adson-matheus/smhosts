@@ -17,7 +17,3 @@ class HostForm(ModelForm):
         model = Host
         fields = ['hostname', 'tipoHost', 'descricao']
 
-class EventoForm(ModelForm):
-    class Meta:
-        model = Evento
-        fields = ['status',]

@@ -9,5 +9,4 @@ urlpatterns = [
     path("ListarHosts/", ListarHosts, name="ListarHosts"),
     path("AtualizarHost/<int:id>/", AtualizarHost, name="AtualizarHost"),
     path("DeletarHost/<int:id>/", DeletarHost, name="DeletarHost"),
-    path("RegistrarEvento/<int:id>/", registrarEvento, name="RegistrarEvento"),
 ]

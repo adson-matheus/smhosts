@@ -36,6 +36,8 @@ def RegistroHost_Porta(request, id):
 @login_required
 def ListarHosts(request):
     hosts = Host_Porta.objects.all()
+    for h in hosts:
+        verificaServer(h.host.id)
     eventos = Evento.objects.all()
     return render(request, 'listagemHosts/ListarHosts.html', {'hosts': hosts, 'eventos':eventos})
 
@@ -63,27 +65,16 @@ def DeletarHost(request, id):
     return redirect('Hosts:ListarHosts')
 
 
-def verificaServer(host):
-    try:
-        if ping(host) < 100:
-            return 'ONLINE'
-        elif ping(host) >= 100:
-            return 'DEMORANDO'
-        else:
-            return 'OFFLINE'
-    except TypeError:
-        return 'OFFLINE'
-
-#falta registrar automaticamente
-def registrarEvento(request, id):
+def verificaServer(id):
     host = Host.objects.get(pk=id)
-    eventoPing = verificaServer(host.hostname)
-    e = Evento(status=eventoPing, host_id=host)
-    #salva evento somente se nao estiver online
-    if eventoPing == 'OFFLINE':
-        e.save()
-        host.evento = e
-        host.save()
-    else:
-        pass
-    return redirect('Hosts:ListarHosts')
+    p = ping(host.hostname)
+    try:
+        if p < 100:
+            e = Evento(status='ONLINE', host_id=host)
+        elif p >= 100:
+            e = Evento(status='DEMORANDO', host_id=host)
+        else:
+            e = Evento(status='OFFLINE', host_id=host)
+    except TypeError:
+        e = Evento(status='OFFLINE', host_id=host)
+    e.save()
