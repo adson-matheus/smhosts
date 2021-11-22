@@ -30,7 +30,7 @@
                         <select onchange='document.getElementById("portaServico").value = this.value' required>
                                 <option value="">--------</option>
                             {% for p in porta %}
-                                <option value="{{ p.portaServico }}">{{ p.portaServico }} - {{ p.servico }}</option>
+                                <option value="{{ p.id }}">{{ p.portaServico }} - {{ p.servico }}</option>
                             {% endfor %}
                         <input type='hidden' name='porta' id='portaServico' class='form-control' required>
                     </div>

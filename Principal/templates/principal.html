@@ -21,16 +21,15 @@
                 <li class="active"><i class="material-icons">home</i> Início</li>
             </ol>
         </div>
+        
         <div class="container-fluid">
-            <div class="row clearfix">     
+            <div class="row clearfix">
                 <div class="body">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="card" style="padding: 25px;">
-                            {% include "dashboard.html" %}
-                            {% comment %} --- {% endcomment %}
+                            <div id="myChart" class="chart--container" style="overflow: visible;"></div>
+                            {% comment %} {% include "dashboard.html" %} {% endcomment %}
                             {% include "zingchart.html" %}
-                            {% comment %} --- {% endcomment %}
-                            <div id="myChart" class="chart--container"></div>
                         </div>
                     </div>
                 </div>

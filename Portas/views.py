@@ -20,8 +20,19 @@ def ListarPortas(request):
     portas = Porta.objects.all()
     return render(request, 'listagemPortas/ListarPorta.html', {'portas': portas})
 
+def editarPorta(request,id):
+    porta = Porta.objects.get(pk=id)
+    if request.method=='POST':
+        porta = PortaForm(request.POST, instance=porta)
+        if(porta.is_valid()):
+            porta.save()
+        return redirect('Portas:ListarPortas')
+    else:
+        PortaForm(instance=porta)
+        return render(request, 'editarPortas/EditarPortas.html', {'porta': porta})
+
 @login_required
-def DeletarPorta(id):
+def DeletarPorta(request,id):
     portaDelete = Porta.objects.get(pk=id)
     #portaDelete = get_object_or_404(Porta, pk=id)
     portaDelete.delete()

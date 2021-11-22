@@ -1,9 +1,5 @@
-from django.contrib import messages
-from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
-from django.core.exceptions import ObjectDoesNotExist
-
 
 from Hosts.forms import Host_PortaForm, HostForm
 from .models import Host, Evento, Host_Porta, Porta
@@ -57,7 +53,7 @@ def BuscarHost(request):
 @login_required
 def AtualizarHost(request, id):
     form = Host.objects.get(pk=id)
-    #porta = Porta.objects.all()
+
     if request.method=='POST':
         form = HostForm(request.POST, instance=form)
         if(form.is_valid()):

@@ -1,19 +1,193 @@
 {% load static %}
+<script src="{% static 'js/zingchart/zingchart.min.js' %}"></script>
 
-<table>
-    <thead>
-        <tr>
-            <th>HOSTNAME</th>
-            <th>STATUS</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for h in hosts %}
-        <tr>
-            <td>{{h.hostname}}</td>
-            <td>{{h.status}}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<br>
+<script>
+    let chartConfig = {
+    backgroundColor: '#f5f7ea',
+    graphset: [
+        {
+        type: 'null',
+        backgroundColor: '#fbfcf7',
+        borderColor: '#384653',
+        borderRadius: '4px',
+        borderWidth: '1px',
+        width: '31%',
+        height: '25%',
+        x: '2%',
+        y: '3%',
+        title: {
+            text: 'GROCERY ORDERS',
+            backgroundColor: 'none',
+            fontColor: '#384653',
+            fontSize: '12px',
+            height: '70px',
+            textAlign: 'center'
+        },
+        subtitle: {
+            text: '5920',
+            paddingTop: '25%',
+            bold: true,
+            fontColor: '#dd655f',
+            fontSize: '24px',
+            height: '40px',
+            textAlign: 'center'
+        }
+        },
+        {
+        type: 'null',
+        backgroundColor: '#fbfcf7',
+        borderColor: '#384653',
+        borderRadius: '4px',
+        borderWidth: '1px',
+        width: '31%',
+        height: '25%',
+        x: '34.6%',
+        y: '3%',
+        title: {
+            text: 'GROCERY SALES',
+            backgroundColor: 'none',
+            fontColor: '#384653',
+            fontSize: '12px',
+            height: '70px',
+            textAlign: 'center'
+        },
+        subtitle: {
+            text: '$2,402',
+            paddingTop: '25%',
+            bold: true,
+            fontColor: '#4cc2bb',
+            fontSize: '24px',
+            height: '40px',
+            textAlign: 'center'
+        }
+        },
+        {
+        type: 'null',
+        backgroundColor: '#fbfcf7',
+        borderColor: '#384653',
+        borderRadius: '4px',
+        borderWidth: '1px',
+        width: '31%',
+        height: '25%',
+        x: '67%',
+        y: '3%',
+        title: {
+            text: 'GROCERY ITEMS SOLD',
+            backgroundColor: 'none',
+            fontColor: '#104053',
+            fontSize: '12px',
+            height: '70px',
+            textAlign: 'center'
+        },
+        subtitle: {
+            text: '11,274',
+            paddingTop: '25%',
+            bold: true,
+            fontColor: '#4f5963',
+            fontSize: '24px',
+            height: '40px',
+            textAlign: 'center'
+        }
+        },
+        {
+        type: 'bar',
+        backgroundColor: '#fbfcf7',
+        borderColor: '#384653',
+        borderRadius: '4px',
+        borderWidth: '1px',
+        width: '96%',
+        height: '68%',
+        x: '2%',
+        y: '30%',
+        legend: {
+            margin: 'auto auto 10% auto',
+            backgroundColor: '#FFFFFF',
+            borderColor: '#FFFFFF',
+            borderRadius: '4px',
+            layout: 'float',
+            shadow: false,
+            toggleAction: 'remove'
+        },
+        plotarea: {
+            margin: '45px 40px 90px 60px'
+        },
+        scaleX: {
+            values: ['Bakery', 'Dairy', 'Meat', 'Produce', 'Liquor', 'Frozen'],
+            guide: {
+            visible: false
+            },
+            item: {
+            fontColor: '#384653'
+            },
+            lineColor: '#b0aaab',
+            lineWidth: '1px',
+            tick: {
+            visible: false
+            }
+        },
+        scaleY: {
+            values: '0:80:10',
+            guide: {
+            lineStyle: 'solid',
+            visible: true
+            },
+            item: {
+            paddingRight: '5%',
+            fontColor: '#384653'
+            },
+            lineColor: '#FFFFFF',
+            lineWidth: '1px',
+            tick: {
+            visible: false
+            }
+        },
+        tooltip: {
+            text: '%v %k in %t',
+            borderRadius: '4px',
+            shadow: false
+        },
+        series: [
+            {
+            text: 'Aisle 1',
+            values: [11, 26, 7, 44, 12, 30],
+            backgroundColor: '#4cc2bb',
+            legendMarker: {
+                borderColor: '#4cc2bb'
+            }
+            },
+            {
+            text: 'Aisle 2',
+            values: [9, 31, 12, 38, 19, 34],
+            backgroundColor: '#4c707e',
+            legendMarker: {
+                borderColor: '#4c707e'
+            }
+            },
+            {
+            text: 'Aisle 3',
+            values: [39, 65, 12, 58, 39, 24],
+            backgroundColor: '#dd655f',
+            legendMarker: {
+                borderColor: '#dd655f'
+            }
+            },
+            {
+            text: 'Aisle 4',
+            values: [11, 21, 17, 44, 22, 16],
+            backgroundColor: '#88a0a9',
+            legendMarker: {
+                borderColor: '#88a0a9'
+            }
+            }
+        ]
+        }
+    ]
+    };
+
+    zingchart.render({
+    id: 'myChart',
+    data: chartConfig,
+    height: '100%',
+    width: '100%',
+    });
+</script>

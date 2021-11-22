@@ -1,8 +1,6 @@
 from django.shortcuts import render
-from urllib import request
 from django.contrib.auth.decorators import login_required
 from Hosts.models import Host
-from Hosts.views import verificaServer
 
 import json
 

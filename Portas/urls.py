@@ -7,4 +7,5 @@ urlpatterns = [
     path("RegistrarPorta/", registrarPorta, name="RegistrarPorta"),
     path("ListarPortas/", ListarPortas, name="ListarPortas"),
     path("DeletarPorta/<int:id>/", DeletarPorta, name="DeletarPorta"),
+    path("EditarPortas/<int:id>/", editarPorta, name="EditarPortas"),
 ]

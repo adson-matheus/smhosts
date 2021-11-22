@@ -62,6 +62,7 @@
                                 <h4 style="margin-bottom: -5px; color: #444444;">Exportar Registros</h4>
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>PORTA</th>
                                         <th>SERVIÇO</th>
                                         <th>EDITAR</th>
@@ -71,13 +72,14 @@
                                 <tbody>
                                     {% for p in portas %}
                                     <tr>
+                                        <td>{{p.id}}</td>
                                         <td>
                                             <strong>{{ p.portaServico }}</strong>
                                         </td>
                                         <td>{{ p.servico }}</td>
                                         <td>
                                             <center>
-                                                <a href="#">
+                                                <a href="{% url 'Portas:EditarPortas' p.id %}">
                                                     <button type="button" class="btn bg-cyan waves-effect">
                                                         <i class="material-icons">mode_edit</i>
                                                     </button>

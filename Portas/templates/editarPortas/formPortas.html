@@ -1,0 +1,45 @@
+{% load widget_tweaks %}
+<form id="form_validation" method="POST">
+    {% csrf_token %}
+    <br>
+    <div class="body">
+        <div class="row clearfix">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <b><span class="marcadorRequired">*</span> PORTA</b>
+                    <div class="form-line">
+                        <input value="{{ porta.portaServico }}" name='portaServico' class='form-control' required>
+                    </div>
+                </div>
+            </div>
+            {% comment %} === {% endcomment %}
+            <div class="col-md-2">
+                <div class="form-group">
+                    <b><span class="marcadorRequired">*</span> SERVIÇO</b>
+                    <div class="form-line">
+                        <input value="{{ porta.servico }}" name='servico' class='form-control' required>
+                    </div>
+                </div>
+            </div>
+            {% comment %} === {% endcomment %}
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <h4><span class="marcadorRequired">*</span> Campos Obrigatórios</h4><br>
+            </div>
+        </div>
+        <div class="row clearfix" align="left">
+            <div class="col-md-4">
+                <button type="submit" class="btn bg-teal btn-block waves-effect">
+                    <h4>
+                        <span>REGISTRAR</span>
+                        <i class="material-icons">done_all</i>
+                    </h4>
+                </button>
+            </div>
+        </div>
+        {% comment %}  {% endcomment %}
+        
+    </div>
+</form>
+            

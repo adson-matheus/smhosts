@@ -1,7 +1,7 @@
 from django.db import models
 
 class Porta(models.Model):
-    portaServico = models.IntegerField(primary_key=True, blank=False)
+    portaServico = models.IntegerField(blank=False, default=1)
     servico = models.CharField(blank=False, max_length=200)
 
     def __str__(self):
