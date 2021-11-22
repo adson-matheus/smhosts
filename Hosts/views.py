@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
+from django.core.exceptions import ObjectDoesNotExist
 
 
 from Hosts.forms import Host_PortaForm, HostForm
@@ -29,6 +30,12 @@ def RegistroHost_Porta(request, id):
         host_porta = Host_PortaForm(request.POST)
         if host_porta.is_valid():
             host_porta.save()
+
+            #cria o evento default
+            h = Host_Porta.objects.latest('id')
+            e = Evento(host_porta_id=h, status='')
+            e.save()
+
             return redirect('Hosts:ListarHosts')
     return render(request, 'registroHost_Porta/registroHost_Porta.html', {'host': host, 'porta': porta})
 
@@ -37,11 +44,7 @@ def RegistroHost_Porta(request, id):
 def ListarHosts(request):
     hosts = Host_Porta.objects.all()
 
-    #delete os eventos antigos
-    #eh melhor tentar o update
-    eventos = Evento.objects.all()
-    eventos.delete()
-
+    #toda vez que lista os hosts, verifica o ping
     for h in hosts:
         verificaServer(h.id)
     eventos = Evento.objects.all()
@@ -74,13 +77,28 @@ def DeletarHost(request, id):
 def verificaServer(id):
     host = Host_Porta.objects.get(pk=id)
     p = ping(host.host.hostname)
+    evento = Evento.objects.filter(host_porta_id=host.id).get()
+
+    #https://docs.djangoproject.com/en/3.2/ref/models/querysets/#update-or-create
     try:
         if p < 100:
-            e = Evento(status='ONLINE', host_porta_id=host)
+            evento, created = Evento.objects.update_or_create(
+                host_porta_id=evento.host_porta_id,
+                defaults={'status':'ONLINE'},
+                )
         elif p >= 100:
-            e = Evento(status='DEMORANDO', host_porta_id=host)
+            evento, created = Evento.objects.update_or_create(
+                host_porta_id=evento.host_porta_id,
+                defaults={'status':'DEMORANDO'},
+                )
         else:
-            e = Evento(status='OFFLINE', host_porta_id=host)
+            evento, created = Evento.objects.update_or_create(
+                host_porta_id=evento.host_porta_id,
+                defaults={'status':'OFFLINE'},
+                )
     except TypeError:
-        e = Evento(status='OFFLINE', host_porta_id=host)
-    e.save()
+        evento, created = Evento.objects.update_or_create(
+            host_porta_id=evento.host_porta_id,
+            defaults={'status':'OFFLINE'},
+            )
+    evento.save()
