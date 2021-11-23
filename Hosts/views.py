@@ -72,7 +72,7 @@ def DeletarHost(request, id):
 
 def verificaServer(id):
     host = Host_Porta.objects.get(pk=id)
-    p = ping(host.host.hostname)
+    p = ping(host.host.hostname, unit='ms')
     evento = Evento.objects.filter(host_porta_id=host.id).get()
 
     #https://docs.djangoproject.com/en/3.2/ref/models/querysets/#update-or-create
@@ -80,12 +80,12 @@ def verificaServer(id):
         if p < 100:
             evento, created = Evento.objects.update_or_create(
                 host_porta_id=evento.host_porta_id,
-                defaults={'status':'ONLINE'},
+                defaults={'status':'ONLINE', 'ping':'%.2f' %p},
                 )
-        elif p >= 100:
+        elif p >= 100 and p < 200:
             evento, created = Evento.objects.update_or_create(
                 host_porta_id=evento.host_porta_id,
-                defaults={'status':'DEMORANDO'},
+                defaults={'status':'DEMORANDO', 'ping':'%.2f' %p},
                 )
         else:
             evento, created = Evento.objects.update_or_create(

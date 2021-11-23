@@ -59,6 +59,10 @@ class Evento(models.Model):
         blank=True,
         default = ''
     )
+    ping = models.FloatField(
+        blank=True,
+        null=True,
+        max_length=50)
     host_porta_id = models.ForeignKey(
         Host_Porta,
         null=True,

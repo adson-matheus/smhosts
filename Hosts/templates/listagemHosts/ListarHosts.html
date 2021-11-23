@@ -69,6 +69,7 @@
                                         <th>SERVIÇO</th>
                                         <th>DESCRIÇÃO</th>
                                         <th>STATUS</th>
+                                        <th>PING (MS)</th>
                                         <th>ÚLTIMA ATUALIZAÇÃO</th>
                                         <th>EDITAR</th>
                                         <th>DELETAR</th>
@@ -86,6 +87,11 @@
                                         <td>{{ e.host_porta_id.porta.servico }}</td>
                                         <td>{{ e.host_porta_id.host.descricao }}</td>
                                         <td>{{ e.status }}</td>
+                                        {% if e.ping == None %}
+                                            <td>---</td>
+                                        {% else %}
+                                            <td>{{ e.ping }}</td>
+                                        {% endif %}
                                         <td>{{ e.dataHora|date:'SHORT_DATE_FORMAT'}} - {{e.dataHora|time:"H:i" }}</td>
                                         <td>
                                             <center>
