@@ -12,30 +12,40 @@
     let chartConfig1 = {
         type: 'bar',
         title: {
-            text: 'Hosts'
+            text: 'Hosts',
+            fontSize: 18,
+            fontColor: '#009688'
         },
         legend: {
             draggable: true,
         },
         scaleX: {
             label: { text: 'Hosts' },
-            labels: ['{{listaHosts}}'],
         },
         scaleY: {
-            label: { text: 'Ping (ms)' }
+            label: { text: 'Ping (ms)' },
         },
         plot: {
+            valueBox: {
+                {% comment %} text:  {% endcomment %}
+                alpha: 0.7,
+                borderRadius: 3,
+                fontFamily: 'Roboto',
+                fontSize: 12,
+                fontWeight: 'bold',
+                padding: '5 8',
+            },
             animation: {
                 effect: 'ANIMATION_EXPAND_BOTTOM',
                 method: 'ANIMATION_STRONG_EASE_OUT',
                 sequence: 'ANIMATION_BY_NODE',
-                speed: 275,
+                speed: 500,
             },
             cursor: 'pointer',
             selectedState: {
                 backgroundColor: '#1DE9B6',
                 borderColor: 'grey',
-                borderWidth: '4px'
+                borderWidth: '1px'
             },
             selectionMode: 'plot'
         },
@@ -48,6 +58,12 @@
 
     let chartConfig2 = {
         type: 'gauge',
+        title: {
+            text: 'Velocidade (ms)',
+            bold: true,
+            fontSize: 18,
+            fontColor: '#009688'
+        },
         scaleR: {
             values: '0:100:10',
             center: {
@@ -56,7 +72,7 @@
             }
         },
         series: [{
-            values: [35],
+            values: {{listaPing}},
             backgroundColor: '#009688'
         }]
     };
