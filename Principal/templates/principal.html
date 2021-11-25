@@ -15,30 +15,102 @@
     {% include "./Menu_Left.html" %}
 
     <section class="content">
-        <div class="body">
-            <ol class="breadcrumb breadcrumb-col-teal">
-                <h5>Você está em:</h5>
-                <li class="active"><i class="material-icons">home</i> Início</li>
-            </ol>
-        </div>
-        
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="body">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="card" style="padding: 25px;">
-                            {% include "dashboard.html" %}
-                            {% comment %} {% include "zingchart.html" %} {% endcomment %}
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                        <div class="card" style="padding:25px;">
+                            <h3 style="text-align:center">SERVIDORES ONLINE</h3>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>HOSTNAME</th>
+                                            <th>TIPO DE HOST</th>
+                                            <th>PORTA</th>
+                                            <th>SERVIÇO</th>
+                                            <th>DESCRIÇÃO</th>
+                                            <th>STATUS</th>
+                                            <th>PING (MS)</th>
+                                            <th>ÚLTIMA ATUALIZAÇÃO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for e in eventos %}
+                                            {% if e.status == 'ONLINE' %}
+                                            <tr>
+                                                <td>{{ e.host_porta_id.host.id }}</td>
+                                                <td>
+                                                    <strong>{{ e.host_porta_id.host.hostname }}</strong>
+                                                </td>
+                                                <td>{{ e.host_porta_id.host.tipoHost }}</td>
+                                                <td>{{ e.host_porta_id.porta.portaServico }}</td>
+                                                <td>{{ e.host_porta_id.porta.servico }}</td>
+                                                <td>{{ e.host_porta_id.host.descricao }}</td>
+                                                <td>{{ e.status }}</td>
+                                                {% if e.ping == None %}
+                                                    <td>---</td>
+                                                {% else %}
+                                                    <td>{{ e.ping }}</td>
+                                                {% endif %}
+                                                <td>{{ e.dataHora|date:'SHORT_DATE_FORMAT'}} - {{e.dataHora|time:"H:i" }}</td>
+                                            </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <br>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="container-fluid">
+            <div class="row clearfix">
+                <div class="body">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div class="card" style="padding: 25px;">
+                            {% include "dashboard.html" %}
+                            {% comment %} {% include "zingchart.html" %} {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="card" style="padding: 25px;">
+                            <h3 style="text-align:center">SERVIDORES OFFLINE</h3>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>HOSTNAME</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for e in eventos %}
+                                            {% if e.status == 'OFFLINE' %}
+                                                <tr>
+                                                    <td>{{ e.host_porta_id.host.id }}</td>
+                                                    <td>{{ e.host_porta_id.host.hostname }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 
     {% include "./Modal_Info_Sistema.html" %}
 
-    {% include "Scripts.html" %}
+    {% include "./Scripts.html" %}
 
 </body>
 

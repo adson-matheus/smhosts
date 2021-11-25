@@ -16,7 +16,10 @@ def principal(request):
 
     eventos = Evento.objects.all()
     for e in eventos:
-        listaPing.append(e.ping)
-        listaHosts.append(e.host_porta_id.host.hostname)
-    #listaPing.remove(None)
+        if e.ping == None:
+            pass
+        else:
+            listaPing.append(e.ping)
+            listaHosts.append(e.host_porta_id.host.id)
+
     return render(request, 'principal.html', {'eventos': eventos, 'listaPing':listaPing, 'listaHosts':listaHosts})

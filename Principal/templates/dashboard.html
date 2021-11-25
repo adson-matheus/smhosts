@@ -4,9 +4,7 @@
   <div id="myChart1" class="chart--container">
     <a class="zc-ref" href="https://www.zingchart.com/">Powered by ZingChart</a>
   </div>
-  <div id="myChart2" class="chart--container">
-    <a class="zc-ref" href="https://www.zingchart.com/">Powered by ZingChart</a>
-  </div>
+
   <script>
     ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
     let chartConfig1 = {
@@ -21,6 +19,7 @@
         },
         scaleX: {
             label: { text: 'Hosts' },
+            labels: {{listaHosts}}
         },
         scaleY: {
             label: { text: 'Ping (ms)' },
@@ -56,34 +55,6 @@
         }]
     };
 
-    let chartConfig2 = {
-        type: 'gauge',
-        title: {
-            text: 'Velocidade (ms)',
-            bold: true,
-            fontSize: 18,
-            fontColor: '#009688'
-        },
-        scaleR: {
-            values: '0:100:10',
-            center: {
-                backgroundColor: '#009688',
-                borderWidth: '0px'
-            }
-        },
-        series: [{
-            values: {{listaPing}},
-            backgroundColor: '#009688'
-        }]
-    };
-
-    zingchart.bind('myChart1', 'node_click', function(e) {
-        zingchart.exec('myChart2', 'setseriesvalues', {
-            plotindex: 0,
-            values: [e.value]
-        });
-    });
-
     zingchart.render({
         id: 'myChart1',
         data: chartConfig1,
@@ -91,10 +62,4 @@
         width: '100%',
     });
 
-    zingchart.render({
-        id: 'myChart2',
-        data: chartConfig2,
-        height: '100%',
-        width: '100%',
-    });
   </script>
