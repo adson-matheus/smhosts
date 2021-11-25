@@ -85,3 +85,11 @@ function ConfirmarDeletePorta(valor) {
         }
     })
 }
+
+function alertaAddPorta(){
+    Swal.fire(
+        'Host Salvo!',
+        'Adicione uma porta ao host!',
+        'info'
+      )
+}
