@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
 from Hosts.models import Porta
 from .forms import PortaForm
@@ -12,7 +12,7 @@ def registrarPorta(request):
             form.save()
             return redirect('Portas:ListarPortas')
     else:
-        form = PortaForm()
+            form = PortaForm()
     return render(request, 'registroPortas/RegistrarPorta.html', {'form':form})
 
 @login_required

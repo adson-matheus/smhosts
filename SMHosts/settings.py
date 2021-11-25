@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'Principal',
     'Hosts',
+    'Portas',
+    'Usuarios',
     'ping3',
     'datetime',
-    'Portas',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +132,7 @@ STATICFILES_DIRS = [
 ]
 
 # LOGIN
-LOGIN_URL = '/login/'
+LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/loadApp/'
 LOGOUT_REDIRECT_URL = '/'
 
