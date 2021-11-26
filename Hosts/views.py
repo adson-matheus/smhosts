@@ -97,4 +97,4 @@ def verificaServer(id):
             host_porta_id=evento.host_porta_id,
             defaults={'status':'OFFLINE'},
             )
-    evento.save()
+    #evento.save()

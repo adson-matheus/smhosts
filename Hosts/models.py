@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 class Porta(models.Model):
     portaServico = models.IntegerField(blank=False, default=1)
@@ -69,5 +70,6 @@ class Evento(models.Model):
         related_name='host_porta_id',
         on_delete=models.CASCADE
     )
+    history = HistoricalRecords()
     def __str__(self):
         return '{} - {}'.format(self.host_porta_id, self.status)
