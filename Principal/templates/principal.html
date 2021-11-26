@@ -20,7 +20,7 @@
                 <div class="body">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
                         <div class="card" style="padding:25px;">
-                            <h3 style="text-align:center">SERVIDORES ONLINE</h3>
+                            <h3 style="text-align:center">HOSTS ONLINE</h3>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover dataTable">
                                     <thead>
@@ -76,10 +76,14 @@
                             {% include "dashboard.html" %}
                             {% comment %} {% include "zingchart.html" %} {% endcomment %}
                         </div>
+                        <div class="card" style="padding: 25px;">
+                            {% include "dashboard2.html" %}
+                            {% comment %} {% include "zingchart.html" %} {% endcomment %}
+                        </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="card" style="padding: 25px;">
-                            <h3 style="text-align:center">SERVIDORES OFFLINE</h3>
+                            <h3 style="text-align:center">HOSTS OFFLINE <i class="material-icons">error</i></h3>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover dataTable">
                                     <thead>

@@ -1,0 +1,111 @@
+{% load static %}
+<script nonce="undefined" src="https://cdn.zingchart.com/zingchart.min.js"></script>
+
+    <div id="myChart2" class="chart--container">
+        <a class="zc-ref" href="https://www.zingchart.com/">Powered by ZingChart</a>
+    </div>
+
+<script>
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+    let chartConfig = {
+        type: 'mixed',
+        title: {
+            text: 'Hosts',
+            align: 'center',
+            marginLeft: '23%'
+        },
+        legend: {
+            adjustLayout: true,
+            verticalAlign: 'middle'
+        },
+        scaleX: {
+            labels: ['']  // one label for every datapoint
+        },
+        scaleY: {
+            guide: { // dashed lines
+                visible: false
+            },
+            label: {
+                text: 'Ping (ms)',
+                fontSize: '14px'
+            }
+        },
+        scaleY2: {
+            label: {
+                text: 'Remaing and completed tasks',
+                fontSize: '14px'
+            },
+            maxValue: 100,
+            minValue: 0,
+            step: 25 // can define scale step values or default
+        },
+        crosshairX: {
+            lineColor: '#424242',
+            lineGapSize: '4px',
+            lineStyle: 'dotted',
+            plotLabel: {
+                padding: '15px',
+                backgroundColor: 'white',
+                bold: true,
+                borderColor: '#e3e3e3',
+                borderRadius: '5px',
+                fontColor: '#2f2f2f',
+                fontFamily: 'Lato',
+                fontSize: '12px',
+                shadow: true,
+                shadowAlpha: 0.2,
+                shadowBlur: 5,
+                shadowColor: '#a1a1a1',
+                shadowDistance: 4,
+                textAlign: 'left'
+            },
+            scaleLabel: {
+                backgroundColor: '#424242'
+            }
+        },
+        series: [
+
+            {
+                type: 'line',
+                text: '192.168.0.1',
+                values: {{pingTeste}}.reverse(),
+                lineColor: '#42a5f5',
+                marker: {
+                    visible: false
+                },
+                scales: 'scale-x, scale-y'
+            },
+            {
+                type: 'line',
+                text: 'Remaining Effort',
+                values: [25, 32, 57, 79, 15, 24, 57, 75].sort().reverse(),
+                lineColor: '#5c6bc0',
+                marker: {
+                    type: 'square',
+                    backgroundColor: '#5c6bc0'
+                },
+                scales: 'scale-x, scale-y'
+            },
+            {
+                type: 'line',
+                text: 'Completed Tasks',
+                values: [90, 80, 70, 60, 50, 40, 30, 20],
+                lineColor: '#66bb6a',
+                marker: {
+                    visible: false
+                },
+                scales: 'scale-x, scale-y'
+            },
+
+        ]
+    };
+
+    // RENDER CHARTS
+    // -----------------------------
+    zingchart.render({
+    id: 'myChart2',
+    data: chartConfig,
+    height: '100%',
+    width: '100%',
+    });
+</script>
