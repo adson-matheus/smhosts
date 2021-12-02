@@ -8,96 +8,140 @@
 <script>
     ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
     let chartConfig = {
-        type: 'mixed',
-        title: {
-            text: 'Hosts',
-            align: 'center',
-            marginLeft: '23%'
+      type: 'line',
+      backgroundColor: '#fff',
+      borderColor: '#dae5ec',
+      borderWidth: '1px',
+      width: '100%',
+      height: '100%',
+      title: {
+        text: 'HOSTS',
+        marginTop: '7px',
+        marginLeft: '12px',
+        backgroundColor: 'none',
+        fontColor: '#707d94',
+        fontFamily: 'Arial',
+        fontSize: '11px',
+        shadow: false,
+        textAlign: 'left'
+      },
+      plot: {
+        animation: {
+          delay: 500,
+          effect: 'ANIMATION_SLIDE_LEFT'
+        }
+      },
+      plotarea: {
+        margin: '50px 25px 70px 46px'
+      },
+      scaleY: {
+        values: '0:100:20',
+        guide: {
+          alpha: 0.5,
+          lineColor: '#d2dae2',
+          lineStyle: 'solid',
+          lineWidth: '1px'
         },
-        legend: {
-            adjustLayout: true,
-            verticalAlign: 'middle'
+        item: {
+          paddingRight: '5px',
+          fontColor: '#8391a5',
+          fontFamily: 'Arial',
+          fontSize: '10px'
         },
-        scaleX: {
-            labels: ['']  // one label for every datapoint
+        lineColor: 'none',
+        tick: {
+          visible: false
+        }
+      },
+      scaleX: {
+        values: [
+            {% for d in dataHora %}
+                "{{d|time:'H:i'}}",
+            {% endfor %}
+            ],
+        guide: {
+          visible: false
         },
-        scaleY: {
-            guide: { // dashed lines
-                visible: false
-            },
-            label: {
-                text: 'Ping (ms)',
-                fontSize: '14px'
-            }
+        item: {
+          paddingTop: '5px',
+          fontColor: '#8391a5',
+          fontFamily: 'Arial',
+          fontSize: '10px'
         },
-        scaleY2: {
-            label: {
-                text: 'Remaing and completed tasks',
-                fontSize: '14px'
-            },
-            maxValue: 100,
-            minValue: 0,
-            step: 25 // can define scale step values or default
+        lineColor: '#d2dae2',
+        lineWidth: '2px',
+        tick: {
+          lineColor: '#d2dae2',
+          lineWidth: '1px'
+        }
+      },
+      legend: {
+        margin: 'auto auto 15 auto',
+        backgroundColor: 'none',
+        borderWidth: '0px',
+        item: {
+          margin: '0px',
+          padding: '0px',
+          fontColor: '#707d94',
+          fontFamily: 'Arial',
+          fontSize: '9px'
         },
-        crosshairX: {
-            lineColor: '#424242',
-            lineGapSize: '4px',
-            lineStyle: 'dotted',
-            plotLabel: {
-                padding: '15px',
-                backgroundColor: 'white',
-                bold: true,
-                borderColor: '#e3e3e3',
-                borderRadius: '5px',
-                fontColor: '#2f2f2f',
-                fontFamily: 'Lato',
-                fontSize: '12px',
-                shadow: true,
-                shadowAlpha: 0.2,
-                shadowBlur: 5,
-                shadowColor: '#a1a1a1',
-                shadowDistance: 4,
-                textAlign: 'left'
-            },
-            scaleLabel: {
-                backgroundColor: '#424242'
-            }
+        layout: 'x4',
+        marker: {
+          type: 'match',
+          padding: '3px',
+          fontFamily: 'Arial',
+          fontSize: '10px',
+          lineWidth: '2px',
+          showLine: 'true',
+          size: 4
         },
-        series: [
-
+        shadow: false
+      },
+      scaleLabel: {
+        padding: '5px 10px',
+        backgroundColor: '#707d94',
+        borderRadius: '5px',
+        fontColor: '#ffffff',
+        fontFamily: 'Arial',
+        fontSize: '10px'
+      },
+      crosshairX: {
+        lineColor: '#707d94',
+        lineWidth: '1px',
+        plotLabel: {
+          padding: '5px 10px',
+          alpha: 1,
+          borderRadius: '5px',
+          fontColor: '#000',
+          fontFamily: 'Arial',
+          fontSize: '10px',
+          shadow: false
+        }
+      },
+      tooltip: {
+        visible: false
+      },
+      series: [
+        {% for l,h in graf %}
             {
-                type: 'line',
-                text: '192.168.0.1',
-                values: {{pingTeste}}.reverse(),
-                lineColor: '#42a5f5',
-                marker: {
-                    visible: false
-                },
-                scales: 'scale-x, scale-y'
+            text: '{{l}}',
+            values: {{h}},
+            lineColor: '#4dbac0',
+            lineWidth: '2px',
+            
+            marker: {
+                backgroundColor: '#fff',
+                borderColor: '#36a2a8',
+                borderWidth: '1px',
+                shadow: false,
+                size: 3
             },
-            {
-                type: 'line',
-                text: 'Remaining Effort',
-                values: [25, 32, 57, 79, 15, 24, 57, 75].sort().reverse(),
-                lineColor: '#5c6bc0',
-                marker: {
-                    type: 'square',
-                    backgroundColor: '#5c6bc0'
-                },
-                scales: 'scale-x, scale-y'
+            palette: 0,
+            shadow: false
             },
-            {
-                type: 'line',
-                text: 'Completed Tasks',
-                values: [90, 80, 70, 60, 50, 40, 30, 20],
-                lineColor: '#66bb6a',
-                marker: {
-                    visible: false
-                },
-                scales: 'scale-x, scale-y'
-            },
-
-        ]
+        {% endfor %}
+      ]
     };
 
     // RENDER CHARTS

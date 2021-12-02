@@ -19,7 +19,11 @@
         },
         scaleX: {
             label: { text: 'Hosts' },
-            labels: {{listaHosts}}
+            labels: [
+            {% for l in listaHosts %} 
+                '{{l}}',
+            {% endfor %}
+            ],
         },
         scaleY: {
             label: { text: 'Ping (ms)' },
