@@ -7,6 +7,19 @@
 
 <script>
     ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+    var myTheme = {
+        palette: {
+            line: [
+            ['#FBFCFE', '#00BAF2', '#00BAF2', '#00a7d9'], /* light blue */
+            ['#FBFCFE', '#E80C60', '#E80C60', '#d00a56'], /* light pink */
+            ['#FBFCFE', '#9B26AF', '#9B26AF', '#8b229d'], /* light purple */
+            ['#FBFCFE', '#E2D51A', '#E2D51A', '#E2D51A'], /* med yellow */
+            ['#FBFCFE', '#FB301E', '#FB301E', '#e12b1b'], /* med red */
+            ['#FBFCFE', '#00AE4D', '#00AE4D', '#00AE4D'], /* med green */
+            ]
+        },
+    };
+    
     let chartConfig = {
       type: 'line',
       backgroundColor: '#fff',
@@ -23,37 +36,47 @@
         fontFamily: 'Arial',
         fontSize: '11px',
         shadow: false,
-        textAlign: 'left'
+        textAlign: 'center'
       },
       plot: {
         animation: {
-          delay: 500,
-          effect: 'ANIMATION_SLIDE_LEFT'
+          delay: 800,
+          effect: '1',
+          sequence: '3',
         }
       },
       plotarea: {
         margin: '50px 25px 70px 46px'
       },
       scaleY: {
-        values: '0:100:20',
+        label: {
+            text: 'Ping (ms)',
+            fontColor: '#808080',
+        },
+        values: '0:{{maxValorGraf}}:{{passo}}',
         guide: {
           alpha: 0.5,
-          lineColor: '#d2dae2',
+          lineColor: '#808080',
           lineStyle: 'solid',
-          lineWidth: '1px'
+          lineWidth: '0.5px'
         },
         item: {
           paddingRight: '5px',
-          fontColor: '#8391a5',
+          fontColor: '#808080',
           fontFamily: 'Arial',
           fontSize: '10px'
         },
-        lineColor: 'none',
+        lineColor: '#808080',
         tick: {
           visible: false
         }
       },
       scaleX: {
+        label: {
+            text: 'Tempo',
+            fontColor: '#808080',
+            textAlign: 'right',
+        },
         values: [
             {% for d in dataHora %}
                 "{{d|time:'H:i'}}",
@@ -68,8 +91,8 @@
           fontFamily: 'Arial',
           fontSize: '10px'
         },
-        lineColor: '#d2dae2',
-        lineWidth: '2px',
+        lineColor: '#000',
+        lineWidth: '0.3px',
         tick: {
           lineColor: '#d2dae2',
           lineWidth: '1px'
@@ -127,17 +150,10 @@
             {
             text: '{{l}}',
             values: {{h}},
-            lineColor: '#4dbac0',
-            lineWidth: '2px',
-            
             marker: {
-                backgroundColor: '#fff',
-                borderColor: '#36a2a8',
-                borderWidth: '1px',
                 shadow: false,
-                size: 3
+                size: 5
             },
-            palette: 0,
             shadow: false
             },
         {% endfor %}
@@ -151,5 +167,6 @@
     data: chartConfig,
     height: '100%',
     width: '100%',
+    defaults: myTheme
     });
 </script>

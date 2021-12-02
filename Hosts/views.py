@@ -77,12 +77,12 @@ def verificaServer(id):
 
     #https://docs.djangoproject.com/en/3.2/ref/models/querysets/#update-or-create
     try:
-        if p < 100:
+        if p < 1000:
             evento, created = Evento.objects.update_or_create(
                 host_porta_id=evento.host_porta_id,
                 defaults={'status':'ONLINE', 'ping':'%.2f' %p},
                 )
-        elif p >= 100 and p < 200:
+        elif p >= 500 and p < 1000:
             evento, created = Evento.objects.update_or_create(
                 host_porta_id=evento.host_porta_id,
                 defaults={'status':'DEMORANDO', 'ping':'%.2f' %p},

@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from Hosts.models import Evento, Host_Porta
 from Hosts.views import verificaServer
 
+import numpy as np
+
 @login_required
 def principal(request):
     hosts = Host_Porta.objects.all()
@@ -10,7 +12,8 @@ def principal(request):
     histPingHost = []
     histTodosHosts = []
     dataHora = []
-    
+    maxValorGraf = 0
+
     #toda vez que atualizar a pagina inicial, verifica o ping
     for h in hosts:
         verificaServer(h.id)
@@ -25,7 +28,10 @@ def principal(request):
     #zip junta as duas listas
     graf = zip(listaHosts, histTodosHosts)
 
-    return render(request, 'principal.html', {'eventos': eventos, 'listaPing':listaPing, 'listaHosts':listaHosts, 'dataHora':dataHora, 'graf':graf})
+    maxValorGraf += int(np.max(histTodosHosts) + 1) #maior valor do vetor + 1
+    passo = int(maxValorGraf / 10)
+
+    return render(request, 'principal.html', {'eventos': eventos, 'listaPing':listaPing, 'listaHosts':listaHosts, 'dataHora':dataHora, 'graf':graf, 'maxValorGraf':maxValorGraf, 'passo':passo})
 
 def graficoBarras(eventos):
     listaPing = []
@@ -35,7 +41,7 @@ def graficoBarras(eventos):
             pass
         else:
             listaPing.append(e.ping)
-            listaHosts.append(e.host_porta_id.host.hostname)
+            listaHosts.append(e.host_porta_id.host.descricao)
     return listaPing, listaHosts
 
 def historicoDePings(id):
