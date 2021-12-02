@@ -1,43 +1,61 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from Hosts.models import Evento, Host_Porta
-
 from Hosts.views import verificaServer
-import json
 
 @login_required
 def principal(request):
     hosts = Host_Porta.objects.all()
     eventos = Evento.objects.all()
-    listaPing = []
-    listaHosts = []
-    pingTeste = []
-    pingsAll = []
+    histPingHost = []
+    histTodosHosts = []
+    dataHora = []
     
     #toda vez que atualizar a pagina inicial, verifica o ping
     for h in hosts:
         verificaServer(h.id)
 
-    #guarda tudo em pingsAll
+    #guarda tudo em histTodosHosts
     for e in eventos:
-        pingTeste = retornaPing(e.id)
-        pingsAll.append(pingTeste)
+        histPingHost, dataHora = historicoDePings(e.id)
+        histTodosHosts.append(histPingHost)
 
+    listaPing, listaHosts = graficoBarras(eventos)
+    
+    #zip junta as duas listas
+    graf = zip(listaHosts, histTodosHosts)
+
+    return render(request, 'principal.html', {'eventos': eventos, 'listaPing':listaPing, 'listaHosts':listaHosts, 'dataHora':dataHora, 'graf':graf})
+
+def graficoBarras(eventos):
+    listaPing = []
+    listaHosts = []
     for e in eventos:
         if e.ping == None:
             pass
         else:
             listaPing.append(e.ping)
-            listaHosts.append(e.host_porta_id.host.id)
+            listaHosts.append(e.host_porta_id.host.hostname)
+    return listaPing, listaHosts
 
-    return render(request, 'principal.html', {'eventos': eventos, 'listaPing':listaPing, 'listaHosts':listaHosts, 'pingTeste':pingTeste, 'pingsAll':pingsAll})
-
-def retornaPing(id):
+def historicoDePings(id):
     #retorna todos os pings ja feitos
-    #envia para o grafico
     evento = Evento.objects.get(pk=id)
     historicoEvento = evento.history.all()
-    listaPing = []
+    p = []
+    d = [] #lista com horas para usar no grafico
+
     for e in historicoEvento:
-        listaPing.append(e.ping)
-    return listaPing
+        p.append(e.ping)
+        d.append(e.dataHora)
+    d.pop()
+    p.pop() #elimina o None de quando foi criado
+    
+    if len(d) >= 10:
+        d = d[:10]
+    if len(p) >= 10:
+        p = p[:10] #pega apenas os 10 ultimos pings
+    
+    d.reverse()
+    p.reverse() #envia reverse para mostrar no grafico
+    return p, d
