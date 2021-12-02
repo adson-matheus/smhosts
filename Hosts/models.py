@@ -70,6 +70,6 @@ class Evento(models.Model):
         related_name='host_porta_id',
         on_delete=models.CASCADE
     )
-    history = HistoricalRecords()
+    history = HistoricalRecords(cascade_delete_history=True)
     def __str__(self):
         return '{} - {}'.format(self.host_porta_id, self.status)
