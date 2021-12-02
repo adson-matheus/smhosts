@@ -64,10 +64,10 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>HOSTNAME</th>
+                                        <th>DESCRIÇÃO</th>
                                         <th>TIPO DE HOST</th>
                                         <th>PORTA</th>
                                         <th>SERVIÇO</th>
-                                        <th>DESCRIÇÃO</th>
                                         <th>STATUS</th>
                                         <th>PING (MS)</th>
                                         <th>ÚLTIMA ATUALIZAÇÃO</th>
@@ -82,10 +82,10 @@
                                         <td>
                                             <strong>{{ e.host_porta_id.host.hostname }}</strong>
                                         </td>
+                                        <td>{{ e.host_porta_id.host.descricao }}</td>
                                         <td>{{ e.host_porta_id.host.tipoHost }}</td>
                                         <td>{{ e.host_porta_id.porta.portaServico }}</td>
                                         <td>{{ e.host_porta_id.porta.servico }}</td>
-                                        <td>{{ e.host_porta_id.host.descricao }}</td>
                                         <td>{{ e.status }}</td>
                                         {% if e.ping == None %}
                                             <td>---</td>
