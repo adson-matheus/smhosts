@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'Principal',
     'Hosts',
     'Portas',
-    'Usuarios',
     'ping3',
     'datetime',
     'simple_history',
