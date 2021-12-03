@@ -1,0 +1,6 @@
+Django
+django-widget-tweaks
+ping3
+datetime
+django-simple-history
+numpy
