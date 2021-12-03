@@ -28,6 +28,8 @@ def principal(request):
     #zip junta as duas listas
     graf = zip(listaHosts, histTodosHosts)
 
+    #erro ao cadastrar um novo host
+    #pois o tamanho da lista de pings eh menor que os demais
     maxValorGraf += int(np.max(histTodosHosts) + 1) #maior valor do vetor + 1
     passo = int(maxValorGraf / 10)
 
