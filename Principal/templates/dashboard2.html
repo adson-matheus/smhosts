@@ -28,7 +28,7 @@
       width: '100%',
       height: '100%',
       title: {
-        text: 'HOSTS',
+        text: 'MONITORAMENTO DE HOSTS',
         marginTop: '7px',
         marginLeft: '12px',
         backgroundColor: 'none',
@@ -79,7 +79,7 @@
         },
         values: [
             {% for d in dataHora %}
-                "{{d|time:'H:i'}}",
+                "{{d|date:'SHORT_DATE_FORMAT'}}\n{{d|time:'H:i'}}",
             {% endfor %}
             ],
         guide: {
@@ -107,7 +107,7 @@
           padding: '0px',
           fontColor: '#707d94',
           fontFamily: 'Arial',
-          fontSize: '9px'
+          fontSize: '11px'
         },
         layout: 'x4',
         marker: {
