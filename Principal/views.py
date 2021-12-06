@@ -3,8 +3,6 @@ from django.contrib.auth.decorators import login_required
 from Hosts.models import Evento, Host_Porta
 from Hosts.views import verificaServer
 
-import numpy as np
-
 @login_required
 def principal(request):
     hosts = Host_Porta.objects.all()
@@ -12,7 +10,7 @@ def principal(request):
     histPingHost = []
     histTodosHosts = []
     dataHora = []
-    maxValorGraf = 0
+    maxValorGraf = []
 
     #toda vez que atualizar a pagina inicial, verifica o ping
     for h in hosts:
@@ -22,16 +20,15 @@ def principal(request):
     for e in eventos:
         histPingHost, dataHora = historicoDePings(e.id)
         histTodosHosts.append(histPingHost)
+        maxValorGraf.append(max(histPingHost)) #pega o maior valor de ping de cada host
 
+    maxValorGraf = int(max(maxValorGraf)) + 1 #maior valor do vetor + 3
+    passo = int(maxValorGraf / 12)
+    
     listaPing, listaHosts = graficoBarras(eventos)
     
-    #zip junta as duas listas
+    #zip junta as duas listas para usar no 'for' do grafico
     graf = zip(listaHosts, histTodosHosts)
-
-    #erro ao cadastrar um novo host
-    #pois o tamanho da lista de pings eh menor que os demais
-    maxValorGraf += int(np.max(histTodosHosts) + 1) #maior valor do vetor + 1
-    passo = int(maxValorGraf / 10)
 
     return render(request, 'principal.html', {'eventos': eventos, 'listaPing':listaPing, 'listaHosts':listaHosts, 'dataHora':dataHora, 'graf':graf, 'maxValorGraf':maxValorGraf, 'passo':passo})
 
