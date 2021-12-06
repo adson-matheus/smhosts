@@ -15,5 +15,5 @@ class Host_PortaForm(ModelForm):
 class HostForm(ModelForm):
     class Meta:
         model = Host
-        fields = ['hostname', 'tipoHost', 'descricao']
+        fields = '__all__'
 

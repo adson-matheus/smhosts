@@ -5,8 +5,12 @@
 
 {% include "./head.html" %}
 
+{% if temPortaCadastrada %}
 <body class="theme-teal">
-    
+{% else %}
+<body class="theme-teal" onload='temPortaCadastrada()'>
+<meta http-equiv="refresh" content="3; url={% url 'Portas:RegistrarPorta' %}">
+{% endif %}
     {% include "../PageLoader.html" %}
 
     <div class="overlay"></div>

@@ -93,3 +93,11 @@ function alertaAddPorta(){
         'info'
       )
 }
+
+function temPortaCadastrada(){
+    Swal.fire(
+        'Ops...',
+        'Você precisa adicionar uma porta antes!',
+        'error'
+      )
+}

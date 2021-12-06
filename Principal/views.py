@@ -11,6 +11,7 @@ def principal(request):
     histTodosHosts = []
     dataHora = []
     maxValorGraf = []
+    passo = 0
 
     #toda vez que atualizar a pagina inicial, verifica o ping
     for h in hosts:
@@ -22,8 +23,9 @@ def principal(request):
         histTodosHosts.append(histPingHost)
         maxValorGraf.append(max(histPingHost)) #pega o maior valor de ping de cada host
 
-    maxValorGraf = int(max(maxValorGraf)) + 1 #maior valor do vetor + 3
-    passo = int(maxValorGraf / 12)
+    if (maxValorGraf):
+        maxValorGraf = int(max(maxValorGraf)) + 1 #maior valor do vetor + 3
+        passo = int(maxValorGraf / 12)
     
     listaPing, listaHosts = graficoBarras(eventos)
     

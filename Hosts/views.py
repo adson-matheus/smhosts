@@ -9,12 +9,18 @@ from ping3 import ping
 
 @login_required
 def RegistroHost(request):
-    host = HostForm(request.POST or None)
-    if(host.is_valid()):
-        host.save()
-        h = Host.objects.latest('id')
-        return redirect('Hosts:RegistroHost_Porta', h.id)
-    return render(request, 'registroHosts/RegistrarHost.html', {'host': host})
+    temPortaCadastrada = True
+    porta = Porta.objects.all()
+    if (porta):
+        host = HostForm(request.POST or None)
+        if(host.is_valid()):
+            host.save()
+            h = Host.objects.latest('id')
+            return redirect('Hosts:RegistroHost_Porta', h.id)
+    else:
+        host = None
+        temPortaCadastrada = False
+    return render(request, 'registroHosts/RegistrarHost.html', {'host': host, 'temPortaCadastrada':temPortaCadastrada})
 
 # add somente o host, e depois add as portas?
 
@@ -65,7 +71,7 @@ def AtualizarHost(request, id):
 
 @login_required
 def DeletarHost(request, id):
-    hostDelete = get_object_or_404(Host_Porta, pk=id)
+    hostDelete = get_object_or_404(Host, pk=id)
     hostDelete.delete()
     return redirect('Hosts:ListarHosts')
 
