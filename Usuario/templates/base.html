@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>SMHosts | Sistema de Monitoramento de Hosts</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{% static 'imagens/favicon.ico' %}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <!-- Bootstrap Core Css -->
+    <link href="{% static 'plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <!-- Waves Effect Css -->
+    <link href="{% static 'plugins/node-waves/waves.css' %}" rel="stylesheet" />
+    <!-- Animation Css -->
+    <link href="{% static 'plugins/animate-css/animate.css' %}" rel="stylesheet" />
+    <!-- SweetAlert Css -->
+    <link href="{% static 'plugins/sweetalert/sweetalert2.min.css' %}" rel="stylesheet" />
+    <!-- JQuery DataTable Css -->
+    <link href="{% static 'plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css' %}" rel="stylesheet">
+    <!-- Preloader Css -->
+    <link href="{% static 'plugins/material-design-preloader/md-preloader.css' %}" rel="stylesheet" />
+    <!-- Dropzone Css -->
+    <link href="{% static 'plugins/dropzone/dropzone.css' %}" rel="stylesheet">
+    <!-- Bootstrap Tagsinput Css -->
+    <link href="{% static 'plugins/bootstrap-tagsinput/bootstrap-tagsinput.css' %}" rel="stylesheet">
+    <!-- Bootstrap Select Css -->
+    <link href="{% static 'plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet" />
+    <!-- Custom Css -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="{% static 'css/themes/all-themes.css' %}" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f9f9fa
+        }
+        
+        .padding {
+            padding: 3rem !important
+        }
+        
+        .user-card-full {
+            overflow: hidden
+        }
+        
+        .card {
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+            box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+            border: none;
+            margin-bottom: 30px
+        }
+        
+        .m-r-0 {
+            margin-right: 0px
+        }
+        
+        .m-l-0 {
+            margin-left: 0px
+        }
+        
+        .user-card-full .user-profile {
+            border-radius: 5px 0 0 5px
+        }
+        
+        .bg-c-lite-green {
+            background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
+            background: linear-gradient(to right, #ee5a6f, #f29263)
+        }
+        
+        .user-profile {
+            padding: 40px 0px 40px 0px
+        }
+        
+        .card-block {
+            padding: 1.25rem
+        }
+        
+        .m-b-25 {
+            margin-bottom: 25px
+        }
+        
+        .img-radius {
+            border-radius: 5px
+        }
+        
+        h6 {
+            font-size: 14px
+        }
+        
+        .card .card-block p {
+            line-height: 25px
+        }
+        
+        @media only screen and (min-width: 1400px) {
+            p {
+                font-size: 14px
+            }
+        }
+        
+        .card-block {
+            padding: 1.25rem
+        }
+        
+        .b-b-default {
+            border-bottom: 1px solid #e0e0e0
+        }
+        
+        .m-b-20 {
+            margin-bottom: 20px
+        }
+        
+        .p-b-5 {
+            padding-bottom: 5px !important
+        }
+        
+        .card .card-block p {
+            line-height: 25px
+        }
+        
+        .m-b-10 {
+            margin-bottom: 10px
+        }
+        
+        .text-muted {
+            color: #919aa3 !important
+        }
+        .text-white {
+            color: #fff !important
+        }
+        .b-b-default {
+            border-bottom: 1px solid #e0e0e0
+        }
+        
+        .f-w-600 {
+            font-weight: 600
+        }
+        
+        .m-b-20 {
+            margin-bottom: 20px
+        }
+        
+        .m-t-40 {
+            margin-top: 20px
+        }
+        
+        .p-b-5 {
+            padding-bottom: 5px !important
+        }
+        
+        .m-b-10 {
+            margin-bottom: 10px
+        }
+        
+        .m-t-40 {
+            margin-top: 20px
+        }
+        
+        .user-card-full .social-link li {
+            display: inline-block
+        }
+        
+        .user-card-full .social-link li a {
+            font-size: 20px;
+            margin: 0 10px 0 0;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out
+        }
+    </style>
+</head>
+
+<body class="theme-teal">
+    <!-- loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-teal">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Por favor, aguarde...</p>
+        </div>
+    </div>
+    <!-- fim do loader -->
+
+    <div class="overlay"></div>
+
+    <!-- Top Bar -->
+    <nav class="navbar" >
+        <div class="container-fluid">
+            <div class="navbar-header header1">
+                <a href="#" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a class="navbar-brand" href="{% url 'Principal:principal' %}" style="padding-top: 5px;">
+                    <strong style="font-size: 20pt;">SMHosts</strong><br>
+                    <em>Sistema de Monitoramento de Hosts</em>
+                </a>
+            </div>
+            <div class="navbar-header header2" align="center" style="margin-left: 10%; color: #fff;">
+                <strong style="font-size: 20pt;">Escola Multicampi de Ciências Médicas do RN</strong><br>
+                <em style="text-align: center;">EMCM/UFRN</em>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{% url 'Principal:principal' %}" data-toggle="tooltip" data-placement="bottom" title="IR PARA O INÍCIO">
+                            <button type="button" class="btn btn-default waves-effect waves-teal">
+                                <i class="material-icons">home</i>
+                            </button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Usuario:infoUsuario' %}" data-toggle="tooltip" data-placement="bottom" title="INFORMAÇÕES DO USUÁRIO">
+                            <button type="button" class="btn btn-default waves-effect waves-teal">
+                                <i class="material-icons">people</i>
+                            </button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Principal:logoutApp' %}" data-toggle="tooltip" data-placement="bottom" title="SAIR DO SISTEMA">
+                            <button type="button" class="btn btn-default waves-effect waves-red">
+                                <i class="material-icons col-red">exit_to_app</i>
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar" style="position: fixed; margin-top: 0.5%;">
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">MENU DE NAVEGAÇÃO</li>
+                    <li>
+                        <a href="{% url 'Principal:principal' %}">
+                            <i class="material-icons">home</i>
+                            <span>INÍCIO</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">desktop_windows</i>
+                            <span>GERENCIAR HOSTS</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="{% url 'Hosts:RegistroHost' %}">
+                                    <i class="material-icons">devices_other</i>
+                                    <h5 style="margin-left: 10px;">Registrar Novo Host</h5>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'Hosts:ListarHosts' %}"> 
+                                    <i class="material-icons">playlist_add_check</i>
+                                    <h5 style="margin-left: 10px;">Listar Registros de Hosts</h5>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="material-icons">search</i>
+                                    <h5 style="margin-left: 10px;">Buscar Host Específico</h5>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="material-icons">insert_chart</i>
+                                    <h5 style="margin-left: 10px;">Gerar Estatísticas</h5>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">settings_ethernet</i>
+                            <span>GERENCIAR PORTAS</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="#" class="col-teal">
+                                    <i class="material-icons">queue</i>
+                                    <h5 style="margin-left: 10px;">Registrar Nova Porta</h5>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'Portas:ListarPortas' %}"> 
+                                    <i class="material-icons">playlist_add_check</i>
+                                    <h5 style="margin-left: 10px;">Listar Registros de Portas</h5>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="material-icons">search</i>
+                                    <h5 style="margin-left: 10px;">Buscar Porta Específica</h5>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="material-icons">insert_chart</i>
+                                    <h5 style="margin-left: 10px;">Gerar Estatísticas</h5>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin:index' %}" target="_blank">
+                            <i class="material-icons">settings</i>
+                            <span>ADMINISTRAR SISTEMA</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                    <h5>
+                        <a href="#" data-toggle="modal" data-target="#modalSystemInfo">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            <span>Informações do Sistema</span>
+                        </a>
+                    </h5>
+                </div>
+            </div>
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+    </section>
+    <!-- #menu left -->
+
+    <section class="content">
+        <div class="body">
+	        <ol class="breadcrumb"><h5>Você está em:</h5>
+                <li>
+                    <a href="{% url 'Principal:principal' %}">
+                        <i class="material-icons">home</i> Início
+                    </a>
+                </li>
+                <li class="active">
+                    <i class="material-icons">people</i> Informações do Usuário
+                </li>
+            </ol>
+	    </div>
+            {% block content %}{% endblock %}
+    </section>
+
+    <!-- #Modal SystemInfo -->
+    <div class="modal fade" id="modalSystemInfo" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content modal-col-teal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <span>Informações do Sistema</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <h5>
+                        Copyright &copy; 2019 - SMHosts
+                    </h5><br>
+                    <b>Desenvolvido por:</b>
+                    <a href="http://emcm.ufrn.br/dti" target="_blank" class="linkModal">Departamento de Tecnologia da Informação - DTI/EMCM</a>
+                    <br>
+
+                    <b>Template Base: </b>
+                    <span>
+                        <a href="https://gurayyarar.github.io/AdminBSBMaterialDesign/" target="_blank" class="linkModal">AdminBSB - Material Design</a>
+                    </span><br><br>
+                    <b>Versão: </b> 1.0.5
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">X Fechar</button> -->
+                        <button type="button" class="btn btn-default waves-effect m-r-20" data-dismiss="modal">
+                        <strong>X FECHAR</strong>
+                        </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIM DO MODAL -->
+    
+    <!-- scripts -->
+    <!-- Jquery Core Js -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap Core Js -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.js' %}"></script>
+    <!-- Select Plugin Js -->
+    <script src="{% static 'plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+    <!-- Slimscroll Plugin Js -->
+    <script src="{% static 'plugins/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+    <!-- Waves Effect Plugin Js -->
+    <script src="{% static 'plugins/node-waves/waves.js' %}"></script>
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="{% static 'plugins/jquery-datatable/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
+    <script src="{% static 'js/pages/ui/tooltips-popovers.js' %}"></script>
+    <!-- SweetAlert Plugin Js -->
+    <script src="{% static 'plugins/sweetalert/sweetalert2.all.min.js' %}"></script>
+    <!-- Custom Js -->
+    <script src="{% static 'js/admin.js' %}"></script>
+    <script src="{% static 'js/pages/ui/dialogs.js' %}"></script>
+    <script src="{% static 'js/pages/tables/jquery-datatable.js' %}"></script>
+    <!-- Demo Js -->
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/demo.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <!-- Jquery Validation Plugin Css -->
+    <script src="{% static 'plugins/jquery-validation/jquery.validate.js' %}"></script>
+    <!-- Sweet Alert Plugin Js -->
+    <script src="{% static 'plugins/sweetalert/sweetalert.min.js' %}"></script>
+    <!-- Bootstrap Tags Input Plugin Js -->
+    <script src="{% static 'plugins/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>
+    <!-- Dropzone Plugin Js -->
+    <script src="{% static 'plugins/dropzone/dropzone.js' %}"></script>
+    
+    
+</body>
