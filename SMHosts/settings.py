@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Principal',
     'Hosts',
     'Portas',
+    'Usuario',
     'ping3',
     'datetime',
     'simple_history',
@@ -130,6 +131,9 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     'estaticos',
+    'Usuario/templates/',
+    'Hosts/templates/',
+    'Portas/templates/',
 ]
 
 # LOGIN
