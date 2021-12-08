@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from Hosts.models import Evento, Host_Porta
-from Hosts.views import verificaServer
+from Hosts.views import verificaServer, isOffline
 
 @login_required
 def principal(request):

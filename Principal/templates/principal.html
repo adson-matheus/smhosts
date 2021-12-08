@@ -34,13 +34,14 @@
                                             <th>STATUS</th>
                                             <th>PING (MS)</th>
                                             <th>ÚLTIMA ATUALIZAÇÃO</th>
+                                            <th>LOGS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for e in eventos %}
                                             {% if e.status == 'ONLINE' %}
                                             <tr>
-                                                <td>{{ e.host_porta_id.host.id }}</td>
+                                                <td>{{ e.id }}</td>
                                                 <td>
                                                     <strong>{{ e.host_porta_id.host.hostname }}</strong>
                                                 </td>
@@ -55,6 +56,15 @@
                                                     <td>{{ e.ping }}</td>
                                                 {% endif %}
                                                 <td>{{ e.dataHora|date:'SHORT_DATE_FORMAT'}} - {{e.dataHora|time:"H:i" }}</td>
+                                                <td>
+                                                    <center>
+                                                        <a href="{% url 'Hosts:logs' e.id %}" class="material-icons">
+                                                            <button type="button" class="btn bg-cyan waves-effect">
+                                                                <i class="material-icons">update</i>
+                                                            </button>
+                                                        </a>
+                                                    </center>    
+                                                </td>    
                                             </tr>
                                             {% endif %}
                                         {% endfor %}
