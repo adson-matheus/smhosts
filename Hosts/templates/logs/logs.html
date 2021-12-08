@@ -1,0 +1,62 @@
+{% extends 'logs/base.html' %}
+{% block content %}
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="container d-flex justify-content-center">
+            <div class="col-xl-12 col-md-12">
+                <div class="card user-card-full" style="min-height: 500px;width: 100%;">
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-12">
+                            <div class="card-block">
+                                <h3 class="m-b-20 p-b-5 b-b-default f-w-600">Status</h3>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <p class="m-b-10 f-w-600">Últimas Vezes Offline</p>
+                                        {% if listaOff is None %}
+                                        <h6 class="text-muted f-w-400">Este host não ficou offline</h6>
+                                        {% else %}
+                                            {% for l in listaOff %}
+                                                <h6 class="text-muted f-w-400">{{l|date:'SHORT_DATE_FORMAT'}} {{l|time:"H:i" }}</h6>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="m-b-10 f-w-600">Último Status: {{evento.dataHora|date:'SHORT_DATE_FORMAT'}} - {{evento.dataHora|time:"H:i" }}</p>
+                                        <h6 class="text-muted f-w-400">{{evento.status}}</h6>
+                                    </div>
+                                </div>
+                                <h3 class="m-b-20 p-b-5 b-b-default f-w-600">Informações do Host</h3>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <p class="m-b-10 f-w-600">IP</p>
+                                        <h6 class="text-muted f-w-400">{{evento.host_porta_id.host.hostname}}</h6>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="m-b-10 f-w-600">Descrição</p>
+                                        <h6 class="text-muted f-w-400">{{evento.host_porta_id.host.descricao}}</h6>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="m-b-10 f-w-600">Tipo de Host</p>
+                                        <h6 class="text-muted f-w-400">{{evento.host_porta_id.host.tipoHost}}</h6>
+                                    </div>
+                                </div>
+                                <h3 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Informações da Porta</h3>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Porta utilizada</p>
+                                        <h6 class="text-muted f-w-400">{{evento.host_porta_id.porta.portaServico}}</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Protocolo referente à porta</p>
+                                        <h6 class="text-muted f-w-400">{{evento.host_porta_id.porta.servico}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
