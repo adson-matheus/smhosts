@@ -1,0 +1,202 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- reload a pagina a cada x segundos -->
+        <meta http-equiv="refresh" content="600">
+        <meta charset="UTF-8">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <title>SMHosts | Sistema de Monitoramento de Hosts</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'imagens/favicon.ico' %}">
+    
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    
+        <!-- Bootstrap Core Css -->
+        <link href="{% static 'plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+        <!-- Waves Effect Css -->
+        <link href="{% static 'plugins/node-waves/waves.css' %}" rel="stylesheet" />
+        <!-- Animation Css -->
+        <link href="{% static 'plugins/animate-css/animate.css' %}" rel="stylesheet" />
+        <!-- Preloader Css -->
+        <link href="{% static 'plugins/material-design-preloader/md-preloader.css' %}" rel="stylesheet" />
+        <!-- Custom Css -->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+        <link href="{% static 'css/themes/all-themes.css' %}" rel="stylesheet" />
+        <!-- ZingChart CSS-->
+        <link href="{% static 'css/zingchart.css' %}">
+        <style>
+            .chart--container {
+            display: inline-block;
+            min-height: 500px;
+            width: 100%;
+            height: 100%;
+            }
+    
+            .zc-ref {
+            display: none;
+            }
+        </style>
+    </head>
+{% if eventosOff %}
+<body class="theme-teal" onload="temHostOffline()">
+{% else %}
+<body class="theme-teal">
+{% endif %}
+
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-teal">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Por favor, aguarde...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+
+    <div class="overlay"></div>
+
+    <!-- Top Bar -->
+    <nav class="navbar" >
+        <div class="container-fluid">
+            <div class="navbar-header header1">
+                <a href="#" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a class="navbar-brand" href="{% url 'Principal:principal' %}" style="padding-top: 5px;">
+                    <strong style="font-size: 20pt;">SMHosts</strong><br>
+                    <em>Sistema de Monitoramento de Hosts</em>
+                </a>
+            </div>
+            <div class="navbar-header header2" align="center" style="margin-left: 10%; color: #fff;">
+                <strong style="font-size: 20pt;">Escola Multicampi de Ciências Médicas do RN</strong><br>
+                <em style="text-align: center;">EMCM/UFRN</em>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{% url 'Principal:principal' %}" data-toggle="tooltip" data-placement="bottom" title="IR PARA O INÍCIO">
+                            <button type="button" class="btn btn-default waves-effect waves-teal">
+                                <i class="material-icons">home</i>
+                            </button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Usuario:infoUsuario' %}" data-toggle="tooltip" data-placement="bottom" title="INFORMAÇÕES DO USUÁRIO">
+                            <button type="button" class="btn btn-default waves-effect waves-teal">
+                                <i class="material-icons">people</i>
+                            </button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Principal:logoutApp' %}" data-toggle="tooltip" data-placement="bottom" title="SAIR DO SISTEMA">
+                            <button type="button" class="btn btn-default waves-effect waves-red">
+                                <i class="material-icons col-red">exit_to_app</i>
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #END# Top Bar -->
+
+    <section style="margin: 100px 15px 0 15px">
+        <div class="container-fluid">
+            <div class="row clearfix">
+                <div class="body">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card" style="padding: 25px;">
+                            {% include "visualizacaoDashboard.html" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row clearfix">
+                <div class="body">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="card" style="padding: 25px;">
+                            <h3 style="text-align:center">HOSTS OFFLINE <i class="material-icons">error</i></h3>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>HOSTNAME</th>
+                                            <th>DESCRIÇÃO</th>
+                                            <th>LOGS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for e in eventos %}
+                                            {% if e.status == 'OFFLINE' %}
+                                                <tr>
+                                                    <td>{{ e.host_porta_id.host.hostname }}</td>
+                                                    <td>{{ e.host_porta_id.host.descricao }}</td>
+                                                    <td>
+                                                        <center>
+                                                            <a href="{% url 'Hosts:logs' e.id %}" class="material-icons">
+                                                                <button type="button" class="btn bg-cyan waves-effect">
+                                                                    <i class="material-icons">update</i>
+                                                                </button>
+                                                            </a>
+                                                        </center>    
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jquery Core Js -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap Core Js -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.js' %}"></script>
+    <!-- Select Plugin Js -->
+    <script src="{% static 'plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+    <!-- Slimscroll Plugin Js -->
+    <script src="{% static 'plugins/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+    <!-- Waves Effect Plugin Js -->
+    <script src="{% static 'plugins/node-waves/waves.js' %}"></script>
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="{% static 'plugins/jquery-datatable/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
+    <script src="{% static 'js/pages/ui/tooltips-popovers.js' %}"></script>
+    <!-- SweetAlert Plugin Js -->
+    <script src="{% static 'plugins/sweetalert/sweetalert2.all.min.js' %}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Custom Js -->
+    <script src="{% static 'js/admin.js' %}"></script>
+    <script src="{% static 'js/pages/ui/dialogs.js' %}"></script>
+    <script src="{% static 'js/pages/tables/jquery-datatable.js' %}"></script>
+    <!-- Demo Js -->
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/demo.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

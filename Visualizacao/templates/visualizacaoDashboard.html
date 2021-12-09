@@ -1,0 +1,171 @@
+{% load static %}
+    <div id="myChart2" class="chart--container">
+        <a class="zc-ref" href="https://www.zingchart.com/">Powered by ZingChart</a>
+    </div>
+
+<script nonce="undefined" src="https://cdn.zingchart.com/zingchart.min.js"></script>
+<script>
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+    var myTheme = {
+        palette: {
+            line: [
+            ['#FBFCFE', '#00BAF2', '#00BAF2', '#00a7d9'], /* light blue */
+            ['#FBFCFE', '#E80C60', '#E80C60', '#d00a56'], /* light pink */
+            ['#FBFCFE', '#9B26AF', '#9B26AF', '#8b229d'], /* light purple */
+            ['#FBFCFE', '#00AE4D', '#00AE4D', '#00AE4D'], /* med green */
+            ['#FBFCFE', '#E2D51A', '#E2D51A', '#E2D51A'], /* med yellow */
+            ['#FBFCFE', '#FB301E', '#FB301E', '#e12b1b'], /* med red */
+            ]
+        },
+    };
+    
+    let chartConfig = {
+      type: 'line',
+      backgroundColor: '#fff',
+      borderColor: '#dae5ec',
+      borderWidth: '1px',
+      width: '100%',
+      height: '100%',
+      title: {
+        text: 'MONITORAMENTO DE HOSTS',
+        marginTop: '7px',
+        marginLeft: '12px',
+        backgroundColor: 'none',
+        fontColor: '#707d94',
+        fontFamily: 'Arial',
+        fontSize: '16px',
+        shadow: false,
+        textAlign: 'center'
+      },
+      plot: {
+        animation: {
+          delay: 800,
+          effect: '1',
+          sequence: '3',
+        }
+      },
+      plotarea: {
+        margin: '50px 25px 70px 46px'
+      },
+      scaleY: {
+        label: {
+            text: 'Ping (ms)',
+            fontColor: '#808080',
+        },
+        values: '0:{{maxValorGraf}}:{{passo}}',
+        guide: {
+          alpha: 0.5,
+          lineColor: '#808080',
+          lineStyle: 'solid',
+          lineWidth: '0.5px'
+        },
+        item: {
+          paddingRight: '5px',
+          fontColor: '#808080',
+          fontFamily: 'Arial',
+          fontSize: '10px'
+        },
+        lineColor: '#808080',
+        tick: {
+          visible: false
+        }
+      },
+      scaleX: {
+        label: {
+            text: 'Tempo',
+            fontColor: '#808080',
+            textAlign: 'right',
+        },
+        values: [
+            {% for d in dataHora %}
+                "{{d|date:'SHORT_DATE_FORMAT'}}\n{{d|time:'H:i'}}",
+            {% endfor %}
+            ],
+        guide: {
+          visible: false
+        },
+        item: {
+          paddingTop: '5px',
+          fontColor: '#8391a5',
+          fontFamily: 'Arial',
+          fontSize: '10px'
+        },
+        lineColor: '#000',
+        lineWidth: '0.3px',
+        tick: {
+          lineColor: '#d2dae2',
+          lineWidth: '1px'
+        }
+      },
+      legend: {
+        margin: 'auto auto 15 auto',
+        backgroundColor: 'none',
+        borderWidth: '0px',
+        item: {
+          margin: '0px',
+          padding: '0px',
+          fontColor: '#707d94',
+          fontFamily: 'Arial',
+          fontSize: '11px'
+        },
+        layout: 'x5',
+        marker: {
+          type: 'match',
+          padding: '3px',
+          fontFamily: 'Arial',
+          fontSize: '10px',
+          lineWidth: '2px',
+          showLine: 'true',
+          size: 4
+        },
+        shadow: false
+      },
+      scaleLabel: {
+        padding: '5px 10px',
+        backgroundColor: '#707d94',
+        borderRadius: '5px',
+        fontColor: '#ffffff',
+        fontFamily: 'Arial',
+        fontSize: '10px'
+      },
+      crosshairX: {
+        lineColor: '#707d94',
+        lineWidth: '1px',
+        plotLabel: {
+          padding: '5px 10px',
+          alpha: 1,
+          borderRadius: '5px',
+          fontColor: '#000',
+          fontFamily: 'Arial',
+          fontSize: '10px',
+          shadow: false
+        }
+      },
+      tooltip: {
+        visible: false
+      },
+      series: [
+        {% for l,h in graf %}
+            {
+            text: '{{l}}',
+            values: {{h}},
+            marker: {
+                shadow: false,
+                size: 5
+            },
+            shadow: false
+            },
+        {% endfor %}
+      ]
+    };
+
+    // RENDER CHARTS
+    // -----------------------------
+    zingchart.render({
+    id: 'myChart2',
+    data: chartConfig,
+    height: '100%',
+    width: '100%',
+    defaults: myTheme
+    });
+</script>
