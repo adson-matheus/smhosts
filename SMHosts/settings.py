@@ -38,11 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'widget_tweaks',
     'Principal',
     'Hosts',
     'Portas',
     'Usuario',
+    'Visualizacao',
+    'widget_tweaks',
     'ping3',
     'datetime',
     'simple_history',

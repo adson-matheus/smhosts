@@ -26,6 +26,7 @@ from Hosts import urls as hosts_urls
 from Portas import urls as portas_urls
 from Principal import urls as principal_urls
 from Usuario import urls as usuario_urls
+from Visualizacao import urls as visualizacao_urls
 
 urlpatterns = [
     path('', LoginView.as_view(), name="login"),
@@ -38,4 +39,5 @@ urlpatterns = [
     path('hosts/', include(hosts_urls)),
     path('portas/', include(portas_urls)),
     path('usuario/', include(usuario_urls)),
+    path('visualizacao/', include(visualizacao_urls)),
 ]
