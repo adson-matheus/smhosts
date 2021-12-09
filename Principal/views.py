@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from Hosts.models import Evento, Host_Porta
-from Hosts.views import verificaServer, isOffline
+from Hosts.views import verificaServer
 
 @login_required
 def principal(request):
     hosts = Host_Porta.objects.all()
     eventos = Evento.objects.all()
+    eventosOn = Evento.objects.filter(status="ONLINE")
     histPingHost = []
     histTodosHosts = []
     dataHora = []
@@ -18,22 +19,26 @@ def principal(request):
         verificaServer(h.id)
 
     #guarda tudo em histTodosHosts
-    for e in eventos:
+    for e in eventosOn:
         histPingHost, dataHora = historicoDePings(e.id)
         histTodosHosts.append(histPingHost)
         maxValorGraf.append(max(histPingHost)) #pega o maior valor de ping de cada host
 
+    #valores de 'y' e 'passo' do grafico dashboard2.html
     if (maxValorGraf):
         maxValorGraf = int(max(maxValorGraf)) + 1 #maior valor do vetor + 3
         passo = int(maxValorGraf / 12)
     
+    #dashboard.html nao esta sendo utilizado
     listaPing, listaHosts = graficoBarras(eventos)
     
     #zip junta as duas listas para usar no 'for' do grafico
+    #pega cada host e seu historico de pings
     graf = zip(listaHosts, histTodosHosts)
 
     return render(request, 'principal.html', {'eventos': eventos, 'listaPing':listaPing, 'listaHosts':listaHosts, 'dataHora':dataHora, 'graf':graf, 'maxValorGraf':maxValorGraf, 'passo':passo})
 
+#grafico de barras dashboard.html nao esta sendo utilizado
 def graficoBarras(eventos):
     listaPing = []
     listaHosts = []
@@ -53,7 +58,10 @@ def historicoDePings(id):
     d = [] #lista com horas para usar no grafico
 
     for e in historicoEvento:
-        p.append(e.ping)
+        if e.ping == None:
+            pass
+        else:
+            p.append(e.ping)
         d.append(e.dataHora)
     d.pop()
     p.pop() #elimina o None de quando foi criado
