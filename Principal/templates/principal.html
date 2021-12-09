@@ -64,7 +64,7 @@
                                                             </button>
                                                         </a>
                                                     </center>    
-                                                </td>    
+                                                </td>
                                             </tr>
                                             {% endif %}
                                         {% endfor %}
@@ -83,6 +83,7 @@
                                         <tr>
                                             <th>HOSTNAME</th>
                                             <th>DESCRIÇÃO</th>
+                                            <th>LOGS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -91,6 +92,15 @@
                                                 <tr>
                                                     <td>{{ e.host_porta_id.host.hostname }}</td>
                                                     <td>{{ e.host_porta_id.host.descricao }}</td>
+                                                    <td>
+                                                        <center>
+                                                            <a href="{% url 'Hosts:logs' e.id %}" class="material-icons">
+                                                                <button type="button" class="btn bg-cyan waves-effect">
+                                                                    <i class="material-icons">update</i>
+                                                                </button>
+                                                            </a>
+                                                        </center>    
+                                                    </td>  
                                                 </tr>
                                             {% endif %}
                                         {% endfor %}
