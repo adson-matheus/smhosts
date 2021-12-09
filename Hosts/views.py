@@ -96,7 +96,7 @@ def verificaServer(id):
         else:
             evento, created = Evento.objects.update_or_create(
                 host_porta_id=evento.host_porta_id,
-                defaults={'status':'OFFLINE'},
+                defaults={'status':'OFFLINE', 'ping':'%.2f' %p},
                 )
     except TypeError:
         evento, created = Evento.objects.update_or_create(
