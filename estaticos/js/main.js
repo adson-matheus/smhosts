@@ -101,3 +101,14 @@ function temPortaCadastrada(){
         'error'
       )
 }
+
+function temHostOffline(){
+    Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Há host(s) offline(s)',
+        width: 600,
+        showConfirmButton: false,
+        timer: 10000
+      })
+}
