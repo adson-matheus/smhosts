@@ -1,14 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from Hosts.models import Evento, Host_Porta
-from Hosts.views import isOffline, verificaServer
+from Hosts.views import verificaServer
 from Principal.views import historicoDePings, graficoBarras
 
 @login_required
 def modoVisualizacao(request):
     hosts = Host_Porta.objects.all()
     eventos = Evento.objects.all()
-    eventosOn = Evento.objects.filter(status="ONLINE")
     eventosOff = Evento.objects.filter(status="OFFLINE")
     histPingHost = []
     histTodosHosts = []
@@ -21,10 +20,11 @@ def modoVisualizacao(request):
         verificaServer(h.id)
 
     #guarda tudo em histTodosHosts
-    for e in eventosOn:
+    for e in eventos:
         histPingHost, dataHora = historicoDePings(e.id)
-        histTodosHosts.append(histPingHost)
-        maxValorGraf.append(max(histPingHost)) #pega o maior valor de ping de cada host
+        if (histPingHost):
+            histTodosHosts.append(histPingHost)
+            maxValorGraf.append(max(histPingHost)) #pega o maior valor de ping de cada host
 
     #valores de 'y' e 'passo' do grafico visualizacaoDashboard.html
     if (maxValorGraf):

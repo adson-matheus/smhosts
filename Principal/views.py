@@ -7,7 +7,6 @@ from Hosts.views import verificaServer
 def principal(request):
     hosts = Host_Porta.objects.all()
     eventos = Evento.objects.all()
-    eventosOn = Evento.objects.filter(status="ONLINE")
     histPingHost = []
     histTodosHosts = []
     dataHora = []
@@ -19,10 +18,11 @@ def principal(request):
         verificaServer(h.id)
 
     #guarda tudo em histTodosHosts
-    for e in eventosOn:
+    for e in eventos:
         histPingHost, dataHora = historicoDePings(e.id)
-        histTodosHosts.append(histPingHost)
-        maxValorGraf.append(max(histPingHost)) #pega o maior valor de ping de cada host
+        if (histPingHost):
+            histTodosHosts.append(histPingHost)
+            maxValorGraf.append(max(histPingHost)) #pega o maior valor de ping de cada host
 
     #valores de 'y' e 'passo' do grafico dashboard2.html
     if (maxValorGraf):
@@ -63,9 +63,10 @@ def historicoDePings(id):
         else:
             p.append(e.ping)
         d.append(e.dataHora)
-    d.pop()
-    p.pop() #elimina o None de quando foi criado
-    
+
+    d.pop() # quando cria um evento, o primeiro nao possui ping
+            # por isso, a primeira data eh omitida
+
     if len(d) >= 10:
         d = d[:10]
     if len(p) >= 10:
