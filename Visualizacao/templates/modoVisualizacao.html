@@ -126,7 +126,7 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="body">
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="card" style="padding: 25px;">
                             <h3 style="text-align:center">HOSTS OFFLINE <i class="material-icons">error</i></h3>
                             <div class="table-responsive">
@@ -135,6 +135,9 @@
                                         <tr>
                                             <th>HOSTNAME</th>
                                             <th>DESCRIÇÃO</th>
+                                            <th>TIPO DE HOST</th>
+                                            <th>STATUS</th>
+                                            <th>ÚLTIMA ATUALIZAÇÃO</th>
                                             <th>LOGS</th>
                                         </tr>
                                     </thead>
@@ -144,6 +147,9 @@
                                                 <tr>
                                                     <td>{{ e.host_porta_id.host.hostname }}</td>
                                                     <td>{{ e.host_porta_id.host.descricao }}</td>
+                                                    <td>{{ e.host_porta_id.host.tipoHost }}</td>
+                                                    <td style="color:red"><b>{{ e.status }}</b></td>
+                                                    <td>{{ e.dataHora|date:'SHORT_DATE_FORMAT'}} - {{e.dataHora|time:"H:i" }}</td>
                                                     <td>
                                                         <center>
                                                             <a href="{% url 'Hosts:logs' e.id %}" class="material-icons">
@@ -153,6 +159,7 @@
                                                             </a>
                                                         </center>    
                                                     </td>
+                                                    
                                                 </tr>
                                             {% endif %}
                                         {% endfor %}
@@ -165,7 +172,6 @@
             </div>
         </div>
     </section>
-
     <!-- Jquery Core Js -->
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
     <!-- Bootstrap Core Js -->
