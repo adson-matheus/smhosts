@@ -83,7 +83,12 @@ def verificaServer(id):
 
     #https://docs.djangoproject.com/en/3.2/ref/models/querysets/#update-or-create
     try:
-        if p < 1000:
+        if (type(p) is bool):
+            evento, created = Evento.objects.update_or_create(
+                host_porta_id=evento.host_porta_id,
+                defaults={'status':'OFFLINE', 'ping':None},
+                )
+        elif p < 1000:
             evento, created = Evento.objects.update_or_create(
                 host_porta_id=evento.host_porta_id,
                 defaults={'status':'ONLINE', 'ping':'%.2f' %p},
@@ -96,14 +101,13 @@ def verificaServer(id):
         else:
             evento, created = Evento.objects.update_or_create(
                 host_porta_id=evento.host_porta_id,
-                defaults={'status':'OFFLINE', 'ping':'%.2f' %p},
+                defaults={'status':'OFFLINE', 'ping': None},
                 )
     except TypeError:
         evento, created = Evento.objects.update_or_create(
             host_porta_id=evento.host_porta_id,
-            defaults={'status':'OFFLINE'},
+            defaults={'status':'OFFLINE', 'ping':None},
             )
-    #evento.save()
 
 #verifica se o host ficou offline
 def isOffline(host):
@@ -115,8 +119,7 @@ def isOffline(host):
         else:
             primeiros = h
         for p in primeiros:
-            print(offline)
-            offline.append(p.dataHora)
+            offline.append(p.dataHora) #retorna as ultimas 5 vezes que esteve off
         return offline
     else:
         return None
