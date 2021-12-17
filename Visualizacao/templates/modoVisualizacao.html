@@ -14,7 +14,7 @@
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-    
+        
         <!-- Bootstrap Core Css -->
         <link href="{% static 'plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
         <!-- Waves Effect Css -->
@@ -29,6 +29,8 @@
         <link href="{% static 'css/themes/all-themes.css' %}" rel="stylesheet" />
         <!-- ZingChart CSS-->
         <link href="{% static 'css/zingchart.css' %}">
+        <!-- Sino Bootstrap -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             .chart--container {
             display: inline-block;
@@ -39,6 +41,149 @@
     
             .zc-ref {
             display: none;
+            }
+            {% comment %} sino {% endcomment %}
+            .ringing-bell {
+                transition: translate(-50%, -50%)
+            }
+            
+            .faa-ring {
+                color: white
+            }
+            
+            @-webkit-keyframes ring {
+                0% {
+                    -webkit-transform: rotate(-15deg);
+                    transform: rotate(-15deg)
+                }
+            
+                2% {
+                    -webkit-transform: rotate(15deg);
+                    transform: rotate(15deg)
+                }
+            
+                4% {
+                    -webkit-transform: rotate(-18deg);
+                    transform: rotate(-18deg)
+                }
+            
+                6% {
+                    -webkit-transform: rotate(18deg);
+                    transform: rotate(18deg)
+                }
+            
+                8% {
+                    -webkit-transform: rotate(-22deg);
+                    transform: rotate(-22deg)
+                }
+            
+                10% {
+                    -webkit-transform: rotate(22deg);
+                    transform: rotate(22deg)
+                }
+            
+                12% {
+                    -webkit-transform: rotate(-18deg);
+                    transform: rotate(-18deg)
+                }
+            
+                14% {
+                    -webkit-transform: rotate(18deg);
+                    transform: rotate(18deg)
+                }
+            
+                16% {
+                    -webkit-transform: rotate(-12deg);
+                    transform: rotate(-12deg)
+                }
+            
+                18% {
+                    -webkit-transform: rotate(12deg);
+                    transform: rotate(12deg)
+                }
+            
+                20% {
+                    -webkit-transform: rotate(0deg);
+                    transform: rotate(0deg)
+                }
+            }
+            
+            @keyframes ring {
+                0% {
+                    -webkit-transform: rotate(-15deg);
+                    -ms-transform: rotate(-15deg);
+                    transform: rotate(-15deg)
+                }
+            
+                2% {
+                    -webkit-transform: rotate(15deg);
+                    -ms-transform: rotate(15deg);
+                    transform: rotate(15deg)
+                }
+            
+                4% {
+                    -webkit-transform: rotate(-18deg);
+                    -ms-transform: rotate(-18deg);
+                    transform: rotate(-18deg)
+                }
+            
+                6% {
+                    -webkit-transform: rotate(18deg);
+                    -ms-transform: rotate(18deg);
+                    transform: rotate(18deg)
+                }
+            
+                8% {
+                    -webkit-transform: rotate(-22deg);
+                    -ms-transform: rotate(-22deg);
+                    transform: rotate(-22deg)
+                }
+            
+                10% {
+                    -webkit-transform: rotate(22deg);
+                    -ms-transform: rotate(22deg);
+                    transform: rotate(22deg)
+                }
+            
+                12% {
+                    -webkit-transform: rotate(-18deg);
+                    -ms-transform: rotate(-18deg);
+                    transform: rotate(-18deg)
+                }
+            
+                14% {
+                    -webkit-transform: rotate(18deg);
+                    -ms-transform: rotate(18deg);
+                    transform: rotate(18deg)
+                }
+            
+                16% {
+                    -webkit-transform: rotate(-12deg);
+                    -ms-transform: rotate(-12deg);
+                    transform: rotate(-12deg)
+                }
+            
+                18% {
+                    -webkit-transform: rotate(12deg);
+                    -ms-transform: rotate(12deg);
+                    transform: rotate(12deg)
+                }
+            
+                20% {
+                    -webkit-transform: rotate(0deg);
+                    -ms-transform: rotate(0deg);
+                    transform: rotate(0deg)
+                }
+            }
+            
+            .faa-ring.animated,
+            .faa-ring.animated-hover:hover,
+            .faa-parent.animated-hover:hover>.faa-ring {
+                -webkit-animation: ring 2s ease infinite;
+                animation: ring 2s ease infinite;
+                transform-origin-x: 50%;
+                transform-origin-y: 0px;
+                transform-origin-z: initial
             }
         </style>
     </head>
@@ -128,7 +273,7 @@
                 <div class="body">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="card" style="padding: 25px;">
-                            <h3 style="text-align:center">HOSTS OFFLINE <i class="material-icons">error</i></h3>
+                            <h3 style="text-align:center">HOSTS OFFLINE <i style="color:crimson" class="fas fa-exclamation-triangle"></i></h3>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover dataTable">
                                     <thead>
@@ -136,8 +281,8 @@
                                             <th>HOSTNAME</th>
                                             <th>DESCRIÇÃO</th>
                                             <th>TIPO DE HOST</th>
-                                            <th>STATUS</th>
                                             <th>ÚLTIMA ATUALIZAÇÃO</th>
+                                            <th>STATUS</th>
                                             <th>LOGS</th>
                                         </tr>
                                     </thead>
@@ -148,18 +293,22 @@
                                                     <td>{{ e.host_porta_id.host.hostname }}</td>
                                                     <td>{{ e.host_porta_id.host.descricao }}</td>
                                                     <td>{{ e.host_porta_id.host.tipoHost }}</td>
-                                                    <td style="color:red"><b>{{ e.status }}</b></td>
                                                     <td>{{ e.dataHora|date:'SHORT_DATE_FORMAT'}} - {{e.dataHora|time:"H:i" }}</td>
-                                                    <td>
-                                                        <center>
-                                                            <a href="{% url 'Hosts:logs' e.id %}" class="material-icons">
-                                                                <button type="button" class="btn bg-cyan waves-effect">
-                                                                    <i class="material-icons">update</i>
-                                                                </button>
-                                                            </a>
-                                                        </center>    
+                                                    <!-- creditos do bell -->
+                                                    <!-- https://bbbootstrap.com/snippets/ringing-bell-animation-font-awesome-icons-74107512 -->
+                                                    <td style="background:crimson">
+                                                        <div class="ringing-bell">
+                                                            <b style="color:white">{{ e.status }}</b>
+                                                            <i class='fas fa-bell faa-ring animated fa-lg'></i>
+                                                        </div>
                                                     </td>
-                                                    
+                                                    <td style="text-align:center">
+                                                        <a href="{% url 'Hosts:logs' e.id %}" class="material-icons">
+                                                            <button type="button" class="btn bg-cyan waves-effect">
+                                                                <i class="material-icons">update</i>
+                                                            </button>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             {% endif %}
                                         {% endfor %}
@@ -204,5 +353,6 @@
     <script src="{% static 'js/script.js' %}"></script>
     <script src="{% static 'js/demo.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+
 </body>
 </html>

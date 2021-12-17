@@ -78,7 +78,7 @@
             textAlign: 'right',
         },
         values: [
-            {% for d in dataHora %}
+            {% for d in datas %}
                 "{{d|date:'SHORT_DATE_FORMAT'}}\n{{d|time:'H:i'}}",
             {% endfor %}
             ],
@@ -149,7 +149,11 @@
         {% for l,h in graf %}
             {
             text: '{{l}}',
-            values: {{h}},
+            values: [
+            {% for ping in h %}
+              {{ping}},
+            {% endfor %}
+            ],
             marker: {
                 shadow: false,
                 size: 5
