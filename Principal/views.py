@@ -10,35 +10,22 @@ def principal(request):
     histPingHost = []
     histTodosHosts = []
     maxValorGraf = []
-    passo = 0
-    #lenMenor = 100
-    #toda vez que atualizar a pagina inicial, verifica o ping
+
     for h in hosts:
         verificaServer(h.id)
 
-    #datas = retornaDatas()
+    datas = retornaDatas()
 
     #guarda tudo em histTodosHosts
     for e in eventos:
-        histPingHost, tam = historicoDePings(e.id)
-        #if tam < lenMenor: lenMenor = tam
+        histPingHost = historicoDePings(e.id)
         if (histPingHost):
-            #if (lenMenor < len(histPingHost)):
-                #histPingHost = histPingHost[lenMenor:]
-
-            histPingSemNone = histPingHost.copy()
-            while None in histPingSemNone:
-                histPingSemNone.remove(None)
             histTodosHosts.append(histPingHost)
-            maxValorGraf.append(max(histPingSemNone)) #pega o maior valor de ping de cada host
+            listaSemNull = removeValor(histPingHost, 'null')
+            maxValorGraf.append(max(listaSemNull))
 
-    #valores de 'y' e 'passo' do grafico dashboard2.html
-    if (maxValorGraf):
-        maxValorGraf = int(max(maxValorGraf)) + 2 #maior valor do vetor + 2
-        passo = int(maxValorGraf / 100)
-
-    #dashboard.html nao esta sendo utilizado
-    listaPing, listaHosts = graficoBarras(eventos)
+    y, passo = getEixos(maxValorGraf)
+    listaHosts = getHosts(eventos)
 
     #zip junta as duas listas para usar no 'for' do grafico
     #pega cada host e seu historico de pings
@@ -46,26 +33,18 @@ def principal(request):
 
     context = {
         'eventos': eventos,
-        'listaPing':listaPing,
-        'listaHosts':listaHosts,
         'graf':graf,
-        'maxValorGraf':maxValorGraf,
-        'passo':passo
-        }
-
+        'y':y,
+        'passo':passo,
+        'datas':datas
+    }
     return render(request, 'principal.html', context)
 
-#grafico de barras dashboard.html nao esta sendo utilizado
-def graficoBarras(eventos):
-    listaPing = []
+def getHosts(eventos):
     listaHosts = []
     for e in eventos:
-        if e.ping == None:
-            pass
-        else:
-            listaPing.append(e.ping)
-            listaHosts.append(e.host_porta_id.host.descricao)
-    return listaPing, listaHosts
+        listaHosts.append(e.host_porta_id.host.descricao)
+    return listaHosts
 
 def historicoDePings(id):
     #retorna todos os pings ja feitos
@@ -77,19 +56,21 @@ def historicoDePings(id):
     estaOn = historicoEvento.first().status
     if estaOn == 'ONLINE':
         for e in historicoEvento:
-            if e.status == 'OFFLINE' or '':
-                p.append(None)
-                # if len(p) >= 10:
-                #     p = p[:10]
-                # p.reverse()
-                # return p, len(p)
+            if len(p) >= 10:
+                p = p[:10]
+                p.reverse()
+                return p
+
+            if e.status == 'ONLINE' or 'DEMORANDO':
+                if e.ping == None:
+                    p.append('null')
+                else:
+                    p.append(e.ping)
             else:
-                p.append(e.ping)
-    if len(p) >= 10:
-        p = p[:10] #pega apenas os 10 ultimos pings
+                p.append('null')
 
     p.reverse() #envia reverse para mostrar no grafico
-    return p, len(p)
+    return p
 
 def retornaDatas():
     datas = []
@@ -100,3 +81,10 @@ def retornaDatas():
     datas.reverse()
     return datas
 
+def getEixos(maximo):
+    y = int(max(maximo)) + 2
+    passo = int(y / 8)
+    return y, passo
+
+def removeValor(lista, remover):
+    return [valor for valor in lista if valor != remover]
