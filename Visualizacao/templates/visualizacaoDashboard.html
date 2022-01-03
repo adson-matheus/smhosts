@@ -52,7 +52,7 @@
             text: 'Ping (ms)',
             fontColor: '#808080',
         },
-        values: '0:{{maxValorGraf}}:{{passo}}',
+        values: '0:{{y}}:{{passo}}',
         guide: {
           alpha: 0.5,
           lineColor: '#808080',
@@ -77,7 +77,7 @@
             textAlign: 'right',
         },
         values: [
-            {% for d in dataHora %}
+            {% for d in datas %}
                 "{{d|date:'SHORT_DATE_FORMAT'}}\n{{d|time:'H:i'}}",
             {% endfor %}
             ],
