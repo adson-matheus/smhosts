@@ -10,22 +10,26 @@ def principal(request):
     histPingHost = []
     histTodosHosts = []
     maxValorGraf = []
+    listaHosts = []
 
     for h in hosts:
         verificaServer(h.id)
 
     datas = retornaDatas()
-
+    
     #guarda tudo em histTodosHosts
     for e in eventos:
         histPingHost = historicoDePings(e.id)
         if (histPingHost):
             histTodosHosts.append(histPingHost)
+            listaHosts.append(getHost(e))
             listaSemNull = removeValor(histPingHost, 'null')
             maxValorGraf.append(max(listaSemNull))
 
-    y, passo = getEixos(maxValorGraf)
-    listaHosts = getHosts(eventos)
+    if (maxValorGraf):
+        y, passo = getEixos(maxValorGraf)
+    else:
+        y = passo = 0
 
     #zip junta as duas listas para usar no 'for' do grafico
     #pega cada host e seu historico de pings
@@ -40,11 +44,8 @@ def principal(request):
     }
     return render(request, 'principal.html', context)
 
-def getHosts(eventos):
-    listaHosts = []
-    for e in eventos:
-        listaHosts.append(e.host_porta_id.host.descricao)
-    return listaHosts
+def getHost(e):
+    return e.host_porta_id.host.descricao
 
 def historicoDePings(id):
     #retorna todos os pings ja feitos

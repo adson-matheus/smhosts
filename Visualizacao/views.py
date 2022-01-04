@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from Hosts.models import Evento, Host_Porta
 from Hosts.views import verificaServer
-from Principal.views import historicoDePings, retornaDatas, removeValor, getEixos, getHosts
+from Principal.views import historicoDePings, retornaDatas, removeValor, getEixos, getHost
 
 @login_required
 def modoVisualizacao(request):
@@ -12,22 +12,26 @@ def modoVisualizacao(request):
     histPingHost = []
     histTodosHosts = []
     maxValorGraf = []
+    listaHosts = []
 
     for h in hosts:
         verificaServer(h.id)
 
     datas = retornaDatas()
-
+    
     #guarda tudo em histTodosHosts
     for e in eventos:
         histPingHost = historicoDePings(e.id)
         if (histPingHost):
             histTodosHosts.append(histPingHost)
+            listaHosts.append(getHost(e))
             listaSemNull = removeValor(histPingHost, 'null')
             maxValorGraf.append(max(listaSemNull))
 
-    y, passo = getEixos(maxValorGraf)
-    listaHosts = getHosts(eventos)
+    if (maxValorGraf):
+        y, passo = getEixos(maxValorGraf)
+    else:
+        y = passo = 0
 
     #zip junta as duas listas para usar no 'for' do grafico
     #pega cada host e seu historico de pings
