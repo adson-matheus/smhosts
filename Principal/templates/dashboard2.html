@@ -149,10 +149,11 @@
         {% for l,h in graf %}
             {
             text: '{{l}}',
+            {% load l10n %} /* https://docs.djangoproject.com/en/4.0/topics/i18n/formatting/#std:templatefilter-unlocalize */
             values: [
-            {% for ping in h %}
-              {{ping}},
-            {% endfor %}
+                {% for ping in h %}
+                  {{ping|unlocalize}},
+                {% endfor %}
             ],
             marker: {
                 shadow: false,

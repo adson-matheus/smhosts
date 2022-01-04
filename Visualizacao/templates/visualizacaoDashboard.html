@@ -148,9 +148,10 @@
         {% for l,h in graf %}
             {
             text: '{{l}}',
+            {% load l10n %}
             values: [
             {% for ping in h %}
-              {{ping}},
+              {{ping|unlocalize}},
             {% endfor %}
             ],
             marker: {
