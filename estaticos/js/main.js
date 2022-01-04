@@ -87,11 +87,11 @@ function ConfirmarDeletePorta(valor) {
 }
 
 function alertaAddPorta(){
-    Swal.fire(
-        'Host Salvo!',
-        'Adicione uma porta ao host!',
-        'info'
-      )
+    Swal.fire({
+        icon: 'warning',
+        title: 'Host Salvo!',
+        text: 'Adicione uma porta ao host!',
+    })
 }
 
 function temPortaCadastrada(){
