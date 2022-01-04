@@ -148,7 +148,11 @@
         {% for l,h in graf %}
             {
             text: '{{l}}',
-            values: {{h}},
+            values: [
+            {% for ping in h %}
+              {{ping}},
+            {% endfor %}
+            ],
             marker: {
                 shadow: false,
                 size: 5
