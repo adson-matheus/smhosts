@@ -43,7 +43,7 @@ function ConfirmarDeleteHost(valor) {
 }
 
 function ConfirmarDeletePorta(valor) {
-    swalWithBootstrapButtons = swal.mixin({
+    const swalWithBootstrapButtons = Swal.mixin({
         confirmButtonClass: 'btn btn-danger',
         cancelButtonClass: 'btn btn-success',
         confirmButtonColor: '#d33',
@@ -59,7 +59,7 @@ function ConfirmarDeletePorta(valor) {
         cancelButtonText: 'Não, Cancelar!',
         reverseButtons: true
     }).then((result) => {
-        if (result.value) {
+        if (result.isConfirmed) {
             swalWithBootstrapButtons(
                 'Deletado!',
                 'REGISTRO DELETADO COM SUCESSO!',
