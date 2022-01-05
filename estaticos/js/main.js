@@ -1,22 +1,23 @@
 function ConfirmarDeleteHost(valor) {
-    swalWithBootstrapButtons = swal.mixin({
-        confirmButtonClass: 'btn btn-danger',
-        cancelButtonClass: 'btn btn-success',
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#17a2b8',
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
         buttonsStyling: true,
     })
-    swalWithBootstrapButtons({
+    swalWithBootstrapButtons.fire({
         title: 'Você tem certeza?',
         text: "Você não poderá reverter isso!",
-        type: 'warning',
+        icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Sim, Deletar!',
         cancelButtonText: 'Não, Cancelar!',
-        reverseButtons: true
+        reverseButtons: true,
+        width: 300,
     }).then((result) => {
         if (result.value) {
-            swalWithBootstrapButtons(
+            swalWithBootstrapButtons.fire(
                 'Deletado!',
                 'REGISTRO DELETADO COM SUCESSO!',
                 'success'
@@ -33,7 +34,7 @@ function ConfirmarDeleteHost(valor) {
         } else if (
             result.dismiss === swal.DismissReason.cancel
         ) {
-            swalWithBootstrapButtons(
+            swalWithBootstrapButtons.fire(
                 'Cancelado!',
                 'O REGISTRO NÃO FOI DELETADO!',
                 'error'
@@ -44,25 +45,25 @@ function ConfirmarDeleteHost(valor) {
 
 function ConfirmarDeletePorta(valor) {
     const swalWithBootstrapButtons = Swal.mixin({
-        confirmButtonClass: 'btn btn-danger',
-        cancelButtonClass: 'btn btn-success',
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#17a2b8',
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
         buttonsStyling: true,
     })
-    swalWithBootstrapButtons({
+    swalWithBootstrapButtons.fire({
         title: 'Você tem certeza?',
-        text: "Você não poderá reverter isso!",
-        type: 'warning',
+        text: 'Você não poderá reverter isso!',
+        icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Sim, Deletar!',
         cancelButtonText: 'Não, Cancelar!',
         reverseButtons: true
     }).then((result) => {
-        if (result.isConfirmed) {
-            swalWithBootstrapButtons(
+        if (result.value) {
+            swalWithBootstrapButtons.fire(
                 'Deletado!',
-                'REGISTRO DELETADO COM SUCESSO!',
+                'PORTA DELETADA COM SUCESSO!',
                 'success'
             )
             var url;
@@ -77,13 +78,14 @@ function ConfirmarDeletePorta(valor) {
         } else if (
             result.dismiss === swal.DismissReason.cancel
         ) {
-            swalWithBootstrapButtons(
+            swalWithBootstrapButtons.fire(
                 'Cancelado!',
                 'O REGISTRO NÃO FOI DELETADO!',
                 'error'
             )
         }
     })
+    
 }
 
 function alertaAddPorta(){

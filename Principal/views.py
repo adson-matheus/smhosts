@@ -16,7 +16,7 @@ def principal(request):
         verificaServer(h.id)
 
     datas = retornaDatas()
-    
+
     #guarda tudo em histTodosHosts
     for e in eventos:
         histPingHost = historicoDePings(e.id)
@@ -84,7 +84,7 @@ def retornaDatas():
 
 def getEixos(maximo):
     y = int(max(maximo)) + 2
-    passo = int(y / 8)
+    passo = int(y / 100)
     return y, passo
 
 def removeValor(lista, remover):
