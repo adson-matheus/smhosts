@@ -52,6 +52,7 @@
         label: {
             text: 'Ping (ms)',
             fontColor: '#808080',
+            fontSize: '12px',
         },
         values: '0:{{y}}:{{passo}}',
         guide: {
@@ -76,6 +77,7 @@
             text: 'Tempo',
             fontColor: '#808080',
             textAlign: 'right',
+            fontSize: '12px',
         },
         values: [
             {% for d in datas %}
@@ -99,7 +101,7 @@
         }
       },
       legend: {
-        margin: 'auto auto 15 auto',
+        margin: 'auto auto 2 auto',
         backgroundColor: 'none',
         borderWidth: '0px',
         item: {
@@ -112,7 +114,7 @@
         layout: 'x5',
         marker: {
           type: 'match',
-          padding: '3px',
+          padding: '6px',
           fontFamily: 'Arial',
           fontSize: '10px',
           lineWidth: '2px',
