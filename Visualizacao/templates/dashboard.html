@@ -1,0 +1,212 @@
+{% extends "modoVisualizacao.html" %}
+{% block content %}
+  <!-- CHART CONTAINER -->
+  <div id="zc" class="chart--container">
+    <a href="https://www.zingchart.com/" rel="noopener" class="zc-ref">Powered by ZingChart</a>
+  </div>
+  <script nonce="undefined" src="https://cdn.zingchart.com/dev/zingchart.min.js"></script>
+  <script>
+    // window:load event for Javascript to run after HTML
+    // because this Javascript is injected into the document head
+    window.addEventListener('load', () => {
+      // Javascript code to execute after DOM content
+
+      // full ZingChart schema can be found here:
+      // https://www.zingchart.com/docs/api/json-configuration/
+      let chartConfig = {
+        "graphset": [{
+          "type": "line",
+          "labels": [{
+            "align": "left",
+            "id": "week",
+            "color": "#666666",
+            "x": 50,
+            "y": 10,
+            "fontSize": 10,
+            "fontWeight": "bold",
+            "text": "HOSTS<br><br><span style='font-size:13px;color:#000000'>%plot-0-data-week</span>",
+            "default-value": "{{lastData|date:'SHORT_DATE_FORMAT'}} - {{lastData|time:'H:i'}}"
+          }],
+          "legend": {
+            "toggle-action": "remove",
+            "margin": "60 auto auto 14",
+            "layout": "2x10",
+            "borderWidth": 0,
+            "item": {
+              "margin": "5 30 5 10",
+              "color": "#666666",
+              "fontWeight": "bold",
+              "text": "\u00A0\u00A0\u00A0\u00A0\u00A0%plot-text<br><span style='font-size:19px;color:%color'>%node-value</span>"
+            },
+            "marker": {
+              "type": "default",
+              "width": 12,
+              "height": 12,
+              "border-width": 0,
+              "border-radius": 2,
+              "offsetX": 22,
+              "offsetY": -12,
+              "background-image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAItJREFUeNpi/P//PwM5gImBTEAXjSpAnArngfxIBBYE4vP/ISAOJEaMjQJAvAeIDYD4IxDfR7aRCYirgNgQi01noTa9B2JTmBxMQSFU8jUQ6xDShKxRCYivQhW9AmIPID6JSxOyRhAWB+Ir/1EBVk3oGmGarxLShE0jCEsA8RYgtsAXRYx0T6sAAQYA/tZI643AdiwAAAAASUVORK5CYII=",
+              "background-position": "50% 50%",
+              "background-repeat": false
+            },
+            "marker-off": {
+              "background-image": "none",
+              "background-color": "#bbb"
+            }
+          },
+          "plotarea": {
+            "margin": "200 50 dynamic 50"
+          },
+          "title": {
+            "text": "PING",
+            "align": "left",
+            "fontSize": 12,
+            "color": "#999999",
+            "marginTop": 178,
+            "paddingLeft": 90
+          },
+          "scaleX": {
+            "values": [
+            {% for d in datas %}
+                "{{d|date:'SHORT_DATE_FORMAT'}}\n{{d|time:'H:i'}}",
+            {% endfor %}
+            ],
+            "offsetStart": 40,
+            "maxItems": 999,
+            "itemsOverlap": false,
+            "item": {
+              "fontSize": 10
+            },
+            "guide": {
+              "visible": true,
+              "lineWidth": "3px",
+              "alpha": 0.3,
+              "rules": [{
+                "rule": "%i == 0",
+                "visible": false
+              }]
+            }
+          },
+          "scaleY": {
+            "values": '0:{{y}}:{{passo}}',
+            "short": true,
+            "item": {
+              "fontSize": 10,
+              "offsetX": "30px",
+              "offsetY": "-10px"
+            },
+            "guide": {
+              "lineStyle": "dotted",
+              "lineColor": "#9e9e9e",
+              "lineGapSize": "5px"
+            },
+            "lineWidth": 0,
+            "tick": {
+              "visible": false
+            }
+          },
+          "plot": {
+            "thousands-separator": ",",
+            "data-week": [
+            {% for d in datas %}
+                "{{d|date:'SHORT_DATE_FORMAT'}} - {{d|time:'H:i'}}",
+            {% endfor %}
+            ],
+            "aspect": "spline",
+            "lineWidth": 2,
+            "marker": {
+              "size": 3,
+              "visible": true,
+              "rules": [{
+                "rule": "%node-index > 0",
+                "visible": false
+              }]
+            },
+            "tooltip": {
+              "visible": false
+            },
+            "animation": {
+              "speed": 400
+            }
+          },
+          "crosshairX": {
+            "plotLabel": {
+              "alpha": 0
+            },
+            "scaleLabel": {
+              "fontSize": 10
+            },
+            "marker": {
+              "visible": true,
+              "size": 3,
+              "borderWidth": 1,
+              "borderColor": "#ffffff"
+            },
+            "lineWidth": 2,
+            "alpha": 1,
+            "shadow": true,
+            "shadowDistance": 0,
+            "shadowAngle": 0,
+            "shadowBlur": 18,
+            "shadowColor": "#009688",
+            "shadowAlpha": 0.2,
+            "lineColor": "#009688"
+          },
+          "series": [
+          {% for l,h in graf %}
+              {
+              "text": '{{l}}',
+              {% load l10n %}
+              "values": [
+              {% for ping in h %}
+                {{ping|unlocalize}},
+              {% endfor %}
+              ],
+              "marker": {
+                  "shadow": false,
+                  "size": 5
+              },
+              "shadow": false
+              },
+          {% endfor %}
+        ]
+        }]
+      };
+
+      let previouseGuidePosition = null;
+      let previousGuideObject = null;
+
+      // when user is moving the mouse around
+      zingchart.bind('zc', 'mousemove', function(e) {
+        // if we left the plotarea
+        if (!e.plotarea) {
+          zingchart.exec('zc', 'setguide', {
+            keyvalue: previousGuideObject.items[0].keyvalue
+          });
+        }
+      });
+
+      // when user mouse leaves full chart
+      zingchart.bind('zc', 'mouseout', function(e) {
+        zingchart.exec('zc', 'setguide', {
+          keyvalue: previousGuideObject.items[0].keyvalue
+        });
+      });
+
+      // save the guide position for when mouse
+      // leaves chart
+      zingchart.bind('zc', 'guide_mousemove', function(e) {
+        previousGuideObject = e;
+      });
+
+      // render chart
+      zingchart.render({
+        id: 'zc',
+        data: chartConfig,
+        height: '100%',
+        width: '100%',
+      });
+    });
+  </script>
+{% endblock %}

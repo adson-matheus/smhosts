@@ -5,4 +5,5 @@ app_name='Visualizacao'
 
 urlpatterns = [
     path('TV/', modoVisualizacao, name="modoVisualizacao"),
+    path('dashboard/', dashboard, name="dashboard"),
 ]

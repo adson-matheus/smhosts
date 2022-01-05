@@ -46,4 +46,50 @@ def modoVisualizacao(request):
         'datas':datas
     }
 
-    return render(request, 'modoVisualizacao.html', context)
+    return render(request, 'visualizacaoDashboard.html', context)
+
+def dashboard(request):
+    hosts = Host_Porta.objects.all()
+    eventos = Evento.objects.all()
+    eventosOff = Evento.objects.filter(status="OFFLINE")
+    histPingHost = []
+    histTodosHosts = []
+    maxValorGraf = []
+    listaHosts = []
+
+    for h in hosts:
+        verificaServer(h.id)
+
+    datas = retornaDatas()
+    
+    #guarda tudo em histTodosHosts
+    for e in eventos:
+        histPingHost = historicoDePings(e.id)
+        if (histPingHost):
+            histTodosHosts.append(histPingHost)
+            listaHosts.append(getHost(e))
+            listaSemNull = removeValor(histPingHost, 'null')
+            maxValorGraf.append(max(listaSemNull))
+
+    if (maxValorGraf):
+        y, passo = getEixos(maxValorGraf)
+    else:
+        y = passo = 0
+
+    #zip junta as duas listas para usar no 'for' do grafico
+    #pega cada host e seu historico de pings
+    graf = zip(listaHosts, histTodosHosts)
+
+    lastData = datas[-1]
+
+    context = {
+        'eventos': eventos,
+        'eventosOff':eventosOff,
+        'graf':graf,
+        'y':y,
+        'passo':passo,
+        'datas':datas,
+        'lastData':lastData,
+    }
+
+    return render(request, 'dashboard.html', context)
