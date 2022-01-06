@@ -83,7 +83,7 @@ def retornaDatas():
     return datas
 
 def getEixos(maximo):
-    y = int(max(maximo)) + 2
+    y = int(max(maximo)) + 6
     passo = int(y / 100)
     return y, passo
 

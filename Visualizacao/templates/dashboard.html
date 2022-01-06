@@ -36,7 +36,7 @@
               "margin": "5 30 5 10",
               "color": "#666666",
               "fontWeight": "bold",
-              "text": "\u00A0\u00A0\u00A0\u00A0\u00A0%plot-text<br><span style='font-size:19px;color:%color'>%node-value</span>"
+              "text": "\u00A0\u00A0\u00A0\u00A0\u00A0%t<br><span style='font-size:19px;color:%color'>%v ms</span>"
             },
             "marker": {
               "type": "default",
@@ -89,6 +89,19 @@
             }
           },
           "scaleY": {
+            "markers": [{
+              "type": "line",
+              "range": [{{y}}-3],
+              "lineColor": "red",
+              "lineWidth": 5,
+              "lineStyle": "dotted",
+              "label": {
+                "text": "OFFLINE",
+                "backgroundColor": "red",
+                "fontColor": "white",
+                "fontSize": 14,
+              }
+            }],
             "values": '0:{{y}}:{{passo}}',
             "short": true,
             "item": {
@@ -160,7 +173,11 @@
               {% load l10n %}
               "values": [
               {% for ping in h %}
-                {{ping|unlocalize}},
+                {% if 'null' in ping %}
+                  {{y}}-3,
+                {% else %}
+                  {{ping|unlocalize}},
+                {% endif %}
               {% endfor %}
               ],
               "marker": {
