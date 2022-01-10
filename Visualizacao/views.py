@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from Hosts.models import Evento, Host_Porta
-from Hosts.views import verificaServer
+from Hosts.views import isOffline, verificaServer
 from Principal.views import historicoDePings, retornaDatas, removeValor, getEixos, getHost
 
 @login_required
 def modoVisualizacao(request):
     hosts = Host_Porta.objects.all()
     eventos = Evento.objects.all()
-    eventosOff = Evento.objects.filter(status="OFFLINE")
+    eventosOff = isOffline()
     histPingHost = []
     histTodosHosts = []
     maxValorGraf = []
@@ -38,7 +38,7 @@ def modoVisualizacao(request):
     graf = zip(listaHosts, histTodosHosts)
 
     context = {
-        'eventos': eventos,
+        'eventos':eventos,
         'eventosOff':eventosOff,
         'graf':graf,
         'y':y,
@@ -51,7 +51,7 @@ def modoVisualizacao(request):
 def dashboard(request):
     hosts = Host_Porta.objects.all()
     eventos = Evento.objects.all()
-    eventosOff = Evento.objects.filter(status="OFFLINE")
+    eventosOff = isOffline()
     histPingHost = []
     histTodosHosts = []
     maxValorGraf = []

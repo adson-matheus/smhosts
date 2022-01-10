@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from Hosts.models import Evento, Host_Porta
-from Hosts.views import verificaServer
+from Hosts.views import isOffline, verificaServer
 
 @login_required
 def principal(request):
     hosts = Host_Porta.objects.all()
     eventos = Evento.objects.all()
+    eventosOff = isOffline()
     histPingHost = []
     histTodosHosts = []
     maxValorGraf = []
@@ -40,7 +41,8 @@ def principal(request):
         'graf':graf,
         'y':y,
         'passo':passo,
-        'datas':datas
+        'datas':datas,
+        'eventosOff':eventosOff
     }
     return render(request, 'principal.html', context)
 
@@ -52,10 +54,8 @@ def historicoDePings(id):
     evento = Evento.objects.get(pk=id)
     historicoEvento = evento.history.all()
     p = []
-
-    # se nao esta online, nao vai pro grafico
-    estaOn = historicoEvento.first().status
-    if estaOn == 'ONLINE':
+    
+    if evento.status == 'ONLINE':
         for e in historicoEvento:
             if len(p) >= 10:
                 p = p[:10]
@@ -83,7 +83,7 @@ def retornaDatas():
     return datas
 
 def getEixos(maximo):
-    y = int(max(maximo)) + 6
+    y = int(max(maximo)) + 10
     passo = int(y / 100)
     return y, passo
 

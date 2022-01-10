@@ -109,8 +109,7 @@ def verificaServer(id):
             defaults={'status':'OFFLINE', 'ping':None},
             )
 
-#verifica se o host ficou offline
-def isOffline(host):
+def wasOffline(host):
     offline = []
     h = host.history.filter(status='OFFLINE')
     if (h):
@@ -120,14 +119,17 @@ def isOffline(host):
             primeiros = h
         for p in primeiros:
             offline.append(p.dataHora) #retorna as ultimas 5 vezes que esteve off
-        return offline
+        return True, offline
     else:
-        return None
+        return False, None
+
+def isOffline():
+    return True if Evento.objects.filter(status="OFFLINE") else False
 
 @login_required
 def logs(request, id):
     evento = Evento.objects.get(pk=id)
-    listaOff = isOffline(evento)
+    listaOff = wasOffline(evento)
     context = {
         'listaOff': listaOff,
         'evento': evento,
