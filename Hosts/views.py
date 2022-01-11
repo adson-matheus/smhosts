@@ -119,9 +119,9 @@ def wasOffline(host):
             primeiros = h
         for p in primeiros:
             offline.append(p.dataHora) #retorna as ultimas 5 vezes que esteve off
-        return True, offline
+        return offline
     else:
-        return False, None
+        return None
 
 def isOffline():
     return True if Evento.objects.filter(status="OFFLINE") else False
