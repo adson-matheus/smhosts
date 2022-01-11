@@ -4,6 +4,5 @@ from Visualizacao.views import *
 app_name='Visualizacao'
 
 urlpatterns = [
-    path('TV/', modoVisualizacao, name="modoVisualizacao"),
-    path('dashboard/', dashboard, name="dashboard"),
+    path('dashboard/', modoTV, name="dashboard"),
 ]
