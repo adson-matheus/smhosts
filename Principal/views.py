@@ -5,9 +5,12 @@ from Hosts.views import isOffline, verificaServer
 
 @login_required
 def principal(request):
+    context = dashboard()
+    return render(request, 'principal.html', context)
+
+def dashboard():
     hosts = Host_Porta.objects.all()
     eventos = Evento.objects.all()
-    eventosOff = isOffline()
     histPingHost = []
     histTodosHosts = []
     maxValorGraf = []
@@ -17,7 +20,7 @@ def principal(request):
         verificaServer(h.id)
 
     datas = retornaDatas()
-
+    
     #guarda tudo em histTodosHosts
     for e in eventos:
         histPingHost = historicoDePings(e.id)
@@ -35,16 +38,20 @@ def principal(request):
     #zip junta as duas listas para usar no 'for' do grafico
     #pega cada host e seu historico de pings
     graf = zip(listaHosts, histTodosHosts)
+    lastData = datas[-1]
+    eventosOff = isOffline()
 
     context = {
         'eventos': eventos,
+        'eventosOff':eventosOff,
         'graf':graf,
         'y':y,
         'passo':passo,
         'datas':datas,
-        'eventosOff':eventosOff
+        'lastData':lastData,
     }
-    return render(request, 'principal.html', context)
+
+    return context
 
 def getHost(e):
     return e.host_porta_id.host.descricao
@@ -74,6 +81,7 @@ def historicoDePings(id):
     return p
 
 def retornaDatas():
+    """ imprescindivel que o primeiro host cadastrado seja a maquina que ira rodar o servico """
     datas = []
     localhost = Evento.objects.first()
     histDatas = localhost.history.all()[:10]

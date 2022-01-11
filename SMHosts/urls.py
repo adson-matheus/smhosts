@@ -39,5 +39,5 @@ urlpatterns = [
     path('hosts/', include(hosts_urls)),
     path('portas/', include(portas_urls)),
     path('usuario/', include(usuario_urls)),
-    path('visualizacao/', include(visualizacao_urls)),
+    path('view/', include(visualizacao_urls)),
 ]
