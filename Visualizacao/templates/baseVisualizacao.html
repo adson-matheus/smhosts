@@ -284,31 +284,31 @@
                                 <table class="table table-bordered table-striped table-hover dataTable">
                                     <thead>
                                         <tr>
-                                            <th>HOSTNAME</th>
-                                            <th>DESCRIÇÃO</th>
-                                            <th>TIPO DE HOST</th>
-                                            <th>ÚLTIMA ATUALIZAÇÃO</th>
-                                            <th>STATUS</th>
-                                            <th>LOGS</th>
+                                            <th style='text-align:center'>HOSTNAME</th>
+                                            <th style='text-align:center'>DESCRIÇÃO</th>
+                                            <th style='text-align:center'>TIPO DE HOST</th>
+                                            <th style='text-align:center'>ÚLTIMA ATUALIZAÇÃO</th>
+                                            <th style='text-align:center'>STATUS</th>
+                                            <th style='text-align:center'>LOGS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for e in eventos %}
                                             {% if e.status == 'OFFLINE' %}
                                                 <tr>
-                                                    <td>{{ e.host_porta_id.host.hostname }}</td>
-                                                    <td>{{ e.host_porta_id.host.descricao }}</td>
-                                                    <td>{{ e.host_porta_id.host.tipoHost }}</td>
-                                                    <td>{{ e.dataHora|date:'SHORT_DATE_FORMAT'}} - {{e.dataHora|time:"H:i" }}</td>
+                                                    <td style='text-align:center;vertical-align:middle'>{{ e.host_porta_id.host.hostname }}</td>
+                                                    <td style='text-align:center;vertical-align:middle'>{{ e.host_porta_id.host.descricao }}</td>
+                                                    <td style='text-align:center;vertical-align:middle'>{{ e.host_porta_id.host.tipoHost }}</td>
+                                                    <td style='text-align:center;vertical-align:middle'>{{ e.dataHora|date:'SHORT_DATE_FORMAT'}} - {{e.dataHora|time:"H:i" }}</td>
                                                     <!-- creditos do bell -->
                                                     <!-- https://bbbootstrap.com/snippets/ringing-bell-animation-font-awesome-icons-74107512 -->
-                                                    <td style="background:crimson">
+                                                    <td style="background:crimson;text-align:center;vertical-align:middle">
                                                         <div class="ringing-bell">
                                                             <b style="color:white">{{ e.status }}</b>
                                                             <i class='fas fa-bell faa-ring animated fa-lg'></i>
                                                         </div>
                                                     </td>
-                                                    <td style="text-align:center">
+                                                    <td style="text-align:center;vertical-align:middle">
                                                         <a href="{% url 'Hosts:logs' e.id %}" class="material-icons">
                                                             <button type="button" class="btn bg-cyan waves-effect">
                                                                 <i class="material-icons">update</i>

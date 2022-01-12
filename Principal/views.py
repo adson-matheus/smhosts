@@ -91,7 +91,12 @@ def retornaDatas():
     return datas
 
 def getEixos(maximo):
-    y = int(max(maximo)) + 10
+    if (max(maximo)) < 100:
+        y = int(max(maximo)) + 10
+    elif (max(maximo)) <= 200:
+        y = int(max(maximo)) + 15
+    else:
+        y = int(max(maximo)) + 20
     passo = int(y / 100)
     return y, passo
 
