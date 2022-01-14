@@ -16,31 +16,31 @@
         "graphset": [{
           "type": "line",
           "labels": [{
-            "align": "left",
+            "align": "center",
             "id": "week",
             "color": "#666666",
-            "x": 50,
+            "x": "37%",
             "y": 10,
             "fontSize": 14,
             "fontWeight": "bold",
-            "text": "HOSTS<br><span style='font-size:13px;color:#000000'>%plot-0-data-week</span>",
+            "text": "<span style='font-size:20px'>HOSTS - MÉDIA DOS ÚLTIMOS DEZ PINGS</span><br><span style='font-size:13px'>%plot-0-data-week</span>",
             "default-value": "{{lastData|date:'SHORT_DATE_FORMAT'}} - {{lastData|time:'H:i'}}"
           }],
           "legend": {
             "toggle-action": "remove",
             "margin": "60 auto auto 14",
-            "layout": "2x10",
+            "layout": "2x6",
             "borderWidth": 0,
             "item": {
               "margin": "5 30 5 10",
               "color": "#666666",
               "fontWeight": "bold",
-              "text": "\u00A0\u00A0\u00A0\u00A0\u00A0%t<br><span style='font-size:19px;color:%color'>%v ms</span>"
+              "text":"\u00A0\u00A0\u00A0\u00A0\u00A0%t<br><span style='font-size:19px;color:%color'>%plot-description</span>"
             },
             "marker": {
               "type": "default",
-              "width": 12,
-              "height": 12,
+              "width": 14,
+              "height": 14,
               "border-width": 0,
               "border-radius": 2,
               "offsetX": 22,
@@ -147,31 +147,17 @@
           },
           "crosshairX": {
             "plotLabel": {
-              "alpha": 0
-            },
-            "scaleLabel": {
-              "fontSize": 10
-            },
-            "marker": {
-              "visible": true,
-              "size": 3,
-              "borderWidth": 1,
-              "borderColor": "#ffffff"
-            },
-            "lineWidth": 2,
-            "alpha": 1,
-            "shadow": true,
-            "shadowDistance": 0,
-            "shadowAngle": 0,
-            "shadowBlur": 18,
-            "shadowColor": "#009688",
-            "shadowAlpha": 0.2,
-            "lineColor": "#009688"
+              "multiple": false,
+              "borderRadius": 3,
+              "padding": '5 10',
+              "text": "<span style='font-size:14px;color:%color'>%t: %v ms</span>"
+            }
           },
           "series": [
-          {% for host, historicoPing in graf %}
+          {% for host, mediaPing, historicoPing in graf %}
               {
-              "text": '{{host}}',
+              "text": "{{host}}",
+              "description": "{{mediaPing}} ms",
               {% load l10n %}
               "values": [
               {% for ping in historicoPing %}

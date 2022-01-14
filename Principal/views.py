@@ -15,6 +15,7 @@ def dashboard():
     histTodosHosts = []
     maxValorGraf = []
     listaHosts = []
+    mediaPing = []
 
     for h in hosts:
         verificaServer(h.id)
@@ -28,6 +29,8 @@ def dashboard():
             histTodosHosts.append(histPingHost)
             listaHosts.append(getHost(e))
             listaSemNull = removeValor(histPingHost, 'null')
+            avg = sum(listaSemNull)/len(listaSemNull)
+            mediaPing.append('%.2f' %avg)
             maxValorGraf.append(max(listaSemNull))
 
     if (maxValorGraf):
@@ -37,7 +40,7 @@ def dashboard():
 
     #zip junta as duas listas para usar no 'for' do grafico
     #pega cada host e seu historico de pings
-    graf = zip(listaHosts, histTodosHosts)
+    graf = zip(listaHosts, mediaPing, histTodosHosts)
     lastData = datas[-1]
     eventosOff = isOffline()
 
@@ -77,7 +80,9 @@ def historicoDePings(id):
             else:
                 p.append('null')
 
-    p.reverse() #envia reverse para mostrar no grafico
+        while len(p) < 10:
+            p.append('null')
+    p.reverse()
     return p
 
 def retornaDatas():
@@ -96,7 +101,7 @@ def getEixos(maximo):
     elif (max(maximo)) <= 200:
         y = int(max(maximo)) + 15
     else:
-        y = int(max(maximo)) + 20
+        y = int(max(maximo)) + 30
     passo = int(y / 100)
     return y, passo
 
