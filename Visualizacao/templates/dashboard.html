@@ -150,7 +150,11 @@
               "multiple": false,
               "borderRadius": 3,
               "padding": '5 10',
-              "text": "<span style='font-size:14px;color:%color'>%t: %v ms</span>"
+              "rules": [{
+                "rule": "%v == {{y}}-3",
+                "text": "<span style='font-size:14px;color:%color;font-weight:bold'>%t: OFFLINE</span>",
+              }],
+              "text": "<span style='font-size:14px;color:%color;font-weight:bold'>%t: %v ms</span>",
             }
           },
           "series": [
